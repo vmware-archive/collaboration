@@ -32,6 +32,7 @@ gem 'carrierwave'
 # end
 
 group :development, :test do
+  gem 'ruby-debug'
   gem 'rspec-rails'
   gem 'watchr'
   gem 'spork', '~> 0.9.0.rc'

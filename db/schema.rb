@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(:version => 20110804164010) do
   end
 
   create_table "resource_assignments", :force => true do |t|
-    t.integer  "permission_set"
+    t.integer  "permission_set",    :default => 0
     t.integer  "project_id"
     t.integer  "entity_id"
     t.string   "entity_type"
