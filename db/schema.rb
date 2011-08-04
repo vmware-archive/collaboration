@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110804164010) do
+ActiveRecord::Schema.define(:version => 20110804222727) do
 
   create_table "apps", :force => true do |t|
     t.string   "display_name"
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(:version => 20110804164010) do
     t.integer  "owned_resource_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "route"
   end
 
   create_table "services", :force => true do |t|
