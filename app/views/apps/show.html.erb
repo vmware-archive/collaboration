@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Display name:</b>
+  <%= @app.display_name %>
+</p>
+
+<p>
+  <b>Framework:</b>
+  <%= @app.framework %>
+</p>
+
+<p>
+  <b>Runtime:</b>
+  <%= @app.runtime %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%= @app.state %>
+</p>
+
+
+<%= link_to 'Edit', edit_app_path(@app) %> |
+<%= link_to 'Back', apps_path %>

@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Display name:</b>
+  <%= @owned_resource.display_name %>
+</p>
+
+<p>
+  <b>Marked for transfer:</b>
+  <%= @owned_resource.marked_for_transfer %>
+</p>
+
+<p>
+  <b>Deleted:</b>
+  <%= @owned_resource.deleted %>
+</p>
+
+
+<%= link_to 'Edit', edit_owned_resource_path(@owned_resource) %> |
+<%= link_to 'Back', owned_resources_path %>

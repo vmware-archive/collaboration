@@ -1,4 +1,8 @@
 Collaboration::Application.routes.draw do
+  resources :apps
+  resources :services
+  resources :owned_resources
+
   resources :users
 
   # The priority is based upon order of creation:

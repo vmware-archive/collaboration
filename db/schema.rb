@@ -10,11 +10,38 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110803212451) do
+ActiveRecord::Schema.define(:version => 20110804011530) do
+
+  create_table "apps", :force => true do |t|
+    t.string   "display_name"
+    t.string   "framework"
+    t.string   "runtime"
+    t.string   "state",        :default => "STOPPED"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "owned_resources", :force => true do |t|
+    t.string   "display_name"
+    t.boolean  "marked_for_transfer"
+    t.boolean  "deleted"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "services", :force => true do |t|
+    t.string   "display_name"
+    t.string   "url"
+    t.boolean  "active",       :default => true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
+    t.string   "display_name"
+    t.string   "avatar"
     t.string   "username"
     t.datetime "created_at"
     t.datetime "updated_at"

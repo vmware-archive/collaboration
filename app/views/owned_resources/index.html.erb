@@ -1,0 +1,27 @@
+<h1>Listing owned_resources</h1>
+
+<table>
+  <tr>
+    <th>Display name</th>
+    <th>Marked for transfer</th>
+    <th>Deleted</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @owned_resources.each do |owned_resource| %>
+  <tr>
+    <td><%= owned_resource.display_name %></td>
+    <td><%= owned_resource.marked_for_transfer %></td>
+    <td><%= owned_resource.deleted %></td>
+    <td><%= link_to 'Show', owned_resource %></td>
+    <td><%= link_to 'Edit', edit_owned_resource_path(owned_resource) %></td>
+    <td><%= link_to 'Destroy', owned_resource, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Owned resource', new_owned_resource_path %>

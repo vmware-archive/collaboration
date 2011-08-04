@@ -1,0 +1,29 @@
+<%= form_for(@owned_resource) do |f| %>
+  <% if @owned_resource.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@owned_resource.errors.count, "error") %> prohibited this owned_resource from being saved:</h2>
+
+      <ul>
+      <% @owned_resource.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :display_name %><br />
+    <%= f.text_field :display_name %>
+  </div>
+  <div class="field">
+    <%= f.label :marked_for_transfer %><br />
+    <%= f.text_field :marked_for_transfer %>
+  </div>
+  <div class="field">
+    <%= f.label :deleted %><br />
+    <%= f.text_field :deleted %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
