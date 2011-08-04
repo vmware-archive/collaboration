@@ -1,0 +1,31 @@
+<h1>Listing resource_assignments</h1>
+
+<table>
+  <tr>
+    <th>Permission set</th>
+    <th>Project</th>
+    <th>Entity</th>
+    <th>Entity type</th>
+    <th>Resource ownership</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @resource_assignments.each do |resource_assignment| %>
+  <tr>
+    <td><%= resource_assignment.permission_set %></td>
+    <td><%= resource_assignment.project_id %></td>
+    <td><%= resource_assignment.entity_id %></td>
+    <td><%= resource_assignment.entity_type %></td>
+    <td><%= resource_assignment.resource_ownership_id %></td>
+    <td><%= link_to 'Show', resource_assignment %></td>
+    <td><%= link_to 'Edit', edit_resource_assignment_path(resource_assignment) %></td>
+    <td><%= link_to 'Destroy', resource_assignment, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Resource assignment', new_resource_assignment_path %>

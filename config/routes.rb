@@ -1,4 +1,6 @@
 Collaboration::Application.routes.draw do
+  resources :resource_assignments
+
   resources :organizations
 
   resources :projects

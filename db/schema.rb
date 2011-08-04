@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110804163503) do
+ActiveRecord::Schema.define(:version => 20110804164010) do
 
   create_table "apps", :force => true do |t|
     t.string   "display_name"
@@ -54,6 +54,16 @@ ActiveRecord::Schema.define(:version => 20110804163503) do
     t.boolean  "apply_to_all_resources"
     t.boolean  "browsable"
     t.boolean  "public_roster"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "resource_assignments", :force => true do |t|
+    t.integer  "permission_set"
+    t.integer  "project_id"
+    t.integer  "entity_id"
+    t.string   "entity_type"
+    t.integer  "owned_resource_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
