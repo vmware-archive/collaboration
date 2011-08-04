@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110804162300) do
+ActiveRecord::Schema.define(:version => 20110804163503) do
 
   create_table "apps", :force => true do |t|
     t.string   "display_name"
@@ -42,6 +42,10 @@ ActiveRecord::Schema.define(:version => 20110804162300) do
     t.boolean  "deleted"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "owner_type"
+    t.integer  "owner_id"
+    t.string   "resource_type"
+    t.integer  "resource_id"
   end
 
   create_table "projects", :force => true do |t|
