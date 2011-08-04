@@ -1,7 +1,15 @@
 == Welcome to Collaboration
 
-Collaboration is Proof of Concept project which will be the predecessor to a "collaborate" gem.
+Collaboration is Proof of Concept project which will be the predecessor to a possible "collaborate" gem.
+The main question being answered is
 
+Given context=Project X, entity A
+   Can entity A perform action B on resource C ?
+
+Sub questions
+Is resource C accessible from Project X ?
+Is entity A (or a parent group for entity A) given permissions to resource C in Project X  ?
+Do the permissions given for resource C grant access to action B ?
 
 |-- organization
     |-- name
@@ -11,18 +19,23 @@ Collaboration is Proof of Concept project which will be the predecessor to a "co
     |-- group(s)
         |-- user(s)
     |-- project(s)
-        |-- Entity(ies) with permission set
+        |-- resource assignment(s)
             |-- entity
                 |-- user isa entity
                 |-- group isa entity
             |-- resource
+                |-- app isa resource
+                |-- service isa resource
+                |-- group isa resource
+                |-- project isa resource
             |-- can_read?
-            |-- can_write?
+            |-- can_update?
+            |-- can_create?
             |-- can_delete?
-        |-- resource(s) via resource_ownership
-    |-- resource(s) via resource_ownership
+        |-- resource(s) via owned_resource
+    |-- resource(s) via owned_resource
 
-|-- resource_ownership(s)
+|-- owned_resource(s)
     |-- name
     |-- marked_for_transfer?
     |-- deleted?

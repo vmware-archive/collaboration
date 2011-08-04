@@ -1,7 +1,8 @@
 module PermissionManager
   READ = 1
-  WRITE = 2
-  DELETE = 4
+  UPDATE = 2
+  CREATE = 4
+  DELETE = 8
 
   def read?
     self.permission_set & READ == READ
@@ -11,12 +12,20 @@ module PermissionManager
     self.permission_set = make val, READ
   end
 
-  def write?
-    self.permission_set & WRITE == WRITE
+  def update?
+    self.permission_set & UPDATE == UPDATE
   end
 
-  def write!(val=true)
-    self.permission_set = make val, WRITE
+  def update!(val=true)
+    self.permission_set = make val, UPDATE
+  end
+
+  def create?
+    self.permission_set & CREATE == CREATE
+  end
+
+  def create!(val=true)
+    self.permission_set = make val, CREATE
   end
 
   def delete?
