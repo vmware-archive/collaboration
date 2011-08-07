@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(:version => 20110804222727) do
   end
 
   create_table "orgs", :force => true do |t|
-    t.string   "display_name"
+    t.string   "display_name", :null => false
     t.string   "avatar"
     t.string   "description"
     t.datetime "created_at"
