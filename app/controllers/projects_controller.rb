@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.xml
   def index
-    @org = Org.find params[:id]
+    @org = Org.find params[:org_id]
     @projects = @org.projects
 
     respond_to do |format|
@@ -27,7 +27,7 @@ class ProjectsController < ApplicationController
   # GET /projects/new
   # GET /projects/new.xml
   def new
-    @org = Org.find params[:id]
+    @org = Org.find params[:org_id]
     @project = @org.projects.build
 
     respond_to do |format|
@@ -45,12 +45,13 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.xml
   def create
-    @org = Org.find params[:id]
+    @org = Org.find params[:org_id]
     @project = @org.projects.build(params[:project])
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to(@project, :notice => 'Project was successfully created.') }
+        flash[:notice] = 'Project was successfully created.'
+        format.html { redirect_to org_project_path(@org, @project) }
         format.xml  { render :xml => @project, :status => :created, :location => @project }
       else
         format.html { render :action => "new" }
@@ -67,7 +68,8 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.update_attributes(params[:project])
-        format.html { redirect_to(@project, :notice => 'Project was successfully updated.') }
+        flash[:notice] = 'Project was successfully updated.'
+        format.html { redirect_to org_project_path(@org, @project) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -84,7 +86,8 @@ class ProjectsController < ApplicationController
     @project.destroy
 
     respond_to do |format|
-      format.html { redirect_to(projects_url) }
+      flash[:notice] = 'Project was successfully deleted.'
+      format.html { redirect_to org_projects_url(@org) }
       format.xml  { head :ok }
     end
   end

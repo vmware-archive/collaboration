@@ -1,4 +1,5 @@
-<h1>Listing projects</h1>
+<p id="notice"><%= notice %></p>
+<h1>Listing projects for <%= link_to @org.display_name, @org %></h1>
 
 <table>
   <tr>
@@ -11,13 +12,13 @@
 <% @projects.each do |project| %>
   <tr>
     <td><%= project.display_name %></td>
-    <td><%= link_to 'Show', project %></td>
-    <td><%= link_to 'Edit', edit_project_path(project) %></td>
-    <td><%= link_to 'Destroy', project, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Show', org_project_path(@org, project) %></td>
+    <td><%= link_to 'Edit', edit_org_project_path(@org, project) %></td>
+    <td><%= link_to 'Destroy', org_project_path(@org, project), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Project', new_project_path %>
+<%= link_to 'New Project', new_org_project_path(@org) %>

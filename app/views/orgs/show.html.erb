@@ -1,13 +1,14 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Display name:</b>
-  <%= @org.display_name %>
-</p>
 
 <p>
   <b>Avatar:</b>
   <%= @org.avatar %>
+</p>
+
+<p>
+  <b>Display name:</b>
+  <%= @org.display_name %>
 </p>
 
 <p>
@@ -17,4 +18,6 @@
 
 
 <%= link_to 'Edit', edit_org_path(@org) %> |
-<%= link_to 'Back', orgs_path %>
+<%= link_to 'Back', orgs_path %> |
+<%= link_to 'Groups', org_groups_path(@org) %> |
+<%= link_to 'Projects', org_projects_path(@org) %>

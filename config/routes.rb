@@ -2,19 +2,15 @@ Collaboration::Application.routes.draw do
   resources :resource_assignments
 
   resources :orgs do
-    member do
-      resources :projects
-      resources :groups
-      resources :owned_resources
-    end
+    resources :projects
+    resources :groups
+    resources :owned_resources
   end
 
 
-  resources :apps
-  resources :services
-
-
-  resources :users
+  resources :apps #, :only => [:show, :edit, :update]
+  resources :services #, :only => [:show, :edit, :update]
+  resources :users #, :only => [:show, :edit, :update]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

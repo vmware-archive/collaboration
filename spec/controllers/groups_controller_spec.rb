@@ -34,7 +34,7 @@ describe GroupsController do
 
   describe "GET index" do
     it "assigns all groups as @groups" do
-      get :index, :id => @org.id
+      get :index, :org_id => @org.id
       assigns(:groups).should eq([@group])
     end
   end
@@ -48,7 +48,7 @@ describe GroupsController do
 
   describe "GET new" do
     it "assigns a new group as @group" do
-      get :new, :id => @org.id
+      get :new, :org_id => @org.id
       assigns(:group).should be_a_new(Group)
     end
   end
@@ -64,19 +64,19 @@ describe GroupsController do
     describe "with valid params" do
       it "creates a new Group" do
         expect {
-          post :create, :group => valid_attributes, :id => @org.id
+          post :create, :group => valid_attributes, :org_id => @org.id
         }.to change(Group, :count).by(1)
       end
 
       it "assigns a newly created group as @group" do
-        post :create, :group => valid_attributes, :id => @org.id
+        post :create, :group => valid_attributes, :org_id => @org.id
         assigns(:group).should be_a(Group)
         assigns(:group).should be_persisted
       end
 
-      it "redirects to the created group" do
-        post :create, :group => valid_attributes, :id => @org.id
-        response.should redirect_to(Group.last)
+      it "redirects to the list of groups" do
+        post :create, :group => valid_attributes, :org_id => @org.id
+        response.should redirect_to org_group_path @org, Group.last
       end
     end
 
@@ -84,14 +84,14 @@ describe GroupsController do
       it "assigns a newly created but unsaved group as @group" do
         # Trigger the behavior that occurs when invalid params are submitted
         Group.any_instance.stub(:save).and_return(false)
-        post :create, :group => {}, :id => @org.id
+        post :create, :group => {}, :org_id => @org.id
         assigns(:group).should be_a_new(Group)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Group.any_instance.stub(:save).and_return(false)
-        post :create, :group => {}, :id => @org.id
+        post :create, :group => {}, :org_id => @org.id
         response.should render_template("new")
       end
     end
@@ -113,9 +113,9 @@ describe GroupsController do
         assigns(:group).should eq(@group)
       end
 
-      it "redirects to the group" do
+      it "redirects to the list of groups" do
         put :update, :id => @group.id, :group => valid_attributes, :org_id => @org.id
-        response.should redirect_to(@group)
+        response.should redirect_to org_group_path @org, @group
       end
     end
 
@@ -145,7 +145,7 @@ describe GroupsController do
 
     it "redirects to the groups list" do
       delete :destroy, :id => @group.id.to_s, :org_id => @org.id
-      response.should redirect_to(groups_url)
+      response.should redirect_to org_groups_path @org
     end
   end
 

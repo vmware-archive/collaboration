@@ -41,7 +41,7 @@ describe ProjectsController do
 
     describe "GET index" do
       it "assigns all projects as @projects" do
-        get :index, :id => @org.id
+        get :index, :org_id => @org.id
         assert_response :success
         assigns(:projects).should eq([@project])
       end
@@ -80,7 +80,7 @@ describe ProjectsController do
 
         it "redirects to the project" do
           put :update, :id => @project.id, :project => valid_attributes, :org_id => @org.id
-          response.should redirect_to(@project)
+          response.should redirect_to org_project_path(@org, @project)
         end
       end
 
@@ -110,14 +110,14 @@ describe ProjectsController do
 
       it "redirects to the projects list" do
         delete :destroy, :id => @project.id.to_s, :org_id => @org.id
-        response.should redirect_to(projects_url)
+        response.should redirect_to org_projects_url @org
       end
     end
   end
 
   describe "GET new" do
     it "assigns a new project as @project" do
-      get :new, :id => @org.id
+      get :new, :org_id => @org.id
       assigns(:project).should be_a_new(Project)
     end
   end
@@ -126,19 +126,19 @@ describe ProjectsController do
     describe "with valid params" do
       it "creates a new Project" do
         expect {
-          post :create, :project => valid_attributes, :id => @org.id
+          post :create, :project => valid_attributes, :org_id => @org.id
         }.to change(Project, :count).by(1)
       end
 
       it "assigns a newly created project as @project" do
-        post :create, :project => valid_attributes, :id => @org.id
+        post :create, :project => valid_attributes, :org_id => @org.id
         assigns(:project).should be_a(Project)
         assigns(:project).should be_persisted
       end
 
       it "redirects to the created project" do
-        post :create, :project => valid_attributes, :id => @org.id
-        response.should redirect_to(Project.last)
+        post :create, :project => valid_attributes, :org_id => @org.id
+        response.should redirect_to org_project_path(@org, Project.last)
       end
     end
 
@@ -146,14 +146,14 @@ describe ProjectsController do
       it "assigns a newly created but unsaved project as @project" do
         # Trigger the behavior that occurs when invalid params are submitted
         Project.any_instance.stub(:save).and_return(false)
-        post :create, :project => {}, :id => @org.id
+        post :create, :project => {}, :org_id => @org.id
         assigns(:project).should be_a_new(Project)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Project.any_instance.stub(:save).and_return(false)
-        post :create, :project => {}, :id => @org.id
+        post :create, :project => {}, :org_id => @org.id
         response.should render_template("new")
       end
     end

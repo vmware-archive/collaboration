@@ -1,4 +1,5 @@
-<h1>Listing groups</h1>
+<p id="notice"><%= notice %></p>
+<h1>Listing groups for <%= link_to @org.display_name, @org %></h1>
 
 <table>
   <tr>
@@ -11,13 +12,13 @@
 <% @groups.each do |group| %>
   <tr>
     <td><%= group.display_name %></td>
-    <td><%= link_to 'Show', group %></td>
-    <td><%= link_to 'Edit', edit_group_path(group) %></td>
-    <td><%= link_to 'Destroy', group, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Show', org_group_path(@org, group) %></td>
+    <td><%= link_to 'Edit', edit_org_group_path(@org, group) %></td>
+    <td><%= link_to 'Destroy', org_group_path(@org, group), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Group', new_group_path %>
+<%= link_to 'New Group', new_org_group_path %>
