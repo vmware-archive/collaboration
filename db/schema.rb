@@ -37,15 +37,14 @@ ActiveRecord::Schema.define(:version => 20110804222727) do
   end
 
   create_table "owned_resources", :force => true do |t|
-    t.string   "display_name"
-    t.boolean  "marked_for_transfer"
-    t.boolean  "deleted"
+    t.boolean  "marked_for_transfer", :default => false
+    t.boolean  "deleted",             :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "owner_type",          :null => false
-    t.integer  "owner_id",            :null => false
-    t.string   "resource_type",       :null => false
-    t.integer  "resource_id",         :null => false
+    t.string   "owner_type",                             :null => false
+    t.integer  "owner_id",                               :null => false
+    t.string   "resource_type",                          :null => false
+    t.integer  "resource_id",                            :null => false
   end
 
   create_table "projects", :force => true do |t|

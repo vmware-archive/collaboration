@@ -24,7 +24,7 @@ describe ServicesController do
   # Service. As you add validations to Service, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    { }
+    { :display_name => 'Cypher'}
   end
 
   describe "GET index" do

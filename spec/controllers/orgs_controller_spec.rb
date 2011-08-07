@@ -25,7 +25,7 @@ describe OrgsController do
   # update the return value of this method accordingly.
   def valid_attributes
     {
-        :display_name => "VMWare"
+      :display_name => "VMWare"
     }
   end
 
