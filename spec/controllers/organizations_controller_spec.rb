@@ -24,7 +24,9 @@ describe OrganizationsController do
   # Organization. As you add validations to Organization, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {
+        :display_name => "VMWare"
+    }
   end
 
   describe "GET index" do

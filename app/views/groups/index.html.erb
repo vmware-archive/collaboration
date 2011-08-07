@@ -3,7 +3,6 @@
 <table>
   <tr>
     <th>Display name</th>
-    <th>Organization</th>
     <th></th>
     <th></th>
     <th></th>
@@ -12,7 +11,6 @@
 <% @groups.each do |group| %>
   <tr>
     <td><%= group.display_name %></td>
-    <td><%= group.organization_id %></td>
     <td><%= link_to 'Show', group %></td>
     <td><%= link_to 'Edit', edit_group_path(group) %></td>
     <td><%= link_to 'Destroy', group, :confirm => 'Are you sure?', :method => :delete %></td>

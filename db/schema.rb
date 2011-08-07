@@ -22,8 +22,8 @@ ActiveRecord::Schema.define(:version => 20110804222727) do
   end
 
   create_table "groups", :force => true do |t|
-    t.string   "display_name"
-    t.integer  "organization_id"
+    t.string   "display_name",    :null => false
+    t.integer  "organization_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
