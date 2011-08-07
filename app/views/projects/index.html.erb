@@ -3,10 +3,6 @@
 <table>
   <tr>
     <th>Display name</th>
-    <th>Organization</th>
-    <th>Apply to all resources</th>
-    <th>Browsable</th>
-    <th>Public roster</th>
     <th></th>
     <th></th>
     <th></th>
@@ -15,10 +11,6 @@
 <% @projects.each do |project| %>
   <tr>
     <td><%= project.display_name %></td>
-    <td><%= project.organization_id %></td>
-    <td><%= project.apply_to_all_resources %></td>
-    <td><%= project.browsable %></td>
-    <td><%= project.public_roster %></td>
     <td><%= link_to 'Show', project %></td>
     <td><%= link_to 'Edit', edit_project_path(project) %></td>
     <td><%= link_to 'Destroy', project, :confirm => 'Are you sure?', :method => :delete %></td>

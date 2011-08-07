@@ -5,26 +5,5 @@
   <%= @project.display_name %>
 </p>
 
-<p>
-  <b>Organization:</b>
-  <%= @project.organization_id %>
-</p>
-
-<p>
-  <b>Apply to all resources:</b>
-  <%= @project.apply_to_all_resources %>
-</p>
-
-<p>
-  <b>Browsable:</b>
-  <%= @project.browsable %>
-</p>
-
-<p>
-  <b>Public roster:</b>
-  <%= @project.public_roster %>
-</p>
-
-
 <%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'Back', projects_path %>

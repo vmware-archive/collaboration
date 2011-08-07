@@ -1,8 +1,14 @@
 class ProjectsController < ApplicationController
+  before_filter :authorize
+
+  def authorize
+    @organization = Organization.find params[:organization_id]
+  end
+
   # GET /projects
   # GET /projects.xml
   def index
-    @projects = Project.all
+    @projects = @organization.projects
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +19,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.xml
   def show
-    @project = Project.find(params[:id])
+    @project = @organization.projects.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -24,7 +30,7 @@ class ProjectsController < ApplicationController
   # GET /projects/new
   # GET /projects/new.xml
   def new
-    @project = Project.new
+    @project = @organization.projects.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,13 +40,13 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
-    @project = Project.find(params[:id])
+    @project = @organization.projects.find(params[:id])
   end
 
   # POST /projects
   # POST /projects.xml
   def create
-    @project = Project.new(params[:project])
+    @project = @organization.projects.build(params[:project])
 
     respond_to do |format|
       if @project.save
@@ -56,7 +62,7 @@ class ProjectsController < ApplicationController
   # PUT /projects/1
   # PUT /projects/1.xml
   def update
-    @project = Project.find(params[:id])
+    @project = @organization.projects.find(params[:id])
 
     respond_to do |format|
       if @project.update_attributes(params[:project])
@@ -72,7 +78,7 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.xml
   def destroy
-    @project = Project.find(params[:id])
+    @project = @organization.projects.find(params[:id])
     @project.destroy
 
     respond_to do |format|
