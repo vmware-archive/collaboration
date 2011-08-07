@@ -42,10 +42,10 @@ ActiveRecord::Schema.define(:version => 20110804222727) do
     t.boolean  "deleted"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "owner_type"
-    t.integer  "owner_id"
-    t.string   "resource_type"
-    t.integer  "resource_id"
+    t.string   "owner_type", :null => false
+    t.integer  "owner_id", :null => false
+    t.string   "resource_type", :null => false
+    t.integer  "resource_id", :null => false
   end
 
   create_table "projects", :force => true do |t|

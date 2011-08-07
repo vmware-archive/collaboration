@@ -24,7 +24,7 @@ describe AppsController do
   # App. As you add validations to App, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    { }
   end
 
   describe "GET index" do

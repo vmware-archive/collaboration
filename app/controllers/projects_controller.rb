@@ -1,13 +1,9 @@
 class ProjectsController < ApplicationController
-  before_filter :authorize
-
-  def authorize
-    @organization = Organization.find params[:organization_id]
-  end
 
   # GET /projects
   # GET /projects.xml
   def index
+    @organization = Organization.find params[:id]
     @projects = @organization.projects
 
     respond_to do |format|
@@ -19,6 +15,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.xml
   def show
+    @organization = Organization.find params[:organization_id]
     @project = @organization.projects.find(params[:id])
 
     respond_to do |format|
@@ -30,6 +27,7 @@ class ProjectsController < ApplicationController
   # GET /projects/new
   # GET /projects/new.xml
   def new
+    @organization = Organization.find params[:id]
     @project = @organization.projects.build
 
     respond_to do |format|
@@ -40,12 +38,14 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
+    @organization = Organization.find params[:organization_id]
     @project = @organization.projects.find(params[:id])
   end
 
   # POST /projects
   # POST /projects.xml
   def create
+    @organization = Organization.find params[:id]
     @project = @organization.projects.build(params[:project])
 
     respond_to do |format|
@@ -62,6 +62,7 @@ class ProjectsController < ApplicationController
   # PUT /projects/1
   # PUT /projects/1.xml
   def update
+    @organization = Organization.find params[:organization_id]
     @project = @organization.projects.find(params[:id])
 
     respond_to do |format|
@@ -78,6 +79,7 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.xml
   def destroy
+    @organization = Organization.find params[:organization_id]
     @project = @organization.projects.find(params[:id])
     @project.destroy
 

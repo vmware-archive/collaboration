@@ -34,7 +34,7 @@ describe GroupsController do
 
   describe "GET index" do
     it "assigns all groups as @groups" do
-      get :index, :organization_id => @org.id
+      get :index, :id => @org.id
       assigns(:groups).should eq([@group])
     end
   end
@@ -48,7 +48,7 @@ describe GroupsController do
 
   describe "GET new" do
     it "assigns a new group as @group" do
-      get :new, :organization_id => @org.id
+      get :new, :id => @org.id
       assigns(:group).should be_a_new(Group)
     end
   end
@@ -64,18 +64,18 @@ describe GroupsController do
     describe "with valid params" do
       it "creates a new Group" do
         expect {
-          post :create, :group => valid_attributes, :organization_id => @org.id
+          post :create, :group => valid_attributes, :id => @org.id
         }.to change(Group, :count).by(1)
       end
 
       it "assigns a newly created group as @group" do
-        post :create, :group => valid_attributes, :organization_id => @org.id
+        post :create, :group => valid_attributes, :id => @org.id
         assigns(:group).should be_a(Group)
         assigns(:group).should be_persisted
       end
 
       it "redirects to the created group" do
-        post :create, :group => valid_attributes, :organization_id => @org.id
+        post :create, :group => valid_attributes, :id => @org.id
         response.should redirect_to(Group.last)
       end
     end
@@ -84,14 +84,14 @@ describe GroupsController do
       it "assigns a newly created but unsaved group as @group" do
         # Trigger the behavior that occurs when invalid params are submitted
         Group.any_instance.stub(:save).and_return(false)
-        post :create, :group => {}, :organization_id => @org.id
+        post :create, :group => {}, :id => @org.id
         assigns(:group).should be_a_new(Group)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Group.any_instance.stub(:save).and_return(false)
-        post :create, :group => {}, :organization_id => @org.id
+        post :create, :group => {}, :id => @org.id
         response.should render_template("new")
       end
     end

@@ -41,7 +41,7 @@ describe ProjectsController do
 
     describe "GET index" do
       it "assigns all projects as @projects" do
-        get :index, :organization_id => @org.id
+        get :index, :id => @org.id
         assert_response :success
         assigns(:projects).should eq([@project])
       end
@@ -117,29 +117,27 @@ describe ProjectsController do
 
   describe "GET new" do
     it "assigns a new project as @project" do
-      get :new, :organization_id => @org.id
+      get :new, :id => @org.id
       assigns(:project).should be_a_new(Project)
     end
   end
-
-
 
   describe "POST create" do
     describe "with valid params" do
       it "creates a new Project" do
         expect {
-          post :create, :project => valid_attributes, :organization_id => @org.id
+          post :create, :project => valid_attributes, :id => @org.id
         }.to change(Project, :count).by(1)
       end
 
       it "assigns a newly created project as @project" do
-        post :create, :project => valid_attributes, :organization_id => @org.id
+        post :create, :project => valid_attributes, :id => @org.id
         assigns(:project).should be_a(Project)
         assigns(:project).should be_persisted
       end
 
       it "redirects to the created project" do
-        post :create, :project => valid_attributes, :organization_id => @org.id
+        post :create, :project => valid_attributes, :id => @org.id
         response.should redirect_to(Project.last)
       end
     end
@@ -148,14 +146,14 @@ describe ProjectsController do
       it "assigns a newly created but unsaved project as @project" do
         # Trigger the behavior that occurs when invalid params are submitted
         Project.any_instance.stub(:save).and_return(false)
-        post :create, :project => {}, :organization_id => @org.id
+        post :create, :project => {}, :id => @org.id
         assigns(:project).should be_a_new(Project)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Project.any_instance.stub(:save).and_return(false)
-        post :create, :project => {}, :organization_id => @org.id
+        post :create, :project => {}, :id => @org.id
         response.should render_template("new")
       end
     end

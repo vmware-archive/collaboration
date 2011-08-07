@@ -19,42 +19,48 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe OwnedResourcesController do
+  before(:each) do
+    @org = Organization.create! :display_name => 'VMWare'
+    @app = App.create! :display_name => 'Stream'
+    @owned_resource = @org.owned_resources.build valid_attributes
+    @owned_resource.save!
+  end
 
   # This should return the minimal set of attributes required to create a valid
   # OwnedResource. As you add validations to OwnedResource, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {
+      :resource_id => @app.id,
+      :resource_type => 'App'
+    }
   end
 
   describe "GET index" do
     it "assigns all owned_resources as @owned_resources" do
-      owned_resource = OwnedResource.create! valid_attributes
-      get :index
-      assigns(:owned_resources).should eq([owned_resource])
+      get :index, :id => @org.id
+      assigns(:owned_resources).should eq([@owned_resource])
     end
   end
 
   describe "GET show" do
     it "assigns the requested owned_resource as @owned_resource" do
-      owned_resource = OwnedResource.create! valid_attributes
-      get :show, :id => owned_resource.id.to_s
-      assigns(:owned_resource).should eq(owned_resource)
+      get :show, :id => @owned_resource.id.to_s, :organization_id => @org.id
+      assigns(:owned_resource).should eq(@owned_resource)
     end
   end
 
   describe "GET new" do
     it "assigns a new owned_resource as @owned_resource" do
-      get :new
+      get :new, :id => @org.id
       assigns(:owned_resource).should be_a_new(OwnedResource)
     end
   end
 
   describe "GET edit" do
     it "assigns the requested owned_resource as @owned_resource" do
-      owned_resource = OwnedResource.create! valid_attributes
-      get :edit, :id => owned_resource.id.to_s
-      assigns(:owned_resource).should eq(owned_resource)
+      get :edit, :id => @owned_resource.id.to_s, :organization_id => @org.id
+      assigns(:owned_resource).should eq(@owned_resource)
     end
   end
 
@@ -62,18 +68,18 @@ describe OwnedResourcesController do
     describe "with valid params" do
       it "creates a new OwnedResource" do
         expect {
-          post :create, :owned_resource => valid_attributes
+          post :create, :owned_resource => valid_attributes, :id => @org.id
         }.to change(OwnedResource, :count).by(1)
       end
 
       it "assigns a newly created owned_resource as @owned_resource" do
-        post :create, :owned_resource => valid_attributes
+        post :create, :owned_resource => valid_attributes, :id => @org.id
         assigns(:owned_resource).should be_a(OwnedResource)
         assigns(:owned_resource).should be_persisted
       end
 
       it "redirects to the created owned_resource" do
-        post :create, :owned_resource => valid_attributes
+        post :create, :owned_resource => valid_attributes, :id => @org.id
         response.should redirect_to(OwnedResource.last)
       end
     end
@@ -82,14 +88,14 @@ describe OwnedResourcesController do
       it "assigns a newly created but unsaved owned_resource as @owned_resource" do
         # Trigger the behavior that occurs when invalid params are submitted
         OwnedResource.any_instance.stub(:save).and_return(false)
-        post :create, :owned_resource => {}
+        post :create, :owned_resource => {}, :id => @org.id
         assigns(:owned_resource).should be_a_new(OwnedResource)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         OwnedResource.any_instance.stub(:save).and_return(false)
-        post :create, :owned_resource => {}
+        post :create, :owned_resource => {}, :id => @org.id
         response.should render_template("new")
       end
     end
@@ -98,42 +104,37 @@ describe OwnedResourcesController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested owned_resource" do
-        owned_resource = OwnedResource.create! valid_attributes
         # Assuming there are no other owned_resources in the database, this
         # specifies that the OwnedResource created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
         OwnedResource.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => owned_resource.id, :owned_resource => {'these' => 'params'}
+        put :update, :id => @owned_resource.id, :owned_resource => {'these' => 'params'}, :organization_id => @org.id
       end
 
       it "assigns the requested owned_resource as @owned_resource" do
-        owned_resource = OwnedResource.create! valid_attributes
-        put :update, :id => owned_resource.id, :owned_resource => valid_attributes
-        assigns(:owned_resource).should eq(owned_resource)
+        put :update, :id => @owned_resource.id, :owned_resource => valid_attributes, :organization_id => @org.id
+        assigns(:owned_resource).should eq(@owned_resource)
       end
 
       it "redirects to the owned_resource" do
-        owned_resource = OwnedResource.create! valid_attributes
-        put :update, :id => owned_resource.id, :owned_resource => valid_attributes
-        response.should redirect_to(owned_resource)
+        put :update, :id => @owned_resource.id, :owned_resource => valid_attributes, :organization_id => @org.id
+        response.should redirect_to(@owned_resource)
       end
     end
 
     describe "with invalid params" do
       it "assigns the owned_resource as @owned_resource" do
-        owned_resource = OwnedResource.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         OwnedResource.any_instance.stub(:save).and_return(false)
-        put :update, :id => owned_resource.id.to_s, :owned_resource => {}
-        assigns(:owned_resource).should eq(owned_resource)
+        put :update, :id => @owned_resource.id.to_s, :owned_resource => {}, :organization_id => @org.id
+        assigns(:owned_resource).should eq(@owned_resource)
       end
 
       it "re-renders the 'edit' template" do
-        owned_resource = OwnedResource.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         OwnedResource.any_instance.stub(:save).and_return(false)
-        put :update, :id => owned_resource.id.to_s, :owned_resource => {}
+        put :update, :id => @owned_resource.id.to_s, :owned_resource => {}, :organization_id => @org.id
         response.should render_template("edit")
       end
     end
@@ -141,15 +142,13 @@ describe OwnedResourcesController do
 
   describe "DELETE destroy" do
     it "destroys the requested owned_resource" do
-      owned_resource = OwnedResource.create! valid_attributes
       expect {
-        delete :destroy, :id => owned_resource.id.to_s
+        delete :destroy, :id => @owned_resource.id.to_s, :organization_id => @org.id
       }.to change(OwnedResource, :count).by(-1)
     end
 
     it "redirects to the owned_resources list" do
-      owned_resource = OwnedResource.create! valid_attributes
-      delete :destroy, :id => owned_resource.id.to_s
+      delete :destroy, :id => @owned_resource.id.to_s, :organization_id => @org.id
       response.should redirect_to(owned_resources_url)
     end
   end

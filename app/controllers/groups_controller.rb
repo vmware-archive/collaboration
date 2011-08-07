@@ -1,13 +1,9 @@
 class GroupsController < ApplicationController
-  before_filter :authorize
-
-  def authorize
-    @organization = Organization.find params[:organization_id]
-  end
 
   # GET /groups
   # GET /groups.xml
   def index
+    @organization = Organization.find params[:id]
     @groups = @organization.groups
 
     respond_to do |format|
@@ -19,6 +15,7 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.xml
   def show
+     @organization = Organization.find params[:organization_id]
     @group = @organization.groups.find(params[:id])
 
     respond_to do |format|
@@ -30,6 +27,7 @@ class GroupsController < ApplicationController
   # GET /groups/new
   # GET /groups/new.xml
   def new
+    @organization = Organization.find params[:id]
     @group = @organization.groups.build
 
     respond_to do |format|
@@ -40,12 +38,14 @@ class GroupsController < ApplicationController
 
   # GET /groups/1/edit
   def edit
+    @organization = Organization.find params[:organization_id]
     @group = @organization.groups.find(params[:id])
   end
 
   # POST /groups
   # POST /groups.xml
   def create
+    @organization = Organization.find params[:id]
     @group = @organization.groups.build(params[:group])
 
     respond_to do |format|
@@ -62,6 +62,7 @@ class GroupsController < ApplicationController
   # PUT /groups/1
   # PUT /groups/1.xml
   def update
+    @organization = Organization.find params[:organization_id]
     @group = @organization.groups.find(params[:id])
 
     respond_to do |format|
@@ -78,6 +79,7 @@ class GroupsController < ApplicationController
   # DELETE /groups/1
   # DELETE /groups/1.xml
   def destroy
+    @organization = Organization.find params[:organization_id]
     @group = @organization.groups.find(params[:id])
     @group.destroy
 
