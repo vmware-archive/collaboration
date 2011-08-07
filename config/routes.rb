@@ -1,12 +1,14 @@
 Collaboration::Application.routes.draw do
   resources :resource_assignments
 
-  resources :organizations
+  resources :organizations do
+    member do
+      resources :projects
 
-  resources :projects
+    end
+  end
 
   resources :groups
-
   resources :apps
   resources :services
   resources :owned_resources
