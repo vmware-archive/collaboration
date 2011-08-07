@@ -11,7 +11,7 @@ Is resource C accessible from Project X ?
 Is entity A (or a parent group for entity A) given permissions to resource C in Project X  ?
 Do the permissions given for resource C grant access to action B ?
 
-|-- organization
+|-- org
     |-- name
     |-- description
     |-- avatar
@@ -40,7 +40,7 @@ Do the permissions given for resource C grant access to action B ?
     |-- marked_for_transfer?
     |-- deleted?
     |-- owner
-       |-- organization isa owner
+       |-- org isa owner
        |-- project isa owner
     |-- resource(s)
        |-- app isa resource

@@ -20,7 +20,7 @@ require 'spec_helper'
 
 describe GroupsController do
   before(:each) do
-    @org = Organization.create! :display_name => 'VMWare'
+    @org = Org.create! :display_name => 'VMWare'
     @group = @org.groups.build  valid_attributes
     @group.save!
   end
@@ -41,7 +41,7 @@ describe GroupsController do
 
   describe "GET show" do
     it "assigns the requested group as @group" do
-      get :show, :id => @group.id.to_s, :organization_id => @org.id
+      get :show, :id => @group.id.to_s, :org_id => @org.id
       assigns(:group).should eq(@group)
     end
   end
@@ -55,7 +55,7 @@ describe GroupsController do
 
   describe "GET edit" do
     it "assigns the requested group as @group" do
-      get :edit, :id => @group.id.to_s, :organization_id => @org.id
+      get :edit, :id => @group.id.to_s, :org_id => @org.id
       assigns(:group).should eq(@group)
     end
   end
@@ -105,16 +105,16 @@ describe GroupsController do
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
         Group.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => @group.id, :group => {'these' => 'params'}, :organization_id => @org.id
+        put :update, :id => @group.id, :group => {'these' => 'params'}, :org_id => @org.id
       end
 
       it "assigns the requested group as @group" do
-        put :update, :id => @group.id, :group => valid_attributes, :organization_id => @org.id
+        put :update, :id => @group.id, :group => valid_attributes, :org_id => @org.id
         assigns(:group).should eq(@group)
       end
 
       it "redirects to the group" do
-        put :update, :id => @group.id, :group => valid_attributes, :organization_id => @org.id
+        put :update, :id => @group.id, :group => valid_attributes, :org_id => @org.id
         response.should redirect_to(@group)
       end
     end
@@ -123,14 +123,14 @@ describe GroupsController do
       it "assigns the group as @group" do
         # Trigger the behavior that occurs when invalid params are submitted
         Group.any_instance.stub(:save).and_return(false)
-        put :update, :id => @group.id.to_s, :group => {}, :organization_id => @org.id
+        put :update, :id => @group.id.to_s, :group => {}, :org_id => @org.id
         assigns(:group).should eq(@group)
       end
 
       it "re-renders the 'edit' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Group.any_instance.stub(:save).and_return(false)
-        put :update, :id => @group.id.to_s, :group => {}, :organization_id => @org.id
+        put :update, :id => @group.id.to_s, :group => {}, :org_id => @org.id
         response.should render_template("edit")
       end
     end
@@ -139,12 +139,12 @@ describe GroupsController do
   describe "DELETE destroy" do
     it "destroys the requested group" do
       expect {
-        delete :destroy, :id => @group.id.to_s, :organization_id => @org.id
+        delete :destroy, :id => @group.id.to_s, :org_id => @org.id
       }.to change(Group, :count).by(-1)
     end
 
     it "redirects to the groups list" do
-      delete :destroy, :id => @group.id.to_s, :organization_id => @org.id
+      delete :destroy, :id => @group.id.to_s, :org_id => @org.id
       response.should redirect_to(groups_url)
     end
   end

@@ -5,11 +5,11 @@ describe "groups/index.html.erb" do
     assign(:groups, [
       stub_model(Group,
         :display_name => "Display Name",
-        :organization_id => 1
+        :org_id => 1
       ),
       stub_model(Group,
         :display_name => "Display Name",
-        :organization_id => 1
+        :org_id => 1
       )
     ])
   end

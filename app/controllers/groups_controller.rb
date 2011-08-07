@@ -3,8 +3,8 @@ class GroupsController < ApplicationController
   # GET /groups
   # GET /groups.xml
   def index
-    @organization = Organization.find params[:id]
-    @groups = @organization.groups
+    @org = Org.find params[:id]
+    @groups = @org.groups
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,8 +15,8 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.xml
   def show
-     @organization = Organization.find params[:organization_id]
-    @group = @organization.groups.find(params[:id])
+     @org = Org.find params[:org_id]
+    @group = @org.groups.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -27,8 +27,8 @@ class GroupsController < ApplicationController
   # GET /groups/new
   # GET /groups/new.xml
   def new
-    @organization = Organization.find params[:id]
-    @group = @organization.groups.build
+    @org = Org.find params[:id]
+    @group = @org.groups.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -38,15 +38,15 @@ class GroupsController < ApplicationController
 
   # GET /groups/1/edit
   def edit
-    @organization = Organization.find params[:organization_id]
-    @group = @organization.groups.find(params[:id])
+    @org = Org.find params[:org_id]
+    @group = @org.groups.find(params[:id])
   end
 
   # POST /groups
   # POST /groups.xml
   def create
-    @organization = Organization.find params[:id]
-    @group = @organization.groups.build(params[:group])
+    @org = Org.find params[:id]
+    @group = @org.groups.build(params[:group])
 
     respond_to do |format|
       if @group.save
@@ -62,8 +62,8 @@ class GroupsController < ApplicationController
   # PUT /groups/1
   # PUT /groups/1.xml
   def update
-    @organization = Organization.find params[:organization_id]
-    @group = @organization.groups.find(params[:id])
+    @org = Org.find params[:org_id]
+    @group = @org.groups.find(params[:id])
 
     respond_to do |format|
       if @group.update_attributes(params[:group])
@@ -79,8 +79,8 @@ class GroupsController < ApplicationController
   # DELETE /groups/1
   # DELETE /groups/1.xml
   def destroy
-    @organization = Organization.find params[:organization_id]
-    @group = @organization.groups.find(params[:id])
+    @org = Org.find params[:org_id]
+    @group = @org.groups.find(params[:id])
     @group.destroy
 
     respond_to do |format|

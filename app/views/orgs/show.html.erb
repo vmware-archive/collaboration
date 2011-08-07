@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Display name:</b>
+  <%= @org.display_name %>
+</p>
+
+<p>
+  <b>Avatar:</b>
+  <%= @org.avatar %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @org.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_org_path(@org) %> |
+<%= link_to 'Back', orgs_path %>

@@ -20,7 +20,7 @@ require 'spec_helper'
 
 describe OwnedResourcesController do
   before(:each) do
-    @org = Organization.create! :display_name => 'VMWare'
+    @org = Org.create! :display_name => 'VMWare'
     @app = App.create! :display_name => 'Stream'
     @owned_resource = @org.owned_resources.build valid_attributes
     @owned_resource.save!
@@ -45,7 +45,7 @@ describe OwnedResourcesController do
 
   describe "GET show" do
     it "assigns the requested owned_resource as @owned_resource" do
-      get :show, :id => @owned_resource.id.to_s, :organization_id => @org.id
+      get :show, :id => @owned_resource.id.to_s, :org_id => @org.id
       assigns(:owned_resource).should eq(@owned_resource)
     end
   end
@@ -59,7 +59,7 @@ describe OwnedResourcesController do
 
   describe "GET edit" do
     it "assigns the requested owned_resource as @owned_resource" do
-      get :edit, :id => @owned_resource.id.to_s, :organization_id => @org.id
+      get :edit, :id => @owned_resource.id.to_s, :org_id => @org.id
       assigns(:owned_resource).should eq(@owned_resource)
     end
   end
@@ -109,16 +109,16 @@ describe OwnedResourcesController do
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
         OwnedResource.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => @owned_resource.id, :owned_resource => {'these' => 'params'}, :organization_id => @org.id
+        put :update, :id => @owned_resource.id, :owned_resource => {'these' => 'params'}, :org_id => @org.id
       end
 
       it "assigns the requested owned_resource as @owned_resource" do
-        put :update, :id => @owned_resource.id, :owned_resource => valid_attributes, :organization_id => @org.id
+        put :update, :id => @owned_resource.id, :owned_resource => valid_attributes, :org_id => @org.id
         assigns(:owned_resource).should eq(@owned_resource)
       end
 
       it "redirects to the owned_resource" do
-        put :update, :id => @owned_resource.id, :owned_resource => valid_attributes, :organization_id => @org.id
+        put :update, :id => @owned_resource.id, :owned_resource => valid_attributes, :org_id => @org.id
         response.should redirect_to(@owned_resource)
       end
     end
@@ -127,14 +127,14 @@ describe OwnedResourcesController do
       it "assigns the owned_resource as @owned_resource" do
         # Trigger the behavior that occurs when invalid params are submitted
         OwnedResource.any_instance.stub(:save).and_return(false)
-        put :update, :id => @owned_resource.id.to_s, :owned_resource => {}, :organization_id => @org.id
+        put :update, :id => @owned_resource.id.to_s, :owned_resource => {}, :org_id => @org.id
         assigns(:owned_resource).should eq(@owned_resource)
       end
 
       it "re-renders the 'edit' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         OwnedResource.any_instance.stub(:save).and_return(false)
-        put :update, :id => @owned_resource.id.to_s, :owned_resource => {}, :organization_id => @org.id
+        put :update, :id => @owned_resource.id.to_s, :owned_resource => {}, :org_id => @org.id
         response.should render_template("edit")
       end
     end
@@ -143,12 +143,12 @@ describe OwnedResourcesController do
   describe "DELETE destroy" do
     it "destroys the requested owned_resource" do
       expect {
-        delete :destroy, :id => @owned_resource.id.to_s, :organization_id => @org.id
+        delete :destroy, :id => @owned_resource.id.to_s, :org_id => @org.id
       }.to change(OwnedResource, :count).by(-1)
     end
 
     it "redirects to the owned_resources list" do
-      delete :destroy, :id => @owned_resource.id.to_s, :organization_id => @org.id
+      delete :destroy, :id => @owned_resource.id.to_s, :org_id => @org.id
       response.should redirect_to(owned_resources_url)
     end
   end

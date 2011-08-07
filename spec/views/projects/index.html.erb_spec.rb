@@ -5,14 +5,14 @@ describe "projects/index.html.erb" do
     assign(:projects, [
       stub_model(Project,
         :display_name => "Display Name",
-        :organization_id => 1,
+        :org_id => 1,
         :apply_to_all_resources => false,
         :browsable => false,
         :public_roster => false
       ),
       stub_model(Project,
         :display_name => "Display Name",
-        :organization_id => 1,
+        :org_id => 1,
         :apply_to_all_resources => false,
         :browsable => false,
         :public_roster => false

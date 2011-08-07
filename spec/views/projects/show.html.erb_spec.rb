@@ -4,7 +4,7 @@ describe "projects/show.html.erb" do
   before(:each) do
     @project = assign(:project, stub_model(Project,
       :display_name => "Display Name",
-      :organization_id => 1,
+      :org_id => 1,
       :apply_to_all_resources => false,
       :browsable => false,
       :public_roster => false

@@ -2,7 +2,7 @@ class CreateProjects < ActiveRecord::Migration
   def self.up
     create_table :projects do |t|
       t.string :display_name, :null => false
-      t.integer :organization_id, :null => false
+      t.integer :org_id, :null => false
 
       t.timestamps
     end

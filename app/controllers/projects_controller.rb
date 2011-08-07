@@ -3,8 +3,8 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.xml
   def index
-    @organization = Organization.find params[:id]
-    @projects = @organization.projects
+    @org = Org.find params[:id]
+    @projects = @org.projects
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,8 +15,8 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.xml
   def show
-    @organization = Organization.find params[:organization_id]
-    @project = @organization.projects.find(params[:id])
+    @org = Org.find params[:org_id]
+    @project = @org.projects.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -27,8 +27,8 @@ class ProjectsController < ApplicationController
   # GET /projects/new
   # GET /projects/new.xml
   def new
-    @organization = Organization.find params[:id]
-    @project = @organization.projects.build
+    @org = Org.find params[:id]
+    @project = @org.projects.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -38,15 +38,15 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
-    @organization = Organization.find params[:organization_id]
-    @project = @organization.projects.find(params[:id])
+    @org = Org.find params[:org_id]
+    @project = @org.projects.find(params[:id])
   end
 
   # POST /projects
   # POST /projects.xml
   def create
-    @organization = Organization.find params[:id]
-    @project = @organization.projects.build(params[:project])
+    @org = Org.find params[:id]
+    @project = @org.projects.build(params[:project])
 
     respond_to do |format|
       if @project.save
@@ -62,8 +62,8 @@ class ProjectsController < ApplicationController
   # PUT /projects/1
   # PUT /projects/1.xml
   def update
-    @organization = Organization.find params[:organization_id]
-    @project = @organization.projects.find(params[:id])
+    @org = Org.find params[:org_id]
+    @project = @org.projects.find(params[:id])
 
     respond_to do |format|
       if @project.update_attributes(params[:project])
@@ -79,8 +79,8 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.xml
   def destroy
-    @organization = Organization.find params[:organization_id]
-    @project = @organization.projects.find(params[:id])
+    @org = Org.find params[:org_id]
+    @project = @org.projects.find(params[:id])
     @project.destroy
 
     respond_to do |format|

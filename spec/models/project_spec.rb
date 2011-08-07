@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe Project do
   before(:each) do
-    @organization = Organization.new :display_name => 'VMWare'
-    @project = @organization.projects.build
+    @org = Org.new :display_name => 'VMWare'
+    @project = @org.projects.build
   end
 
   it "should be instantiated" do

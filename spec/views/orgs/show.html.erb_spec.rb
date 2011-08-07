@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe "organizations/show.html.erb" do
+describe "orgs/show.html.erb" do
   before(:each) do
-    @organization = assign(:organization, stub_model(Organization,
+    @org = assign(:org, stub_model(Org,
       :display_name => "Display Name",
       :avatar => "Avatar",
       :description => "Description"

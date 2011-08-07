@@ -4,7 +4,7 @@ describe "groups/show.html.erb" do
   before(:each) do
     @group = assign(:group, stub_model(Group,
       :display_name => "Display Name",
-      :organization_id => 1
+      :org_id => 1
     ))
   end
 

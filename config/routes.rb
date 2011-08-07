@@ -1,7 +1,7 @@
 Collaboration::Application.routes.draw do
   resources :resource_assignments
 
-  resources :organizations, :path => 'orgs' do
+  resources :orgs do
     member do
       resources :projects
       resources :groups

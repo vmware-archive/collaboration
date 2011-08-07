@@ -22,13 +22,13 @@ ActiveRecord::Schema.define(:version => 20110804222727) do
   end
 
   create_table "groups", :force => true do |t|
-    t.string   "display_name",    :null => false
-    t.integer  "organization_id", :null => false
+    t.string   "display_name", :null => false
+    t.integer  "org_id",       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "organizations", :force => true do |t|
+  create_table "orgs", :force => true do |t|
     t.string   "display_name"
     t.string   "avatar"
     t.string   "description"
@@ -42,15 +42,15 @@ ActiveRecord::Schema.define(:version => 20110804222727) do
     t.boolean  "deleted"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "owner_type", :null => false
-    t.integer  "owner_id", :null => false
-    t.string   "resource_type", :null => false
-    t.integer  "resource_id", :null => false
+    t.string   "owner_type",          :null => false
+    t.integer  "owner_id",            :null => false
+    t.string   "resource_type",       :null => false
+    t.integer  "resource_id",         :null => false
   end
 
   create_table "projects", :force => true do |t|
-    t.string   "display_name",    :null => false
-    t.integer  "organization_id", :null => false
+    t.string   "display_name", :null => false
+    t.integer  "org_id",       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

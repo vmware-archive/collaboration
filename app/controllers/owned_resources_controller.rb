@@ -3,8 +3,8 @@ class OwnedResourcesController < ApplicationController
   # GET /owned_resources
   # GET /owned_resources.xml
   def index
-    @organization = Organization.find params[:id]
-    @owned_resources = @organization.owned_resources
+    @org = Org.find params[:id]
+    @owned_resources = @org.owned_resources
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,8 +15,8 @@ class OwnedResourcesController < ApplicationController
   # GET /owned_resources/1
   # GET /owned_resources/1.xml
   def show
-    @organization = Organization.find params[:organization_id]
-    @owned_resource = @organization.owned_resources.find(params[:id])
+    @org = Org.find params[:org_id]
+    @owned_resource = @org.owned_resources.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -27,8 +27,8 @@ class OwnedResourcesController < ApplicationController
   # GET /owned_resources/new
   # GET /owned_resources/new.xml
   def new
-    @organization = Organization.find params[:id]
-    @owned_resource = @organization.owned_resources.build
+    @org = Org.find params[:id]
+    @owned_resource = @org.owned_resources.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -38,15 +38,15 @@ class OwnedResourcesController < ApplicationController
 
   # GET /owned_resources/1/edit
   def edit
-    @organization = Organization.find params[:organization_id]
-    @owned_resource = @organization.owned_resources.find(params[:id])
+    @org = Org.find params[:org_id]
+    @owned_resource = @org.owned_resources.find(params[:id])
   end
 
   # POST /owned_resources
   # POST /owned_resources.xml
   def create
-    @organization = Organization.find params[:id]
-    @owned_resource = @organization.owned_resources.build(params[:owned_resource])
+    @org = Org.find params[:id]
+    @owned_resource = @org.owned_resources.build(params[:owned_resource])
 
     respond_to do |format|
       if @owned_resource.save
@@ -62,8 +62,8 @@ class OwnedResourcesController < ApplicationController
   # PUT /owned_resources/1
   # PUT /owned_resources/1.xml
   def update
-    @organization = Organization.find params[:organization_id]
-    @owned_resource = @organization.owned_resources.find(params[:id])
+    @org = Org.find params[:org_id]
+    @owned_resource = @org.owned_resources.find(params[:id])
 
     respond_to do |format|
       if @owned_resource.update_attributes(params[:owned_resource])
@@ -79,8 +79,8 @@ class OwnedResourcesController < ApplicationController
   # DELETE /owned_resources/1
   # DELETE /owned_resources/1.xml
   def destroy
-    @organization = Organization.find params[:organization_id]
-    @owned_resource = @organization.owned_resources.find(params[:id])
+    @org = Org.find params[:org_id]
+    @owned_resource = @org.owned_resources.find(params[:id])
     @owned_resource.destroy
 
     respond_to do |format|

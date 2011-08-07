@@ -20,7 +20,7 @@ require 'spec_helper'
 
 describe ProjectsController do
   before(:each) do
-    @org = Organization.create! :display_name => 'VMWare'
+    @org = Org.create! :display_name => 'VMWare'
   end
 
   # This should return the minimal set of attributes required to create a valid
@@ -49,7 +49,7 @@ describe ProjectsController do
 
     describe "GET show" do
       it "assigns the requested project as @project" do
-        get :show, :id => @project.id.to_s, :organization_id => @org.id
+        get :show, :id => @project.id.to_s, :org_id => @org.id
         assert_response :success
         assigns(:project).should eq(@project)
       end
@@ -57,7 +57,7 @@ describe ProjectsController do
 
     describe "GET edit" do
       it "assigns the requested project as @project" do
-        get :edit, :id => @project.id.to_s, :organization_id => @org.id
+        get :edit, :id => @project.id.to_s, :org_id => @org.id
         assigns(:project).should eq(@project)
       end
     end
@@ -70,16 +70,16 @@ describe ProjectsController do
           # receives the :update_attributes message with whatever params are
           # submitted in the request.
           Project.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-          put :update, :id => @project.id, :project => {'these' => 'params'}, :organization_id => @org.id
+          put :update, :id => @project.id, :project => {'these' => 'params'}, :org_id => @org.id
         end
 
         it "assigns the requested project as @project" do
-          put :update, :id => @project.id, :project => valid_attributes, :organization_id => @org.id
+          put :update, :id => @project.id, :project => valid_attributes, :org_id => @org.id
           assigns(:project).should eq(@project)
         end
 
         it "redirects to the project" do
-          put :update, :id => @project.id, :project => valid_attributes, :organization_id => @org.id
+          put :update, :id => @project.id, :project => valid_attributes, :org_id => @org.id
           response.should redirect_to(@project)
         end
       end
@@ -88,14 +88,14 @@ describe ProjectsController do
         it "assigns the project as @project" do
           # Trigger the behavior that occurs when invalid params are submitted
           Project.any_instance.stub(:save).and_return(false)
-          put :update, :id => @project.id.to_s, :project => {}, :organization_id => @org.id
+          put :update, :id => @project.id.to_s, :project => {}, :org_id => @org.id
           assigns(:project).should eq(@project)
         end
 
         it "re-renders the 'edit' template" do
           # Trigger the behavior that occurs when invalid params are submitted
           Project.any_instance.stub(:save).and_return(false)
-          put :update, :id => @project.id.to_s, :project => {}, :organization_id => @org.id
+          put :update, :id => @project.id.to_s, :project => {}, :org_id => @org.id
           response.should render_template("edit")
         end
       end
@@ -104,12 +104,12 @@ describe ProjectsController do
     describe "DELETE destroy" do
       it "destroys the requested project" do
         expect {
-          delete :destroy, :id => @project.id.to_s, :organization_id => @org.id
+          delete :destroy, :id => @project.id.to_s, :org_id => @org.id
         }.to change(Project, :count).by(-1)
       end
 
       it "redirects to the projects list" do
-        delete :destroy, :id => @project.id.to_s, :organization_id => @org.id
+        delete :destroy, :id => @project.id.to_s, :org_id => @org.id
         response.should redirect_to(projects_url)
       end
     end
