@@ -7,4 +7,6 @@
 
 
 <%= link_to 'Edit', edit_org_group_path(@org, @group) %> |
-<%= link_to 'Back', org_groups_path(@org) %>
+<%= link_to 'Back', org_groups_path(@org) %>  |
+<%= link_to 'Members', org_group_group_members_path(@org, @group) %>
+

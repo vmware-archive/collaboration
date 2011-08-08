@@ -3,7 +3,9 @@ Collaboration::Application.routes.draw do
 
   resources :orgs do
     resources :projects
-    resources :groups
+    resources :groups do
+      resources :group_members, :path => 'members', :only => [:new, :create, :destroy, :index]
+    end
     resources :owned_resources
   end
 

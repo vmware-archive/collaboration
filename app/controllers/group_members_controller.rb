@@ -1,8 +1,9 @@
 class GroupMembersController < ApplicationController
+  before_filter :identify_parent
+
   # GET /group_members
   # GET /group_members.json
   def index
-    @group = Group.find params[:id]
     @group_members = @group.group_members
 
     respond_to do |format|
@@ -14,7 +15,6 @@ class GroupMembersController < ApplicationController
   # GET /group_members/new
   # GET /group_members/new.json
   def new
-    @group = Group.find params[:id]
     @group_member = @group.group_members.build
 
     respond_to do |format|
@@ -27,12 +27,12 @@ class GroupMembersController < ApplicationController
   # POST /group_members
   # POST /group_members.json
   def create
-    @group = Group.find params[:group_id]
     @group_member = @group.group_members.build(params[:group_member])
 
     respond_to do |format|
       if @group_member.save
-        format.html { redirect_to(@group_member, :notice => 'Group member was successfully created.') }
+        flash[:notice] = 'Group member was successfully created.'
+        format.html { redirect_to org_group_group_members_path(@org, @group) }
         format.json  { render :json => @group_member, :status => :created, :location => @group_member }
       else
         format.html { render :action => "new" }
@@ -44,12 +44,11 @@ class GroupMembersController < ApplicationController
   # DELETE /group_members/1
   # DELETE /group_members/1.json
   def destroy
-    @group = Group.find params[:group_id]
     @group_member = @group.group_members.find(params[:id])
     @group_member.destroy
 
     respond_to do |format|
-      format.html { redirect_to(group_members_url) }
+      format.html { redirect_to(org_group_group_members_url(@org, @group)) }
       format.json  { head :ok }
     end
   end
