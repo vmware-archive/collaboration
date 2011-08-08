@@ -12,46 +12,35 @@ Is entity A (or a parent group for entity A) given permissions to resource C in 
 Do the permissions given for resource C grant access to action B ?
 
 |-- org
-    |-- name
-    |-- description
-    |-- avatar
-    |-- timestamps
     |-- group(s)
-        |-- user(s)
-    |-- project(s)
-        |-- resource assignment(s)
-            |-- entity
-                |-- user isa entity
-                |-- group isa entity
-            |-- resource
-                |-- app isa resource
-                |-- service isa resource
-                |-- group isa resource
-                |-- project isa resource
-            |-- can_read?
-            |-- can_update?
-            |-- can_create?
-            |-- can_delete?
-        |-- resource(s) via owned_resource
+        |-- user(s) via group_members
+    |-- project(s) TODO: Decide if rename to 'Security Context'
+        |-- resource assignment(s) TODO: Decide if rename to ACL or ACE
+            |-- entity (ex: user or group)
+            |-- route (matches to any resource or set of resources, ex: "groups/1"
+            |-- permission
+                |-- read?
+                |-- update?
+                |-- create?
+                |-- delete?
+        |-- resource(s) via owned_resource TODO: Decide do we need this
+    |-- owned_resource(s)
+        |-- name
+        |-- marked_for_transfer?
+        |-- deleted?
+        |-- owner (ex: org, project)
+        |-- resource(s) (ex: app, service)
     |-- resource(s) via owned_resource
-
-|-- owned_resource(s)
-    |-- name
-    |-- marked_for_transfer?
-    |-- deleted?
-    |-- owner
-       |-- org isa owner
-       |-- project isa owner
-    |-- resource(s)
-       |-- app isa resource
-       |-- service isa resource
-
 |-- user
     |-- email(s)
     |-- external_identity(ies)
 
 |-- identity_provider
 |-- standard
+-----------------------------------------------------------------------------------
+|-- app
+|-- service
+|-- etc
 
 == Getting Started
 
