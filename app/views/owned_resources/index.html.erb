@@ -1,4 +1,5 @@
-<h1>Listing owned_resources</h1>
+<p id="notice"><%= notice %></p>
+<h1>Listing resources for <%= link_to @org.display_name, @org %></h1>
 
 <table>
   <tr>
@@ -15,13 +16,13 @@
     <td><%= owned_resource.display_name %></td>
     <td><%= owned_resource.marked_for_transfer %></td>
     <td><%= owned_resource.deleted %></td>
-    <td><%= link_to 'Show', owned_resource %></td>
-    <td><%= link_to 'Edit', edit_owned_resource_path(owned_resource) %></td>
-    <td><%= link_to 'Destroy', owned_resource, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Show', org_owned_resource_path (@org, owned_resource) %></td>
+    <td><%= link_to 'Edit', edit_org_owned_resource_path(@org, owned_resource) %></td>
+    <td><%= link_to 'Destroy', org_owned_resource_path (@org, owned_resource), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Owned resource', new_owned_resource_path %>
+<%= link_to 'New Resource', new_org_owned_resource_path (@org) %>

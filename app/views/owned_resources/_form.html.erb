@@ -1,4 +1,4 @@
-<%= form_for(@owned_resource) do |f| %>
+<%= form_for([@org, @owned_resource]) do |f| %>
   <% if @owned_resource.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@owned_resource.errors.count, "error") %> prohibited this owned_resource from being saved:</h2>
@@ -12,18 +12,19 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :display_name %><br />
-    <%= f.text_field :display_name %>
+    <%= f.label :resource_id %><br />
+    <%= f.select :resource_id, App.all.collect{|a|[a.display_,a.id]} %>
   </div>
+
   <div class="field">
     <%= f.label :marked_for_transfer %><br />
-    <%= f.text_field :marked_for_transfer %>
+    <%= f.check_box :marked_for_transfer %>
   </div>
   <div class="field">
     <%= f.label :deleted %><br />
-    <%= f.text_field :deleted %>
+    <%= f.check_box :deleted %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Assign Resource" %>
   </div>
 <% end %>

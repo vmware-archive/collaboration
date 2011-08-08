@@ -3,7 +3,7 @@ class OwnedResourcesController < ApplicationController
   # GET /owned_resources
   # GET /owned_resources.xml
   def index
-    @org = Org.find params[:id]
+    @org = Org.find params[:org_id]
     @owned_resources = @org.owned_resources
 
     respond_to do |format|
@@ -27,7 +27,7 @@ class OwnedResourcesController < ApplicationController
   # GET /owned_resources/new
   # GET /owned_resources/new.xml
   def new
-    @org = Org.find params[:id]
+    @org = Org.find params[:org_id]
     @owned_resource = @org.owned_resources.build
 
     respond_to do |format|
@@ -45,12 +45,13 @@ class OwnedResourcesController < ApplicationController
   # POST /owned_resources
   # POST /owned_resources.xml
   def create
-    @org = Org.find params[:id]
+    @org = Org.find params[:org_id]
     @owned_resource = @org.owned_resources.build(params[:owned_resource])
 
     respond_to do |format|
       if @owned_resource.save
-        format.html { redirect_to(@owned_resource, :notice => 'Owned resource was successfully created.') }
+        flash[:notice] = 'Resource was successfully assigned.'
+        format.html { redirect_to org_owned_resource_path(@org, @owned_resource) }
         format.xml  { render :xml => @owned_resource, :status => :created, :location => @owned_resource }
       else
         format.html { render :action => "new" }
@@ -67,7 +68,8 @@ class OwnedResourcesController < ApplicationController
 
     respond_to do |format|
       if @owned_resource.update_attributes(params[:owned_resource])
-        format.html { redirect_to(@owned_resource, :notice => 'Owned resource was successfully updated.') }
+        flash[:notice] = 'Resource was successfully updated.'
+        format.html { redirect_to org_owned_resource_path(@org, @owned_resource)}
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -84,7 +86,7 @@ class OwnedResourcesController < ApplicationController
     @owned_resource.destroy
 
     respond_to do |format|
-      format.html { redirect_to(owned_resources_url) }
+      format.html { redirect_to(org_owned_resources_url @org) }
       format.xml  { head :ok }
     end
   end

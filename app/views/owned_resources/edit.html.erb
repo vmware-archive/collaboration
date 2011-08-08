@@ -2,5 +2,5 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @owned_resource %> |
-<%= link_to 'Back', owned_resources_path %>
+<%= link_to 'Show', org_owned_resource_path @org, @owned_resource %> |
+<%= link_to 'Back', org_owned_resources_path @org %>
