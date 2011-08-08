@@ -1,34 +1,34 @@
 class ServicesController < ApplicationController
   # GET /services
-  # GET /services.xml
+  # GET /services.json
   def index
     @services = Service.all
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @services }
+      format.json  { render :json => @services }
     end
   end
 
   # GET /services/1
-  # GET /services/1.xml
+  # GET /services/1.json
   def show
     @service = Service.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @service }
+      format.json  { render :json => @service }
     end
   end
 
   # GET /services/new
-  # GET /services/new.xml
+  # GET /services/new.json
   def new
     @service = Service.new
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @service }
+      format.json  { render :json => @service }
     end
   end
 
@@ -38,46 +38,46 @@ class ServicesController < ApplicationController
   end
 
   # POST /services
-  # POST /services.xml
+  # POST /services.json
   def create
     @service = Service.new(params[:service])
 
     respond_to do |format|
       if @service.save
         format.html { redirect_to(@service, :notice => 'Service was successfully created.') }
-        format.xml  { render :xml => @service, :status => :created, :location => @service }
+        format.json  { render :json => @service, :status => :created, :location => @service }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @service.errors, :status => :unprocessable_entity }
+        format.json  { render :json => @service.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /services/1
-  # PUT /services/1.xml
+  # PUT /services/1.json
   def update
     @service = Service.find(params[:id])
 
     respond_to do |format|
       if @service.update_attributes(params[:service])
         format.html { redirect_to(@service, :notice => 'Service was successfully updated.') }
-        format.xml  { head :ok }
+        format.json  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @service.errors, :status => :unprocessable_entity }
+        format.json  { render :json => @service.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /services/1
-  # DELETE /services/1.xml
+  # DELETE /services/1.json
   def destroy
     @service = Service.find(params[:id])
     @service.destroy
 
     respond_to do |format|
       format.html { redirect_to(services_url) }
-      format.xml  { head :ok }
+      format.json  { head :ok }
     end
   end
 end
