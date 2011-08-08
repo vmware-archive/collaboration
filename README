@@ -54,6 +54,6 @@ Do the permissions given for resource C grant access to action B ?
 
 == Testing
 - run `spork` to start the test server
-- run `rake` to execute the tests
+- run `bundle exec rake` to execute the tests
 
 
