@@ -1,9 +1,9 @@
 class GroupsController < ApplicationController
+  before_filter :identify_parent
 
   # GET /groups
   # GET /groups.json
   def index
-    @org = Org.find params[:org_id]
     @groups = @org.groups
 
     respond_to do |format|
@@ -15,7 +15,6 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.json
   def show
-    @org = Org.find params[:org_id]
     @group = @org.groups.find(params[:id])
 
     respond_to do |format|
@@ -27,7 +26,6 @@ class GroupsController < ApplicationController
   # GET /groups/new
   # GET /groups/new.json
   def new
-    @org = Org.find params[:org_id]
     @group = @org.groups.build
 
     respond_to do |format|
@@ -38,14 +36,12 @@ class GroupsController < ApplicationController
 
   # GET /groups/1/edit
   def edit
-    @org = Org.find params[:org_id]
     @group = @org.groups.find(params[:id])
   end
 
   # POST /groups
   # POST /groups.json
   def create
-    @org = Org.find params[:org_id]
     @group = @org.groups.build(params[:group])
 
     respond_to do |format|
@@ -63,7 +59,6 @@ class GroupsController < ApplicationController
   # PUT /groups/1
   # PUT /groups/1.json
   def update
-    @org = Org.find params[:org_id]
     @group = @org.groups.find(params[:id])
 
     respond_to do |format|
@@ -81,7 +76,6 @@ class GroupsController < ApplicationController
   # DELETE /groups/1
   # DELETE /groups/1.json
   def destroy
-    @org = Org.find params[:org_id]
     @group = @org.groups.find(params[:id])
     @group.destroy
 

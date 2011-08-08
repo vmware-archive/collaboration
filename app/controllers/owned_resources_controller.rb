@@ -1,9 +1,9 @@
 class OwnedResourcesController < ApplicationController
+  before_filter :identify_parent
 
   # GET /owned_resources
   # GET /owned_resources.json
   def index
-    @org = Org.find params[:org_id]
     @owned_resources = @org.owned_resources
 
     respond_to do |format|
@@ -15,7 +15,6 @@ class OwnedResourcesController < ApplicationController
   # GET /owned_resources/1
   # GET /owned_resources/1.json
   def show
-    @org = Org.find params[:org_id]
     @owned_resource = @org.owned_resources.find(params[:id])
 
     respond_to do |format|
@@ -27,7 +26,6 @@ class OwnedResourcesController < ApplicationController
   # GET /owned_resources/new
   # GET /owned_resources/new.json
   def new
-    @org = Org.find params[:org_id]
     @owned_resource = @org.owned_resources.build
 
     respond_to do |format|
@@ -38,14 +36,12 @@ class OwnedResourcesController < ApplicationController
 
   # GET /owned_resources/1/edit
   def edit
-    @org = Org.find params[:org_id]
     @owned_resource = @org.owned_resources.find(params[:id])
   end
 
   # POST /owned_resources
   # POST /owned_resources.json
   def create
-    @org = Org.find params[:org_id]
     @owned_resource = @org.owned_resources.build(params[:owned_resource])
 
     respond_to do |format|
@@ -63,7 +59,6 @@ class OwnedResourcesController < ApplicationController
   # PUT /owned_resources/1
   # PUT /owned_resources/1.json
   def update
-    @org = Org.find params[:org_id]
     @owned_resource = @org.owned_resources.find(params[:id])
 
     respond_to do |format|
@@ -81,7 +76,6 @@ class OwnedResourcesController < ApplicationController
   # DELETE /owned_resources/1
   # DELETE /owned_resources/1.json
   def destroy
-    @org = Org.find params[:org_id]
     @owned_resource = @org.owned_resources.find(params[:id])
     @owned_resource.destroy
 

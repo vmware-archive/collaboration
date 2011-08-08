@@ -1,4 +1,6 @@
 class ResourceAssignmentsController < ApplicationController
+  before_filter :identify_parent
+
   # GET /resource_assignments
   # GET /resource_assignments.json
   def index
