@@ -16,9 +16,9 @@
     <td><%= owned_resource.display_name %></td>
     <td><%= owned_resource.marked_for_transfer %></td>
     <td><%= owned_resource.deleted %></td>
-    <td><%= link_to 'Show', org_owned_resource_path (@org, owned_resource) %></td>
+    <td><%= link_to 'Show', org_owned_resource_path(@org, owned_resource) %></td>
     <td><%= link_to 'Edit', edit_org_owned_resource_path(@org, owned_resource) %></td>
-    <td><%= link_to 'Destroy', org_owned_resource_path (@org, owned_resource), :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Destroy', org_owned_resource_path(@org, owned_resource), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>

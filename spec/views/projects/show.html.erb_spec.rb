@@ -2,12 +2,16 @@ require 'spec_helper'
 
 describe "projects/show.html.erb" do
   before(:each) do
+    @org =  assign(:org, stub_model(Org,
+      :display_name => "MyString",
+      :id => 1
+    ))
     @project = assign(:project, stub_model(Project,
       :display_name => "Display Name",
-      :org_id => 1,
       :apply_to_all_resources => false,
       :browsable => false,
-      :public_roster => false
+      :public_roster => false,
+      :org => @org
     ))
   end
 
@@ -15,13 +19,5 @@ describe "projects/show.html.erb" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     rendered.should match(/Display Name/)
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/1/)
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/false/)
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/false/)
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/false/)
   end
 end

@@ -80,7 +80,7 @@ describe OwnedResourcesController do
 
       it "redirects to the created owned_resource" do
         post :create, :owned_resource => valid_attributes, :org_id => @org.id
-        response.should redirect_to org_owned_resource_path (@org, OwnedResource.last)
+        response.should redirect_to org_owned_resource_path(@org, OwnedResource.last)
       end
     end
 
@@ -119,7 +119,7 @@ describe OwnedResourcesController do
 
       it "redirects to the owned_resource" do
         put :update, :id => @owned_resource.id, :owned_resource => valid_attributes, :org_id => @org.id
-        response.should redirect_to org_owned_resource_path (@org, @owned_resource)
+        response.should redirect_to org_owned_resource_path(@org, @owned_resource)
       end
     end
 

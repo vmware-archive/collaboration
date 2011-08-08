@@ -2,20 +2,18 @@ require 'spec_helper'
 
 describe "projects/index.html.erb" do
   before(:each) do
+    @org =  assign(:org, stub_model(Org,
+      :display_name => "MyString",
+      :id => 1
+    ))
     assign(:projects, [
       stub_model(Project,
         :display_name => "Display Name",
-        :org_id => 1,
-        :apply_to_all_resources => false,
-        :browsable => false,
-        :public_roster => false
+        :org => @org
       ),
       stub_model(Project,
         :display_name => "Display Name",
-        :org_id => 1,
-        :apply_to_all_resources => false,
-        :browsable => false,
-        :public_roster => false
+        :org => @org
       )
     ])
   end
@@ -24,13 +22,5 @@ describe "projects/index.html.erb" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "tr>td", :text => "Display Name".to_s, :count => 2
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
-    #assert_select "tr>td", :text => 1.to_s, :count => 2
-    ## Run the generator again with the --webrat flag if you want to use webrat matchers
-    #assert_select "tr>td", :text => false.to_s, :count => 2
-    ## Run the generator again with the --webrat flag if you want to use webrat matchers
-    #assert_select "tr>td", :text => false.to_s, :count => 2
-    ## Run the generator again with the --webrat flag if you want to use webrat matchers
-    #assert_select "tr>td", :text => false.to_s, :count => 2
   end
 end
