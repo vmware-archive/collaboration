@@ -2,16 +2,22 @@ require 'spec_helper'
 
 describe "owned_resources/index.html.erb" do
   before(:each) do
+    @org =  assign(:org, stub_model(Org,
+      :display_name => "MyString",
+      :id => 1
+    ))
     assign(:owned_resources, [
       stub_model(OwnedResource,
         :display_name => "Display Name",
         :marked_for_transfer => "",
-        :deleted => ""
+        :deleted => "",
+        :org => @org
       ),
       stub_model(OwnedResource,
         :display_name => "Display Name",
         :marked_for_transfer => "",
-        :deleted => ""
+        :deleted => "",
+        :org => @org
       )
     ])
   end

@@ -8,9 +8,9 @@ Collaboration::Application.routes.draw do
   end
 
 
-  resources :apps #, :only => [:show, :edit, :update]
-  resources :services #, :only => [:show, :edit, :update]
-  resources :users #, :only => [:show, :edit, :update]
+  resources :apps#, :only => [:show, :edit, :update]
+  resources :services#, :only => [:show, :edit, :update]
+  resources :users#, :only => [:show, :edit, :update]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

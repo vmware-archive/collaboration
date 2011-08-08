@@ -16,7 +16,7 @@ describe "orgs/edit.html.erb" do
     assert_select "form", :action => orgs_path(@org), :method => "post" do
       assert_select "input#org_display_name", :name => "org[display_name]"
       assert_select "input#org_avatar", :name => "org[avatar]"
-      assert_select "input#org_description", :name => "org[description]"
+      assert_select "textarea#org_description", :name => "org[description]"
     end
   end
 end
