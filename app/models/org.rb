@@ -31,6 +31,9 @@ class Org < ActiveRecord::Base
     acl.save!
     acl = default_project.acls.build :route => 'owned_resources/*', :permission_set => PermissionManager::ALL, :entity => admins
     acl.save!
+
+    acl = default_project.acls.build :route => 'apps' , :permission_set => PermissionManager::READ | PermissionManager::UPDATE, :entity => devs
+    acl.save!
   end
 
 public
