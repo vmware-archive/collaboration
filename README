@@ -1,21 +1,40 @@
-== Welcome to Collaboration
+## Overview
 
-Collaboration is Proof of Concept project which will be the predecessor to a possible "collaborate" gem.
-The main question being answered is
+Collaboration is Proof of Concept project which will be used as the predecessor to a "collaborate" gem.
 
-Given context=Project X, entity A
-   Can entity A perform action B on resource C ?
+The project demonstrates how we can model permissions to resources in such a way that teams of any size can have as
+fine grained control to their resources as they need.
 
-Sub questions
-Is resource C accessible from Project X ?
-Is entity A (or a parent group for entity A) given permissions to resource C in Project X  ?
-Do the permissions given for resource C grant access to action B ?
+This design was created by Dale Olds with participation of the Cloud Foundry team. For more details see
+https://wiki.springsource.com/display/ACDEV/Identity+Services
 
+The main question being answered is whether a user can perform an action on a resource.
+Typically in most rails applications default to basic roles whether the user is an admin or not.
+Or check whether the user is the owner of the given resource.
+This design moves away from validating access based on individual ownership as members are considered transient.
+
+## New Terminology
+
+* Org - An organization or tenant. Example: "Yahoo Inc"
+** Owned Resource - A record of ownership between the org and a resource (apps or services)
+** Group - A group of users within an org. Example: "Yahoo Mail Developers", "Yahoo NOC".
+When an org is created by a user, the user will be placed in 2 default groups: "All Employees" and "Administrators". An additional "Developers" group will also be created
+** Project - A security context. An org can have many projects. Example: "Yahoo Mail Project".
+When an org is created it will have a default project assigning "Administrators" and "Developers" access to the resources in the org. "All Employees" won't get any rights
+*** ACL - The record which assigns permissions between a user or group and a resource (app or service in this case). An ACL belongs to a project
+
+## Existing Concepts
+
+* Users
+* Apps
+* Services
+
+## Structure
 |-- org
     |-- group(s)
         |-- user(s) via group_members
     |-- project(s) TODO: Decide if rename to 'Security Context'
-        |-- resource assignment(s) TODO: Decide if rename to ACL or ACE
+        |-- ACL(s)
             |-- entity (ex: user or group)
             |-- route (matches to any resource or set of resources, ex: "groups/1"
             |-- permission
@@ -42,7 +61,17 @@ Do the permissions given for resource C grant access to action B ?
 |-- service
 |-- etc
 
-== Getting Started
+## Problem being solved
+
+Given a context=Project X, entity A
+   Can entity A perform action B on resource C ?
+
+Sub questions
+Is resource C accessible from Project X ?
+Is entity A (or a parent group for entity A) given permissions to resource C in Project X  ?
+Do the permissions given for resource C grant access to action B ?
+
+## Getting Started
 
 - Clone the repository
 - Install MySQL
@@ -52,7 +81,7 @@ Do the permissions given for resource C grant access to action B ?
 - run `rake db:migrate`
 - run `rails s`
 
-== Testing
+## Testing
 - run `spork` to start the test server
 - run `bundle exec rake` to execute the tests
 
