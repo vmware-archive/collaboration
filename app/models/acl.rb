@@ -13,6 +13,38 @@ class Acl < ActiveRecord::Base
 
   validate :owned_resource_in_same_org, :if => :owned_resource
 
+  def create_bit
+    self.create?
+  end
+
+  def create_bit=(val)
+    create! val
+  end
+
+  def read_bit
+    self.read?
+  end
+
+  def read_bit=(val)
+    read! val
+  end
+
+  def update_bit
+    self.update?
+  end
+
+  def update_bit=(val)
+    update! val
+  end
+
+  def delete_bit
+    self.delete?
+  end
+
+  def delete_bit=(val)
+    delete! val
+  end
+
 protected
   def owned_resource_in_same_org
     errors[:acl] << "Resource must be in the same org" if (@org == owned_resource.owner)

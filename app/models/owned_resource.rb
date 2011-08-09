@@ -5,4 +5,8 @@ class OwnedResource < ActiveRecord::Base
 
   validates_presence_of :resource, :owner
 
+  def to_s
+    resource.display_name if resource
+  end
+
 end
