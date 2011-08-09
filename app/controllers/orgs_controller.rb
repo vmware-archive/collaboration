@@ -2,6 +2,7 @@ class OrgsController < ApplicationController
   # GET /orgs
   # GET /orgs.json
   def index
+    # TODO: Only show the orgs that the logged in user has access
     @orgs = Org.all
 
     respond_to do |format|

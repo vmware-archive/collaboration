@@ -2,6 +2,7 @@ class ServicesController < ApplicationController
   # GET /services
   # GET /services.json
   def index
+    # TODO: Only show the orgs that the logged in user has access
     @services = Service.all
 
     respond_to do |format|
@@ -40,6 +41,7 @@ class ServicesController < ApplicationController
   # POST /services
   # POST /services.json
   def create
+    #TODO: Assign the newly created service to the user's current org
     @service = Service.new(params[:service])
 
     respond_to do |format|

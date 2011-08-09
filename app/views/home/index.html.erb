@@ -1,2 +1,5 @@
 <h1>Collaborate</h1>
-Hola
+<p>
+  Welcome <%=link_to current_user.display_name, current_user %>
+</p>
+<p><%= link_to "Your Organizations", orgs_path  %></p>

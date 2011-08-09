@@ -2,6 +2,7 @@ class AppsController < ApplicationController
   # GET /apps
   # GET /apps.json
   def index
+    # TODO: Only show the orgs that the logged in user has access
     @apps = App.all
 
     respond_to do |format|
@@ -40,6 +41,7 @@ class AppsController < ApplicationController
   # POST /apps
   # POST /apps.json
   def create
+    #TODO: Assign the newly app service to the user's current org
     @app = App.new(params[:app])
 
     respond_to do |format|
