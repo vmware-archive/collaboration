@@ -7,7 +7,9 @@ describe GroupMember do
 
     org = Org.create! :display_name =>'VMWare'
     group_member.group = Group.create! :display_name => 'Horizon Devs', :org => org
-    group_member.user = User.create! :display_name => "Monica"
+    pwd = 'cloud$'
+    @user = User.create! :first_name => 'Dale', :last_name => 'Olds', :display_name => 'Dale O.', :password => pwd, :confirm_password => pwd, :email => 'olds@vmware.com'
+    group_member.user = @user
     group_member.valid?.should be_true
   end
 end

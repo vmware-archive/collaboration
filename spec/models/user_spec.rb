@@ -6,4 +6,10 @@ describe User do
     new_user.should be_an_instance_of(User)
   end
 
+  it "requires email and password" do
+    pwd = 'cloud$'
+    user = User.create! :first_name => 'Dale', :last_name => 'Olds', :display_name => 'Dale O.', :password => pwd, :confirm_password => pwd, :email => 'olds@vmware.com'
+    user.reload.id.should_not be_nil
+  end
+
 end

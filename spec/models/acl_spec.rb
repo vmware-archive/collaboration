@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe Acl do
   before(:each) do
-    @user = User.create! :first_name => 'Monica', :last_name => 'Wilkinson', :display_name => 'Monica W'
+    pwd = 'cloud$'
+    @user = User.create! :first_name => 'Dale', :last_name => 'Olds', :display_name => 'Dale O.', :password => pwd, :confirm_password => pwd, :email => 'olds@vmware.com'
     @app = App.create! :display_name => 'Optimus'
 
     @org = Org.create! :display_name => 'VMWare'
