@@ -6,7 +6,7 @@ describe Acl do
     @user = User.create! :first_name => 'Dale', :last_name => 'Olds', :display_name => 'Dale O.', :password => pwd, :confirm_password => pwd, :email => 'olds@vmware.com'
     @app = App.create! :display_name => 'Optimus'
 
-    @org = Org.create! :display_name => 'VMWare'
+    @org = Org.create! :display_name => 'VMWare', :creator => @user
     @project = @org.projects.build :display_name => 'CF'
     @project.save!
     @owned_resource = @org.owned_resources.build :resource => @app

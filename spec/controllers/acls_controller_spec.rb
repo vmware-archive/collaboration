@@ -21,13 +21,16 @@ require 'spec_helper'
 describe AclsController do
 
   before(:each) do
-    @org = Org.create! :display_name => 'VMWare'
+    pwd = 'cloud$'
+    @user = User.create! :first_name => 'Dale', :last_name => 'Olds', :display_name => 'Dale O.', :password => pwd, :confirm_password => pwd, :email => 'olds@vmware.com'
+    sign_in @user
+
+    @org = Org.create! :display_name => 'VMWare', :creator => @user
     @project = @org.projects.build :display_name => 'CF'
     @project.save!
     @app = App.create! :display_name => 'Optimus'
     @owned_resource = @org.owned_resources.build :resource => @app
     @owned_resource.save!
-    @user = User.create! :first_name => 'Monica', :last_name => 'Wilkinson', :display_name => 'Monica W'
     @acl = @project.acls.build valid_attributes
     @acl.save!
   end

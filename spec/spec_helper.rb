@@ -1,3 +1,4 @@
+require 'devise/test_helpers'
 require 'spork'
 
 Spork.prefork do
@@ -31,6 +32,8 @@ Spork.prefork do
     # examples within a transaction, remove the following line or assign false
     # instead of true.
     config.use_transactional_fixtures = true
+    config.include Devise::TestHelpers, :type => :controller
+    config.include Devise::TestHelpers, :type => :routing
   end
 
 end
@@ -68,5 +71,7 @@ end
 #
 # These instructions should self-destruct in 10 seconds.  If they don't, feel
 # free to delete them.
+
+
 
 

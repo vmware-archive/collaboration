@@ -19,6 +19,11 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe ServicesController do
+  before do
+    pwd = 'cloud$'
+    @user = User.create! :first_name => 'Dale', :last_name => 'Olds', :display_name => 'Dale O.', :password => pwd, :confirm_password => pwd, :email => 'olds@vmware.com'
+    sign_in @user
+  end
 
   # This should return the minimal set of attributes required to create a valid
   # Service. As you add validations to Service, be sure to

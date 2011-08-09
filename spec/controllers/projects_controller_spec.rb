@@ -20,7 +20,10 @@ require 'spec_helper'
 
 describe ProjectsController do
   before(:each) do
-    @org = Org.create! :display_name => 'VMWare'
+    pwd = 'cloud$'
+    @user = User.create! :first_name => 'Dale', :last_name => 'Olds', :display_name => 'Dale O.', :password => pwd, :confirm_password => pwd, :email => 'olds@vmware.com'
+    sign_in @user
+    @org = Org.create! :display_name => 'VMWare', :creator => @user
   end
 
   # This should return the minimal set of attributes required to create a valid
@@ -43,7 +46,7 @@ describe ProjectsController do
       it "assigns all projects as @projects" do
         get :index, :org_id => @org.id
         assert_response :success
-        assigns(:projects).should eq([@project])
+        assigns(:projects).should eq([@org.projects.first, @project])
       end
     end
 

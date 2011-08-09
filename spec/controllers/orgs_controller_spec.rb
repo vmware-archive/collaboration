@@ -20,28 +20,35 @@ require 'spec_helper'
 
 describe OrgsController do
 
+  before do
+    pwd = 'cloud$'
+    @user = User.create! :first_name => 'Dale', :last_name => 'Olds', :display_name => 'Dale O.', :password => pwd, :confirm_password => pwd, :email => 'olds@vmware.com'
+    sign_in @user
+
+    @org = Org.create! valid_attributes
+  end
+
   # This should return the minimal set of attributes required to create a valid
   # Organization. As you add validations to Organization, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
     {
-      :display_name => "VMWare"
+      :display_name => "VMWare",
+      :creator => @user
     }
   end
 
   describe "GET index" do
     it "assigns all orgs as @orgs" do
-      org = Org.create! valid_attributes
       get :index
-      assigns(:orgs).should eq([org])
+      assigns(:orgs).should eq([@org])
     end
   end
 
   describe "GET show" do
     it "assigns the requested org as @org" do
-      org = Org.create! valid_attributes
-      get :show, :id => org.id.to_s
-      assigns(:org).should eq(org)
+      get :show, :id => @org.id.to_s
+      assigns(:org).should eq(@org)
     end
   end
 
@@ -54,9 +61,8 @@ describe OrgsController do
 
   describe "GET edit" do
     it "assigns the requested org as @org" do
-      org = Org.create! valid_attributes
-      get :edit, :id => org.id.to_s
-      assigns(:org).should eq(org)
+      get :edit, :id => @org.id.to_s
+      assigns(:org).should eq(@org)
     end
   end
 
@@ -100,42 +106,37 @@ describe OrgsController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested org" do
-        org = Org.create! valid_attributes
         # Assuming there are no other orgs in the database, this
         # specifies that the Organization created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
         Org.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => org.id, :org => {'these' => 'params'}
+        put :update, :id => @org.id, :org => {'these' => 'params'}
       end
 
       it "assigns the requested org as @org" do
-        org = Org.create! valid_attributes
-        put :update, :id => org.id, :org => valid_attributes
-        assigns(:org).should eq(org)
+        put :update, :id => @org.id, :org => valid_attributes
+        assigns(:org).should eq(@org)
       end
 
       it "redirects to the org" do
-        org = Org.create! valid_attributes
-        put :update, :id => org.id, :org => valid_attributes
-        response.should redirect_to(org)
+        put :update, :id => @org.id, :org => valid_attributes
+        response.should redirect_to(@org)
       end
     end
 
     describe "with invalid params" do
       it "assigns the org as @org" do
-        org = Org.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Org.any_instance.stub(:save).and_return(false)
-        put :update, :id => org.id.to_s, :org => {}
-        assigns(:org).should eq(org)
+        put :update, :id => @org.id.to_s, :org => {}
+        assigns(:org).should eq(@org)
       end
 
       it "re-renders the 'edit' template" do
-        org = Org.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Org.any_instance.stub(:save).and_return(false)
-        put :update, :id => org.id.to_s, :org => {}
+        put :update, :id => @org.id.to_s, :org => {}
         response.should render_template("edit")
       end
     end
@@ -143,15 +144,13 @@ describe OrgsController do
 
   describe "DELETE destroy" do
     it "destroys the requested org" do
-      org = Org.create! valid_attributes
       expect {
-        delete :destroy, :id => org.id.to_s
+        delete :destroy, :id => @org.id.to_s
       }.to change(Org, :count).by(-1)
     end
 
     it "redirects to the orgs list" do
-      org = Org.create! valid_attributes
-      delete :destroy, :id => org.id.to_s
+      delete :destroy, :id => @org.id.to_s
       response.should redirect_to(orgs_url)
     end
   end

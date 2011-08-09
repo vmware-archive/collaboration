@@ -20,7 +20,11 @@ require 'spec_helper'
 
 describe GroupsController do
   before(:each) do
-    @org = Org.create! :display_name => 'VMWare'
+    pwd = 'cloud$'
+    @user = User.create! :first_name => 'Dale', :last_name => 'Olds', :display_name => 'Dale O.', :password => pwd, :confirm_password => pwd, :email => 'olds@vmware.com'
+    sign_in @user
+    @org = Org.create! :display_name => 'VMWare', :creator => @user
+
     @group = @org.groups.build  valid_attributes
     @group.save!
   end
@@ -35,7 +39,7 @@ describe GroupsController do
   describe "GET index" do
     it "assigns all groups as @groups" do
       get :index, :org_id => @org.id
-      assigns(:groups).should eq([@group])
+      assigns(:groups).should eq([@org.groups.first, @org.groups.second, @group])
     end
   end
 
