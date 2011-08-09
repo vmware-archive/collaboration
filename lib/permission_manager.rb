@@ -3,6 +3,7 @@ module PermissionManager
   UPDATE = 2
   CREATE = 4
   DELETE = 8
+  ALL = READ | UPDATE | CREATE | DELETE
 
   def read?
     self.permission_set & READ == READ
