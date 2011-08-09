@@ -1,0 +1,40 @@
+<h1>Listing ACLs for Project <%=link_to @project.display_name, org_project_path(@org, @project) %></h1>
+
+<table>
+  <tr>
+    <th>Permission set</th>
+    <th>Entity</th>
+    <th>Entity type</th>
+    <th>Resource</th>
+    <th>Route</th>
+    <th>Create</th>
+    <th>Read</th>
+    <th>Update</th>
+    <th>Delete</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @acls.each do |acl| %>
+  <tr>
+    <td><%= acl.entity.display_name %></td>
+    <td><%= acl.entity_type %></td>
+    <td><%= acl.resource_ownership.resource.display_name %></td>
+    <td><%= acl.route %></td>
+    <td><%= acl.create? %></td>
+    <td><%= acl.read? %></td>
+    <td><%= acl.update? %></td>
+    <td><%= acl.delete? %></td>
+    <td><%= link_to 'Show', org_project_acl_path(@org, @project, acl) %></td>
+    <td><%= link_to 'Edit', edit_org_project_acl_path(@org, @project, acl) %></td>
+    <td><%= link_to 'Destroy', org_project_acl_path(@org, @project, acl), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<h3>Provide Access:</h3>
+<%= link_to 'Group to Resource', new_org_project_acl_path(@org, @project, :entity_type => 'Group') %>
+<%= link_to 'User to Resource', new_org_project_acl_path(@org, @project, :entity_type => 'User') %>

@@ -12,6 +12,17 @@
 
 ActiveRecord::Schema.define(:version => 20110807201343) do
 
+  create_table "acls", :force => true do |t|
+    t.integer  "permission_set",    :default => 0
+    t.integer  "project_id"
+    t.integer  "entity_id"
+    t.string   "entity_type"
+    t.integer  "owned_resource_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "route"
+  end
+
   create_table "apps", :force => true do |t|
     t.string   "display_name"
     t.string   "framework"
@@ -59,17 +70,6 @@ ActiveRecord::Schema.define(:version => 20110807201343) do
     t.integer  "org_id",       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "resource_assignments", :force => true do |t|
-    t.integer  "permission_set",    :default => 0
-    t.integer  "project_id"
-    t.integer  "entity_id"
-    t.string   "entity_type"
-    t.integer  "owned_resource_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.text     "route"
   end
 
   create_table "services", :force => true do |t|

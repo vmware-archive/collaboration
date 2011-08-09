@@ -1,0 +1,44 @@
+<%= form_for([@org, @project, @acl]) do |f| %>
+  <% if @acl.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@acl.errors.count, "error") %> prohibited this acl from being saved:</h2>
+
+      <ul>
+      <% @acl.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <ul>
+      <li class="field">
+       <%= f.label :create %>: <%= f.check_box :create_bit %>
+      </li>
+        <li class="field">
+        <%= f.label :read %>: <%= f.check_box :read_bit %>
+      </li>
+      <li class="field">
+        <%= f.label :update %>: <%= f.check_box :update_bit %>
+      </li>
+      <li class="field">
+        <%= f.label :delete %>: <%= f.check_box :delete_bit %>
+      </li>
+  </ul>
+  <div class="field">
+    <%= f.label :entity_id %><br />
+    <%= f.select(:entity_id, @potential_entities) %>
+  </div>
+  <div class="field">
+    <%= f.label :owned_resource_id %><br />
+    <%= f.select(:owned_resource_id, @potential_owned_resources) %>
+  </div>
+  <h3>OR</h3>
+   <div class="field">
+    <%= f.label :route %><br />
+    <%= f.text_field(:route, :style =>"width: 400px") %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Assign" %>
+  </div>
+<% end %>

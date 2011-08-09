@@ -6,4 +6,5 @@
 </p>
 
 <%= link_to 'Edit', edit_org_project_path(@org, @project) %> |
-<%= link_to 'Back', org_projects_path(@org) %>
+<%= link_to 'Back', org_projects_path(@org) %>  |
+<%= link_to 'ACLs', org_project_acls_path(@org, @project) %>

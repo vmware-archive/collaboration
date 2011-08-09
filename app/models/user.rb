@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
-  has_many :resource_assignments, :as => :entity
-  has_many :projects, :through => :resource_assignments
+  has_many :acls, :as => :entity
+  has_many :projects, :through => :acls
   has_many :orgs, :through => :projects
   has_many :group_members, :dependent => :destroy
 

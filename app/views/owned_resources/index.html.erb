@@ -13,7 +13,7 @@
 
 <% @owned_resources.each do |owned_resource| %>
   <tr>
-    <td><%= owned_resource.display_name %></td>
+    <td><%= owned_resource.resource.display_name %></td>
     <td><%= owned_resource.marked_for_transfer %></td>
     <td><%= owned_resource.deleted %></td>
     <td><%= link_to 'Show', org_owned_resource_path(@org, owned_resource) %></td>

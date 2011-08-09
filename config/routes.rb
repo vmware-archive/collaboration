@@ -1,8 +1,8 @@
 Collaboration::Application.routes.draw do
-  resources :resource_assignments
-
   resources :orgs do
-    resources :projects
+    resources :projects do
+      resources :acls
+    end
     resources :groups do
       resources :group_members, :path => 'members', :only => [:new, :create, :destroy, :index]
     end

@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<ul>
+<li>
+  <b>Create:</b>
+  <%= @acl.create? %>
+</li>
+<li>
+  <b>Read:</b>
+  <%= @acl.read? %>
+</li>
+<li>
+  <b>Update:</b>
+  <%= @acl.update? %>
+</li>
+<li>
+  <b>Delete:</b>
+  <%= @acl.delete? %>
+</li>
+</ul>
+
+<p>
+  <b>Entity:</b>
+  <%= @acl.entity.display_name %>
+</p>
+
+<p>
+  <b>Entity type:</b>
+  <%= @acl.entity_type %>
+</p>
+
+<p>
+  <b>Resource</b>
+  <%= @acl.owned_resource.resource.display_name %>
+</p>
+
+<p>
+  <b>Route</b>
+  <%= @acl.route %>
+</p>
+
+<%= link_to 'Edit', edit_org_project_acl_path(@org, @project, @acl) %> |
+<%= link_to 'Back', org_project_acls_path(@org, @project) %>

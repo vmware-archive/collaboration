@@ -1,6 +1,6 @@
-class CreateResourceAssignments < ActiveRecord::Migration
+class CreateAcls < ActiveRecord::Migration
   def self.up
-    create_table :resource_assignments do |t|
+    create_table :acls do |t|
       t.integer :permission_set, :default => 0
       t.integer :project_id
       t.integer :entity_id
@@ -12,6 +12,6 @@ class CreateResourceAssignments < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :resource_assignments
+    drop_table :acls
   end
 end
