@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails'
 gem 'mysql'
+gem 'devise'
 gem 'carrierwave'
 
 group :development, :test do

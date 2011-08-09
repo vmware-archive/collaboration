@@ -6,12 +6,13 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
-@user = User.create! :first_name => 'Dale', :last_name => 'Olds', :display_name => 'Dale O.'
+# pwc = cloud$
+pwd = 'cloud$'
+@user = User.create! :first_name => 'Dale', :last_name => 'Olds', :display_name => 'Dale O.', :password => pwd, :confirm_password => pwd, :email => 'olds@vmware.com'
 @service = Service.create! :display_name => 'Identity Service'
 
-@user2 = User.create! :first_name => 'Monica', :last_name => 'Wilkinson', :display_name => 'Monica W.'
+@user2 = User.create! :first_name => 'Monica', :last_name => 'Wilkinson', :display_name => 'Monica W.', :password => pwd, :confirm_password => pwd, :email => 'mwilkinson@vmware.com'
 @app = App.create! :display_name => 'Collaborate'
-
 
 @org = Org.create! :display_name => 'VMWare'
 @group = @org.groups.build :display_name => 'All employees'
