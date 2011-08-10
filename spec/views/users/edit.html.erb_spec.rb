@@ -3,9 +3,12 @@ require 'spec_helper'
 describe "users/edit.html.erb" do
   before(:each) do
     @user = assign(:user, stub_model(User,
-      :first_name => "MyString",
-      :last_name => "MyString",
-      :username => "MyString"
+      :first_name => "Monica",
+      :last_name => "Wilkinson",
+      :username => "ciberch",
+      :password => 'sasasasa',
+      :confirm_password => 'sasasasa',
+      :email => 'monica@vmware.com'
     ))
   end
 

@@ -2,11 +2,16 @@ require 'spec_helper'
 
 describe "apps/show.html.erb" do
   before(:each) do
+    pwd = 'cloud$'
+    @user = User.create! :first_name => 'Dale', :last_name => 'Olds', :display_name => 'Dale O.', :password => pwd, :confirm_password => pwd, :email => 'olds@vmware.com'
+    sign_in @user
     @app = assign(:app, stub_model(App,
       :display_name => "Display Name",
       :framework => "Framework",
       :runtime => "Runtime",
-      :state => "State"
+      :state => "State",
+      :creator => @user,
+      :project => @user.personal_org.default_project
     ))
   end
 

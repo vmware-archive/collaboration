@@ -2,6 +2,9 @@ require 'spec_helper'
 
 describe "groups/show.html.erb" do
   before(:each) do
+    pwd = 'cloud$'
+    @user = User.create! :first_name => 'Dale', :last_name => 'Olds', :display_name => 'Dale O.', :password => pwd, :confirm_password => pwd, :email => 'olds@vmware.com'
+    sign_in @user
      @org =  assign(:org, stub_model(Org,
       :display_name => "An org",
       :id => 1

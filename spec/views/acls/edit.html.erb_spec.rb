@@ -8,6 +8,9 @@ describe "acls/edit.html.erb" do
     @owned_resource = assign(:owned_resource, stub_model(OwnedResource, :org => @org, :resource => @app))
     @user = assign(:user, stub_model(User, :first_name => 'Monica', :last_name => 'Wilkinson', :display_name => 'Monica W'))
     @acl = assign(:acl, stub_model(Acl, :owned_resource => @owned_resource, :entity => @user))
+
+    sign_in @user
+
   end
 
   it "renders the edit acl form" do

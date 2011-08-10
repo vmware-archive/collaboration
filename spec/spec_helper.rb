@@ -33,7 +33,10 @@ Spork.prefork do
     # instead of true.
     config.use_transactional_fixtures = true
     config.include Devise::TestHelpers, :type => :controller
+    config.include Devise::TestHelpers, :type => :view
+    config.include Devise::TestHelpers, :type => :helper
     config.include Devise::TestHelpers, :type => :routing
+
   end
 
 end
