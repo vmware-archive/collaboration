@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110807201343) do
+ActiveRecord::Schema.define(:version => 20110810210947) do
 
   create_table "acls", :force => true do |t|
     t.integer  "permission_set",    :default => 0
@@ -47,11 +47,12 @@ ActiveRecord::Schema.define(:version => 20110807201343) do
   end
 
   create_table "orgs", :force => true do |t|
-    t.string   "display_name", :null => false
+    t.string   "display_name",                    :null => false
     t.string   "avatar"
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "personal",     :default => false, :null => false
   end
 
   create_table "owned_resources", :force => true do |t|
