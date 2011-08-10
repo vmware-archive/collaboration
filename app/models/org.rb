@@ -37,6 +37,10 @@ class Org < ActiveRecord::Base
   end
 
 public
+  def default_project
+    projects.find_by_display_name "Default"
+  end
+
   def can_user(perm_to_check, path, user)
     default_project = projects.find_by_display_name 'Default'
     if default_project

@@ -9,10 +9,7 @@
 # pwc = cloud$
 pwd = 'cloud$'
 @user = User.create! :first_name => 'Dale', :last_name => 'Olds', :display_name => 'Dale O.', :password => pwd, :confirm_password => pwd, :email => 'olds@vmware.com'
-@service = Service.create! :display_name => 'Identity Service'
-
 @user2 = User.create! :first_name => 'Monica', :last_name => 'Wilkinson', :display_name => 'Monica W.', :password => pwd, :confirm_password => pwd, :email => 'mwilkinson@vmware.com'
-@app = App.create! :display_name => 'Collaborate'
 
 @org = Org.create! :display_name => 'VMWare'
 @group = @org.groups.build :display_name => 'All employees'
@@ -22,6 +19,8 @@ pwd = 'cloud$'
 @group_member2 = @group.group_members.build :user => @user2
 @group_member2.save!
 
+@service = Service.create! :display_name => 'Identity Service', :creator => @user
+@app = App.create! :display_name => 'Collaborate', :creator => @user2
 
 @project = @org.projects.build :display_name => 'Default'
 @project.save!

@@ -41,7 +41,7 @@ describe OrgsController do
   describe "GET index" do
     it "assigns all orgs as @orgs" do
       get :index
-      assigns(:orgs).should eq([@org])
+      assigns(:orgs).should eq([@user.personal_org, @org])
     end
   end
 

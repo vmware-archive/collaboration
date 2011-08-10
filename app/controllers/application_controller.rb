@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :authenticate_user!
+  before_filter :check_action_can_be_done
 
   def identify_parent
     if params.has_key? :org_id
@@ -11,6 +12,10 @@ class ApplicationController < ActionController::Base
         @project = @org.projects.find params[:project_id]
       end
     end
+  end
+
+  def check_action_can_be_done
+     true
   end
 
 end

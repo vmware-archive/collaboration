@@ -12,11 +12,26 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :display_name, :username
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :display_name, :username, :personal_org
+
+  attr_readonly :personal_org
 
   validates_presence_of :display_name
 
   after_create do
     Org.create! :creator => self, :display_name => "#{display_name}'s Personal Org"
   end
+
+public
+  def personal_org
+    groups.each do |group|
+      if group.display_name == 'Admins'
+        if group.org.display_name =~ /Personal Org/
+          return group.org
+        end
+      end
+    end
+    return nil
+  end
+
 end

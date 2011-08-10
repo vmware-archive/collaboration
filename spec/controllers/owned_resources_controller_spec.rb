@@ -24,7 +24,7 @@ describe OwnedResourcesController do
     @user = User.create! :first_name => 'Dale', :last_name => 'Olds', :display_name => 'Dale O.', :password => pwd, :confirm_password => pwd, :email => 'olds@vmware.com'
     sign_in @user
     @org = Org.create! :display_name => 'VMWare', :creator => @user
-    @app = App.create! :display_name => 'Stream'
+    @app = App.create! :display_name => 'Stream', :creator => @user, :project => @org.default_project
     @owned_resource = @org.owned_resources.build valid_attributes
     @owned_resource.save!
   end

@@ -14,8 +14,6 @@ describe "orgs/show.html.erb" do
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     rendered.should match(/Display Name/)
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/Avatar/)
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
     rendered.should match(/Description/)
   end
 end

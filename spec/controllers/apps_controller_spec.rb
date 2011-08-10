@@ -30,7 +30,7 @@ describe AppsController do
   # App. As you add validations to App, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    { :display_name => 'Transcoder'}
+    { :display_name => 'Transcoder', :creator => @user, :project => @user.personal_org.default_project}
   end
 
   describe "GET index" do

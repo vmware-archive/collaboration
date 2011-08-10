@@ -28,7 +28,7 @@ describe AclsController do
     @org = Org.create! :display_name => 'VMWare', :creator => @user
     @project = @org.projects.build :display_name => 'CF'
     @project.save!
-    @app = App.create! :display_name => 'Optimus'
+    @app = App.create! :display_name => 'Optimus', :creator => @user, :project => @project
     @owned_resource = @org.owned_resources.build :resource => @app
     @owned_resource.save!
     @acl = @project.acls.build valid_attributes
