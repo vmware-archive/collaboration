@@ -3,7 +3,7 @@ class OrgsController < ApplicationController
   # GET /orgs.json
   def index
     # TODO: Only show the orgs that the logged in user has access
-    @orgs = Org.all
+    @orgs = current_user.orgs_with_access
 
     respond_to do |format|
       format.html # index.html.erb
@@ -42,7 +42,7 @@ class OrgsController < ApplicationController
   # POST /orgs.json
   def create
     @org = Org.new(params[:org])
-
+    @org.creator = current_user
     respond_to do |format|
       if @org.save
         format.html { redirect_to(@org, :notice => 'Organization was successfully created.') }

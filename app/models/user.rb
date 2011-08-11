@@ -4,7 +4,6 @@ class User < ActiveRecord::Base
 
   has_many :group_members, :dependent => :destroy
   has_many :groups, :through => :group_members
-  has_many :orgs, :through => :projects
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
@@ -12,7 +11,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :display_name, :username, :personal_org
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :display_name, :username, :personal_org, :orgs_with_access
 
   attr_readonly :personal_org
 
@@ -23,8 +22,17 @@ class User < ActiveRecord::Base
   end
 
 public
-  def orgs
-
+  def orgs_with_access
+    orgs = []
+    groups.each do |group|
+      group.projects.each do |project|
+        orgs << project.org
+      end
+    end
+    projects.each do |project|
+      orgs << project.org
+    end
+    orgs.uniq
   end
 
   def personal_org
