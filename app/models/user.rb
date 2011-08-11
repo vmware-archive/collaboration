@@ -19,14 +19,18 @@ class User < ActiveRecord::Base
   validates_presence_of :display_name
 
   after_create do
-    Org.create! :creator => self, :display_name => "#{display_name}'s Personal Org"
+    Org.create! :creator => self, :display_name => "#{display_name}'s Personal Org", :personal => true
   end
 
 public
+  def orgs
+
+  end
+
   def personal_org
     groups.each do |group|
       if group.display_name == 'Admins'
-        if group.org.display_name =~ /Personal Org/
+        if group.org.personal?
           return group.org
         end
       end
