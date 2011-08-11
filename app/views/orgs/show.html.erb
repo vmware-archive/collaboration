@@ -1,6 +1,5 @@
 <p id="notice"><%= notice %></p>
 
-
 <p>
   <b>Display name:</b>
   <%= @org.display_name %>
@@ -11,14 +10,17 @@
   <%= @org.description %>
 </p>
 
+<h3>User Management</h3>
+<ul>
+  <li><%= link_to 'Groups', org_groups_path(@org) %></li>
+  <li><%= link_to 'Projects', org_projects_path(@org) %></li>
+</ul>
+
+<h3>Resource Management</h3>
+<ul>
+    <li><%= link_to 'Apps', org_owned_resources_path(@org, :resource_type=> 'App') %></li>
+    <li><%= link_to 'Services', org_owned_resources_path(@org, :resource_type=> 'Service') %></li>
+</ul>
 
 <%= link_to 'Edit', edit_org_path(@org) %> |
 <%= link_to 'Back', orgs_path %>
-
-<h3>User Management</h3>
-<%= link_to 'Groups', org_groups_path(@org) %> |
-<%= link_to 'Projects', org_projects_path(@org) %>
-
-<h3>Resource Management</h3>
-<%= link_to 'Apps', org_owned_resources_path(@org, :resource_type=> 'App') %>  |
-<%= link_to 'Services', org_owned_resources_path(@org, :resource_type=> 'Service')  %>

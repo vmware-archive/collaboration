@@ -68,18 +68,18 @@ describe GroupsController do
     describe "with valid params" do
       it "creates a new Group" do
         expect {
-          post :create, :group => valid_attributes, :org_id => @org.id
+          post :create, :group => {:display_name => 'Another Group'}, :org_id => @org.id
         }.to change(Group, :count).by(1)
       end
 
       it "assigns a newly created group as @group" do
-        post :create, :group => valid_attributes, :org_id => @org.id
+        post :create, :group => {:display_name => 'Another Group'}, :org_id => @org.id
         assigns(:group).should be_a(Group)
         assigns(:group).should be_persisted
       end
 
       it "redirects to the list of groups" do
-        post :create, :group => valid_attributes, :org_id => @org.id
+        post :create, :group => {:display_name => 'Another Group'}, :org_id => @org.id
         response.should redirect_to org_group_path @org, Group.last
       end
     end
