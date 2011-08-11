@@ -8,16 +8,14 @@
     <th>State</th>
     <th></th>
     <th></th>
-    <th></th>
   </tr>
 
 <% @apps.each do |app| %>
   <tr>
-    <td><%= app.display_name %></td>
+    <td><%= link_to app.display_name, app %></td>
     <td><%= app.framework %></td>
     <td><%= app.runtime %></td>
     <td><%= app.state %></td>
-    <td><%= link_to 'Show', app %></td>
     <td><%= link_to 'Edit', edit_app_path(app) %></td>
     <td><%= link_to 'Destroy', app, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>

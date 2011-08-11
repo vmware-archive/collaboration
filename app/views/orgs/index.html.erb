@@ -7,15 +7,13 @@
     <th>Description</th>
     <th></th>
     <th></th>
-    <th></th>
   </tr>
 
 <% @orgs.each do |org| %>
   <tr>
-    <td><%= org.display_name %></td>
+    <td><%= link_to org.display_name, org %></td>
     <td><%= org.avatar %></td>
     <td><%= org.description %></td>
-    <td><%= link_to 'Show', org %></td>
     <td><%= link_to 'Edit', edit_org_path(org) %></td>
     <td><%= link_to 'Destroy', org, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>

@@ -6,14 +6,12 @@
     <th>Url</th>
     <th></th>
     <th></th>
-    <th></th>
   </tr>
 
 <% @services.each do |service| %>
   <tr>
-    <td><%= service.display_name %></td>
+    <td><%= link_to service.display_name, service %></td>
     <td><%= service.url %></td>
-    <td><%= link_to 'Show', service %></td>
     <td><%= link_to 'Edit', edit_service_path(service) %></td>
     <td><%= link_to 'Destroy', service, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>

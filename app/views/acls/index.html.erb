@@ -13,7 +13,6 @@
     <th>Delete</th>
     <th></th>
     <th></th>
-    <th></th>
   </tr>
 
 <% @acls.each do |acl| %>
@@ -26,7 +25,6 @@
     <td><%= acl.read? %></td>
     <td><%= acl.update? %></td>
     <td><%= acl.delete? %></td>
-    <td><%= link_to 'Show', org_project_acl_path(@org, @project, acl) %></td>
     <td><%= link_to 'Edit', edit_org_project_acl_path(@org, @project, acl) %></td>
     <td><%= link_to 'Destroy', org_project_acl_path(@org, @project, acl), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
