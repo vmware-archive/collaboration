@@ -26,7 +26,7 @@ describe User do
     user.orgs_with_access.should eq([user.personal_org])
 
     org2 = Org.create! :display_name => "NASA", :creator => user
-    user.orgs_with_access.should eq([user.personal_org, org2])
+    user.reload.orgs_with_access.should eq([user.personal_org, org2])
   end
 
 end
