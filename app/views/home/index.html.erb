@@ -1,9 +1,6 @@
-<div data-role="header">
-  <h1>Collaborate</h1>
-  <%- if current_user %>
-      <%= link_to "Logout #{current_user.display_name}", "/users/sign_out", 'rel'=>"external", :class => 'ui-btn-right', 'data-icon'=>"delete" %>
-  <%- end %>
-</div>
+<%- content_for :header do %>
+  <h1>Home</h1>
+<% end-%>
 
 <div data-role="content">
   <div class="ui-grid-b">

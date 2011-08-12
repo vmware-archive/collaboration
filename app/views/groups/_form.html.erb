@@ -1,7 +1,7 @@
 <div data-role="content">
   <%= form_for([@org, @group]) do |f| %>
   <% if @group.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" data-role="content" data-theme='e'>
       <h2><%= pluralize(@group.errors.count, "error") %> prohibited this group from being saved:</h2>
 
       <ul>

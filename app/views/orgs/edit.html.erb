@@ -1,8 +1,8 @@
-<div data-role="header">
+<%- content_for :header do %>
   <%= link_to 'Back', orgs_path, :class => "ui-btn-left" %>
   <h1>Editing Organization</h1>
   <%= link_to 'Delete', @org, :confirm => 'Are you sure?', :method => :delete, :class => "ui-btn-right", 'data-icon'=>"delete" %>
-</div>
+<%- end %>
 
 <%= render 'form' %>
 

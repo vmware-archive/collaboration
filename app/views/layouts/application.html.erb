@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Collaboration</title>
+  <title>Cloud Foundry Identity Services</title>
   <%= stylesheet_link_tag :all %>
   <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0b2/jquery.mobile-1.0b2.min.css"/>
   <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
@@ -10,19 +10,24 @@
   <%= csrf_meta_tag %>
 </head>
 <body data-role="page">
-<%= yield %>
-
+<div data-role="header">
+  <%= yield :header %>
+</div>
 <%- if notice %>
-    <div data-role="content">
-      <p id="notice" class='ui-state-highlight'><%= notice %></p>
-
-      <p id="alert"><%= alert %></p>
+    <div data-role="content" data-theme='e'>
+      <strong id="notice"><%= notice %></strong>
+      <strong id="alert"><%= alert %></strong>
     </div>
 <%- end %>
 
+<%= yield %>
 
 <div data-role="footer" class="ui-bar">
-  <%= link_to 'Home', home_index_path, :class => 'ui-btn-left', "data-icon" => "home" %>
+  <%- if current_user %>
+      <%= link_to 'Home', home_index_path, :class => 'ui-btn-left', "data-icon" => "home" %>
+      <%= link_to "Logout #{current_user.display_name}", "/users/sign_out", 'rel'=>"external", :class => 'ui-btn-right', 'data-icon'=>"delete" %>
+  <%-end%>
+  <%= yield :footer %>
 </div>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <div data-role="content">
 <%= form_for(@service) do |f| %>
   <% if @service.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" data-role="content" data-theme='e'>
       <h2><%= pluralize(@service.errors.count, "error") %> prohibited this service from being saved:</h2>
 
       <ul>

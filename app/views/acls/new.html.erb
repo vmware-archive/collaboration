@@ -1,7 +1,7 @@
-<div data-role="header">
+<%- content_for :header do %>
   <%= link_to 'Back', org_project_acls_path(@org, @project), :class => "ui-btn-left" %>
   <h1>New Access Control List</h1>
-</div>
+<% end-%>
 <%= render 'form' %>
 
 

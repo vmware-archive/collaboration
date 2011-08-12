@@ -1,8 +1,8 @@
-<div data-role="header">
+<%- content_for :header do %>
  <%= link_to "Back to #{@org.display_name}", @org, :class => "ui-btn-left" %>
  <h1>Projects</h1>
   <%=link_to 'New Project', new_org_project_path(@org), :class => 'ui-btn-right', "data-icon" => "plus" %>
-</div>
+<%- end %>
 
 <div data-role="content">
 <ul data-role="listview" data-inset="true">

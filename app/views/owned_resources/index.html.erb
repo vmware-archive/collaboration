@@ -1,7 +1,7 @@
-<div data-role="header">
+<%- content_for :header do %>
   <h1>Listing resources for <%= link_to @org.display_name, @org %></h1>
   <%= link_to 'New Resource', new_org_owned_resource_path(@org), :class => 'ui-btn-right', "data-icon" => "plus" %>
-</div>
+<%- end %>
 
 <div data-role="content">
 <table>

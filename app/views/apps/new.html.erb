@@ -1,6 +1,6 @@
-<div data-role="header">
+<%- content_for :header do %>
   <%= link_to 'Back', apps_path, :class => "ui-btn-left" %>
   <h1>New app</h1>
-</div>
+<%- end %>
 
 <%= render 'form' %>

@@ -1,7 +1,7 @@
-<div data-role="header">
+<%- content_for :header do %>
   <%= link_to 'Back', users_path %>
   <h1>New user</h1>
-</div>
+<%- end %>
 
 <%= render 'form' %>
 

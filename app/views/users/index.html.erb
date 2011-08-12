@@ -1,7 +1,7 @@
-<div data-role="header">
+<%- content_for :header do %>
   <%= link_to 'Home', home_index_path, :class => 'ui-btn-left', "data-icon" => "home" %>
   <h1>Listing users</h1>
-</div>
+<%- end %>
 
 <div data-role="content">
 <ul data-role="listview" data-inset="true">

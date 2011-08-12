@@ -1,8 +1,8 @@
-<div data-role="header">
+<%- content_for :header do %>
   <%= link_to 'Back', org_owned_resources_path(@org), :class => "ui-btn-left" %>
   <h1>Editing owned_resource</h1>
   <%= link_to 'Show', org_owned_resource_path(@org, @owned_resource), :class => "ui-btn-right"%>
-</div>
+<%- end %>
 
 <%= render 'form' %>
 

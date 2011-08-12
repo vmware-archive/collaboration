@@ -1,7 +1,7 @@
-<div data-role="header">
+<%- content_for :header do %>
   <%=link_to @project.display_name, org_project_path(@org, @project), :class => "ui-btn-left" %>
   <h1>Listing ACLs</h1>
-</div>
+<% end-%>
 
 <div data-role="content">
 <table>

@@ -1,7 +1,7 @@
-<div data-role="header">
+<%- content_for :header do %>
   <h1>Members <%=@group.display_name %></h1>
   <%= link_to 'New Group member', new_org_group_group_member_path(@org, @group), :class => 'ui-btn-right', "data-icon" => "plus" %>
-</div>
+<%- end %>
 
 <div data-role="content">
 <ul data-role="listview" data-inset="true">
@@ -10,5 +10,4 @@
 <% end %>
 </ul>
 
-
- </div>
+</div>

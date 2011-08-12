@@ -1,7 +1,7 @@
-<div data-role="header">
+<%- content_for :header do %>
   <%= link_to 'Back', org_owned_resources_path(@org), :class => "ui-btn-left" %>
 <h1>Assign Ownership</h1>
-</div>
+<%- end %>
 
 <%= render 'form' %>
 

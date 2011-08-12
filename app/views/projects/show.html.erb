@@ -1,8 +1,8 @@
-<div data-role="header">
+<%- content_for :header do %>
   <%= link_to 'Back', org_projects_path(@org), :class => "ui-btn-left" %>
   <h1><%= @project.display_name %></h1>
   <%= link_to 'Edit', edit_org_project_path(@org, @project), :class => "ui-btn-right" %>
-</div>
+<%- end %>
 
 <div data-role="content">
 <%= link_to 'Access Controls', org_project_acls_path(@org, @project), 'data-role'=>"button", 'data-inline'=>"true" %>

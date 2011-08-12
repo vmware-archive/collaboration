@@ -1,8 +1,8 @@
-<div data-role="header">
+<%- content_for :header do %>
   <%= link_to 'Back', org_groups_path(@org), :class => "ui-btn-left" %>
   <h1>Editing group</h1>
   <%= link_to 'Destroy', org_group_path(@org, @group), :confirm => 'Are you sure?', :method => :delete, :class => "ui-btn-right" %>
-</div>
+<%- end %>
 <%= render 'form' %>
 
 

@@ -1,12 +1,12 @@
 <div data-role="content">
 <%= form_for(@app) do |f| %>
   <% if @app.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" data-role="content" data-theme='e'>
       <h2><%= pluralize(@app.errors.count, "error") %> prohibited this app from being saved:</h2>
 
       <ul>
       <% @app.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+        <li><strong><%= msg %></strong></li>
       <% end %>
       </ul>
     </div>
