@@ -15,7 +15,11 @@
 
       <div data-role="fieldcontain">
         <fieldset data-role="controlgroup">
-          <input type="checkbox" name="acl[create_bit]" id="create_bit" class="custom"/>
+          <%- if @acl.create? %>
+            <input type="checkbox" name="acl[create_bit]" id="create_bit" class="custom" checked/>
+          <%- else %>
+              <input type="checkbox" name="acl[create_bit]" id="read_bit" class="custom"/>
+          <% end %>
           <label for="create_bit">Create</label>
           <%- if @acl.read? %>
               <input type="checkbox" name="acl[read_bit]" id="read_bit" class="custom" checked/>
@@ -29,7 +33,7 @@
               <input type="checkbox" name="acl[update_bit]" id="read_bit" class="custom"/>
           <% end %>
           <label for="update_bit">Update</label>
-          <%- if @acl.update? %>
+          <%- if @acl.delete? %>
               <input type="checkbox" name="acl[delete_bit]" id="delete_bit" class="custom" checked/>
           <%- else %>
               <input type="checkbox" name="acl[delete_bit]" id="read_bit" class="custom"/>
