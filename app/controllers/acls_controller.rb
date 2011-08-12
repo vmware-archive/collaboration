@@ -86,6 +86,10 @@ class AclsController < ApplicationController
   def update
     @acl = @project.acls.find(params[:id])
 
+    params[:acl].each do |key, val|
+      params[:acl][key] = (val == "1") if (key =~ /_bit/)
+    end
+
     respond_to do |format|
       if @acl.update_attributes(params[:acl])
         flash[:notice] = 'Resource assignment was successfully updated.'

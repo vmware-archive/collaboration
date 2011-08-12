@@ -37,4 +37,14 @@ describe Acl do
     @acl.update! false
     @acl.update?.should be_false
   end
+
+   it "can toggle permissions" do
+    @acl.update_bit = true
+    @acl.update?.should be_true
+    @acl.read_bit = false
+    @acl.read?.should be_false
+    @acl.update?.should be_true
+    @acl.update_bit = false
+    @acl.update?.should be_false
+  end
 end
