@@ -16,29 +16,29 @@
       <div data-role="fieldcontain">
         <fieldset data-role="controlgroup">
           <%- if @acl.create? %>
-            <input type="checkbox" name="acl[create_bit]" id="create_bit" class="custom" checked/>
+            <input type="checkbox" name="acl[create_bit]" id="acl[create_bit]" class="custom" checked/>
           <%- else %>
-              <input type="checkbox" name="acl[create_bit]" id="read_bit" class="custom"/>
+              <input type="checkbox" name="acl[create_bit]" id="acl[create_bit]" class="custom"/>
           <% end %>
-          <label for="create_bit">Create</label>
+          <label for="acl[create_bit]">Create</label>
           <%- if @acl.read? %>
-              <input type="checkbox" name="acl[read_bit]" id="read_bit" class="custom" checked/>
+              <input type="checkbox" name="acl[read_bit]" id="acl[read_bit]" class="custom" checked/>
           <%- else %>
-              <input type="checkbox" name="acl[read_bit]" id="read_bit" class="custom"/>
+              <input type="checkbox" name="acl[read_bit]" id="acl[read_bit]" class="custom"/>
           <% end %>
-          <label for="read_bit">Read</label>
+          <label for="acl[read_bit]">Read</label>
           <%- if @acl.read? %>
-              <input type="checkbox" name="acl[update_bit]" id="update_bit" class="custom" checked/>
+              <input type="checkbox" name="acl[update_bit]" id="acl[update_bit]" class="custom" checked/>
           <%- else %>
-              <input type="checkbox" name="acl[update_bit]" id="read_bit" class="custom"/>
+              <input type="checkbox" name="acl[update_bit]" id="acl[update_bit]" class="custom"/>
           <% end %>
-          <label for="update_bit">Update</label>
+          <label for="acl[update_bit]">Update</label>
           <%- if @acl.delete? %>
-              <input type="checkbox" name="acl[delete_bit]" id="delete_bit" class="custom" checked/>
+              <input type="checkbox" name="acl[delete_bit]" id="acl[delete_bit]" class="custom" checked/>
           <%- else %>
-              <input type="checkbox" name="acl[delete_bit]" id="read_bit" class="custom"/>
+              <input type="checkbox" name="acl[delete_bit]" id="acl[delete_bit]" class="custom"/>
           <% end %>
-          <label for="delete_bit">Delete</label>
+          <label for="acl[delete_bit]">Delete</label>
         </fieldset>
         <fieldset data-role="controlgroup">
           <%= f.label :entity_id %>
@@ -51,7 +51,7 @@
       </div>
 
       <div class="actions">
-        <%= f.submit "Assign" %>
+        <%= f.submit "Save" %>
       </div>
   <% end %>
 </div>
