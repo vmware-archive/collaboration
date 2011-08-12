@@ -1,3 +1,4 @@
+require 'permission_manager'
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :authenticate_user!
@@ -25,7 +26,7 @@ class ApplicationController < ActionController::Base
   end
 
   def check_action_can_be_done
-    permission_needed = REST_TO_CRUD[request.path_parameters[:action].to_sym]
+    permission_needed = REST_TO_CRUD[params[:action].to_sym]
     path = request.path
     org = nil
     logger.info "Starting Authorization for #{current_user}"

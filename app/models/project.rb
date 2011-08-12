@@ -16,8 +16,9 @@ class Project < ActiveRecord::Base
     def can_user(perm_to_check, path, user)
       perms = 0
       acls.find_each do |acl|
-        route_expr = acl.route.gsub '*', '.+'
-        if (path =~ Regexp.new(route_expr))
+        route_expr = acl.route.gsub '*', '.+' if acl.route
+        route_expr = "#{acl.owned_resource.resource_type.pluralize}/#{acl.owned_resource.resource_id}" if (acl.owned_resource)
+        if (route_expr && path =~ Regexp.new(route_expr))
           if (acl.entity.class ==  User && acl.entity == user)
             perms = perms | acl.permission_set
           else
