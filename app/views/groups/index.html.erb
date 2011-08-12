@@ -1,21 +1,15 @@
-<h1>Listing groups for <%= link_to @org.display_name, @org %></h1>
+<div data-role="header">
+ <%= link_to "Back to #{@org.display_name}", @org, :class => "ui-btn-left" %>
+ <h1>Groups</h1>
+  <%=link_to 'New Group', new_org_group_path(@org), :class => 'ui-btn-right', "data-icon" => "plus" %>
+</div>
 
-<table>
-  <tr>
-    <th>Display name</th>
-    <th></th>
-    <th></th>
-  </tr>
+<div data-role="content">
+  <ul data-role="listview" data-inset="true">
+    <% @groups.each do |group| %>
+        <li><%= link_to group.display_name, org_group_path(@org, group) %></li>
+    <%-end%>
+</ul>
+</div>
 
-<% @groups.each do |group| %>
-  <tr>
-    <td><%= link_to group.display_name, org_group_path(@org, group) %></td>
-    <td><%= link_to 'Edit', edit_org_group_path(@org, group) %></td>
-    <td><%= link_to 'Destroy', org_group_path(@org, group), :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
 
-<br />
-
-<%= link_to 'New Group', new_org_group_path(@org) %>

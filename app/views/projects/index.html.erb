@@ -1,24 +1,14 @@
-<p id="notice"><%= notice %></p>
-<h1>Listing projects for <%= link_to @org.display_name, @org %></h1>
+<div data-role="header">
+ <%= link_to "Back to #{@org.display_name}", @org, :class => "ui-btn-left" %>
+ <h1>Projects</h1>
+  <%=link_to 'New Project', new_org_project_path(@org), :class => 'ui-btn-right', "data-icon" => "plus" %>
+</div>
 
-<table>
-  <tr>
-    <th>Display name</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
+<div data-role="content">
+<ul data-role="listview" data-inset="true">
 <% @projects.each do |project| %>
-  <tr>
-    <td><%= project.display_name %></td>
-    <td><%= link_to 'Show', org_project_path(@org, project) %></td>
-    <td><%= link_to 'Edit', edit_org_project_path(@org, project) %></td>
-    <td><%= link_to 'Destroy', org_project_path(@org, project), :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+  <li><%= link_to project.display_name, org_project_path(@org, project) %></li>
 <% end %>
-</table>
+</ul>
+</div>
 
-<br />
-
-<%= link_to 'New Project', new_org_project_path(@org) %>

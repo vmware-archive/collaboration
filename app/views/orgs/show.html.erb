@@ -1,25 +1,21 @@
-<p>
-  <b>Display name:</b>
-  <%= @org.display_name %>
-</p>
+<div data-role="header">
+  <%= link_to 'Back', orgs_path, :class => 'ui-btn-left' %>
+  <h1><%= @org.display_name %></h1>
+  <%= link_to 'Edit', edit_org_path(@org), :class => 'ui-btn-right' %>
+</div>
 
-<p>
-  <b>Description:</b>
-  <%= @org.description %>
-</p>
+<div data-role="content">
+<p><%= @org.description %></p>
 
-<%= link_to 'Edit', edit_org_path(@org) %>
 
-<h3>User Management</h3>
-<ul>
+<ul data-role="listview" data-inset="true" >
+  <li data-role="list-divider">Permissions</li>
   <li><%= link_to 'Groups', org_groups_path(@org) %></li>
   <li><%= link_to 'Projects', org_projects_path(@org) %></li>
-</ul>
-
-<h3>Resource Management</h3>
-<ul>
+  <li data-role="list-divider">Resources</li>
     <li><%= link_to 'Apps', org_owned_resources_path(@org, :resource_type=> 'App') %></li>
     <li><%= link_to 'Services', org_owned_resources_path(@org, :resource_type=> 'Service') %></li>
 </ul>
 
-<%= link_to 'Back', orgs_path %>
+
+</div>

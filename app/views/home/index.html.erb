@@ -1,5 +1,10 @@
-<h1>Collaborate</h1>
+<div data-role="header">
+  <h1>Collaborate</h1>
+</div>
+
+<div data-role="content">
 <p>
-  Welcome <%=link_to current_user.display_name, current_user %>
+  Welcome <%= current_user.display_name %>
 </p>
-<p><%= link_to "Your Organizations", orgs_path  %></p>
+<%= link_to("Your Organizations", orgs_path, 'data-role'=>"button")  %>
+</div>

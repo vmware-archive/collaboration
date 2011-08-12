@@ -1,25 +1,15 @@
-<h1>Listing organizations</h1>
+<div data-role="header">
+<h1>Organizations</h1>
+<%= link_to 'New Organization', new_org_path, :class => 'ui-btn-right', "data-icon" => "plus"  %>
+</div>
 
-<table>
-  <tr>
-    <th>Display name</th>
-    <th>Avatar</th>
-    <th>Description</th>
-    <th></th>
-    <th></th>
-  </tr>
-
+<div data-role="content">
+<ul data-role="listview" data-inset="true">
 <% @orgs.each do |org| %>
-  <tr>
-    <td><%= link_to org.display_name, org %></td>
-    <td><%= org.avatar %></td>
-    <td><%= org.description %></td>
-    <td><%= link_to 'Edit', edit_org_path(org) %></td>
-    <td><%= link_to 'Destroy', org, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+      <!-- <img src="<%= org.avatar %>" -->
+  <li><%= link_to org.display_name, org %><br /><%= org.description %></li>
 <% end %>
-</table>
+</ul>
+</div>
 
-<br />
 
-<%= link_to 'New Organization', new_org_path %>
