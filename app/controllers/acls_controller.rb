@@ -1,5 +1,11 @@
 class AclsController < ApplicationController
   before_filter :identify_parent
+  before_filter :get_potential
+
+  def get_potential
+    @potential_owned_resources = potential_owned_resources
+    @potential_entities = potential_entities
+  end
 
   # GET /acls
   # GET /acls.json
@@ -27,8 +33,6 @@ class AclsController < ApplicationController
   # GET /acls/new.json
   def new
     @acl = @project.acls.build
-    @potential_owned_resources = potential_owned_resources
-    @potential_entities = potential_entities
 
     respond_to do |format|
       format.html # new.html.erb
@@ -39,8 +43,6 @@ class AclsController < ApplicationController
   # GET /acls/1/edit
   def edit
     @acl = @project.acls.find(params[:id])
-    @potential_owned_resources = potential_owned_resources
-    @potential_entities = potential_entities
   end
 
   def potential_owned_resources

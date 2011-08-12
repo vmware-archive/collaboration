@@ -1,37 +1,53 @@
 <div data-role="content">
-<%= form_for([@org, @project, @acl]) do |f| %>
-  <% if @acl.errors.any? %>
-    <div id="error_explanation" data-role="content" data-theme='e'>
-      <h2><%= pluralize(@acl.errors.count, "error") %> prohibited this acl from being saved:</h2>
+  <%= form_for([@org, @project, @acl]) do |f| %>
+      <% if @acl.errors.any? %>
+          <div id="error_explanation" data-role="content" data-theme='e'>
+            <h2><%= pluralize(@acl.errors.count, "error") %> prohibited this acl from being saved:</h2>
 
-      <ul>
-      <% @acl.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+            <ul>
+              <% @acl.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
       <% end %>
-      </ul>
-    </div>
+
+
+      <div data-role="fieldcontain">
+        <fieldset data-role="controlgroup">
+          <input type="checkbox" name="acl[create_bit]" id="create_bit" class="custom"/>
+          <label for="create_bit">Create</label>
+          <%- if @acl.read? %>
+              <input type="checkbox" name="acl[read_bit]" id="read_bit" class="custom" checked/>
+          <%- else %>
+              <input type="checkbox" name="acl[read_bit]" id="read_bit" class="custom"/>
+          <% end %>
+          <label for="read_bit">Read</label>
+          <%- if @acl.read? %>
+              <input type="checkbox" name="acl[update_bit]" id="update_bit" class="custom" checked/>
+          <%- else %>
+              <input type="checkbox" name="acl[update_bit]" id="read_bit" class="custom"/>
+          <% end %>
+          <label for="update_bit">Update</label>
+          <%- if @acl.update? %>
+              <input type="checkbox" name="acl[delete_bit]" id="delete_bit" class="custom" checked/>
+          <%- else %>
+              <input type="checkbox" name="acl[delete_bit]" id="read_bit" class="custom"/>
+          <% end %>
+          <label for="delete_bit">Delete</label>
+        </fieldset>
+        <fieldset data-role="controlgroup">
+          <%= f.label :entity_id %>
+          <%= f.select(:entity_id, @potential_entities) %>
+          <%= f.label :owned_resource_id %>
+          <%= f.select(:owned_resource_id, @potential_owned_resources) %>
+          <%= f.label :route %>
+          <%= f.text_field(:route, :style =>"width: 400px") %>
+        </fieldset>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Assign" %>
+      </div>
   <% end %>
-
-
- <div data-role="fieldcontain">
- 	<fieldset data-role="controlgroup">
-       <%= f.label :create %> <%= f.check_box :create_bit, 'class'=>"custom" %>
-       <%= f.label :read %> <%= f.check_box :read_bit, 'class'=>"custom" %>
-       <%= f.label :update %> <%= f.check_box :update_bit, 'class'=>"custom" %>
-       <%= f.label :delete %> <%= f.check_box :delete_bit, 'class'=>"custom" %>
-    </fieldset>
-   <fieldset data-role="controlgroup">
-        <%= f.label :entity_id %>
-        <%= f.select(:entity_id, @potential_entities) %>
-        <%= f.label :owned_resource_id %>
-        <%= f.select(:owned_resource_id, @potential_owned_resources) %>
-        <%= f.label :route %>
-        <%= f.text_field(:route, :style =>"width: 400px") %>
-    </fieldset>
-</div>
-
-  <div class="actions">
-    <%= f.submit "Assign" %>
-  </div>
-<% end %>
 </div>
