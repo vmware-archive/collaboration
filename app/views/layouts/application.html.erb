@@ -17,7 +17,7 @@
 
 <div data-role="footer" class="ui-bar">
 <%- if current_user %>
-<%= link_to "Logout #{current_user.display_name}", "/users/sign_out", 'data-role'=>"button", 'data-icon'=>"delete"  %>
+<%= link_to "Logout #{current_user.display_name}", "/users/sign_out", 'rel'=>"external" ,'data-role'=>"button", 'data-icon'=>"delete"  %>
 <%- else %>
  <h1>Collaborate on GitHub</h1>
 <%- end %>
