@@ -1,6 +1,8 @@
-<h1>Editing group</h1>
-
+<div data-role="header">
+  <%= link_to 'Back', org_groups_path(@org), :class => "ui-btn-left" %>
+  <h1>Editing group</h1>
+  <%= link_to 'Destroy', org_group_path(@org, @group), :confirm => 'Are you sure?', :method => :delete, :class => "ui-btn-right" %>
+</div>
 <%= render 'form' %>
 
-<%= link_to 'Show', org_group_path(@org, @group)%> |
-<%= link_to 'Back', org_groups_path(@org) %>
+

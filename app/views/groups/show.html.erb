@@ -1,10 +1,9 @@
-<p>
-  <b>Display name:</b>
-  <%= @group.display_name %>
-</p>
+<div data-role="header">   |
+  <%= link_to 'Back', org_groups_path(@org), :class => "ui-btn-left" %>
+  <h1><%= @group.display_name %></h1>
+  <%= link_to 'Edit', edit_org_group_path(@org, @group), :class => "ui-btn-right" %>
+</div>
 
 
-<%= link_to 'Edit', edit_org_group_path(@org, @group) %> |
-<%= link_to 'Back', org_groups_path(@org) %>  |
-<%= link_to 'Members', org_group_group_members_path(@org, @group) %>
+<%= link_to 'View Members', org_group_group_members_path(@org, @group), 'data-role'=>"button"  %>
 
