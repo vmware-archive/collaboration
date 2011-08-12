@@ -10,10 +10,14 @@ class Project < ActiveRecord::Base
 
 
   public
+  def to_s
+    display_name
+  end
     def can_user(perm_to_check, path, user)
       perms = 0
       acls.find_each do |acl|
-        if acl.route == path
+        route_expr = acl.route.gsub '*', '.+'
+        if (path =~ Regexp.new(route_expr))
           if (acl.entity.class ==  User && acl.entity == user)
             perms = perms | acl.permission_set
           else

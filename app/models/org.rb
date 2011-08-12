@@ -37,6 +37,9 @@ class Org < ActiveRecord::Base
   end
 
 public
+  def to_s
+    display_name
+  end
   def default_project
     projects.find_by_display_name "Default"
   end
