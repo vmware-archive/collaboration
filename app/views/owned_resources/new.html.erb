@@ -1,5 +1,7 @@
-<h1>New Resource</h1>
+<div data-role="header">
+  <%= link_to 'Back', org_owned_resources_path(@org), :class => "ui-btn-left" %>
+<h1>Assign Ownership</h1>
+</div>
 
 <%= render 'form' %>
 
-<%= link_to 'Back', org_owned_resources_path(@org) %>

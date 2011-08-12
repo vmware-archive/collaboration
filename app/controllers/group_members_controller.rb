@@ -16,7 +16,7 @@ class GroupMembersController < ApplicationController
   # GET /group_members/new.json
   def new
     @group_member = @group.group_members.build
-
+    @candidates = User.find(:all).collect {|u| [u.display_name, u.id]}
     respond_to do |format|
       format.html # new.html.erb
       format.json  { render :json => @group_member }

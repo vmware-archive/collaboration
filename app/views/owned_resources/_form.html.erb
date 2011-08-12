@@ -16,6 +16,7 @@
     <%= f.label :resource_id %><br />
     <%= f.select :resource_id, App.all.collect{|a|[a.display_name,a.id]} %>
   </div>
+  <input type="hidden" value="<%= params['resource_type'] %>" name='resource_type' />
 
   <div class="field">
     <%= f.label :marked_for_transfer %><br />

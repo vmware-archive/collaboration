@@ -1,9 +1,8 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Display name:</b>
-  <%= @owned_resource.display_name %>
-</p>
+<div data-role="header">
+  <%= link_to 'Back', org_owned_resources_path(@org), :class => "ui-btn-left" %>
+ <h1><%= @owned_resource.display_name %> </h1>
+  <%= link_to 'Edit', edit_org_owned_resource_path(@org, @owned_resource), :class => "ui-btn-right" %>
+</div>
 
 <p>
   <b>Marked for transfer:</b>
@@ -16,5 +15,5 @@
 </p>
 
 
-<%= link_to 'Edit', edit_org_owned_resource_path(@org, @owned_resource) %> |
-<%= link_to 'Back', org_owned_resources_path(@org) %>
+
+

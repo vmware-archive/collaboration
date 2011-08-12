@@ -12,33 +12,28 @@
     </div>
   <% end %>
 
-  <ul>
-      <li class="field">
-       <%= f.label :create %>: <%= f.check_box :create_bit %>
-      </li>
-        <li class="field">
-        <%= f.label :read %>: <%= f.check_box :read_bit %>
-      </li>
-      <li class="field">
-        <%= f.label :update %>: <%= f.check_box :update_bit %>
-      </li>
-      <li class="field">
-        <%= f.label :delete %>: <%= f.check_box :delete_bit %>
-      </li>
-  </ul>
-  <div class="field">
-    <%= f.label :entity_id %><br />
-    <%= f.select(:entity_id, @potential_entities) %>
-  </div>
-  <div class="field">
-    <%= f.label :owned_resource_id %><br />
-    <%= f.select(:owned_resource_id, @potential_owned_resources) %>
-  </div>
-  <h3>OR</h3>
-   <div class="field">
-    <%= f.label :route %><br />
-    <%= f.text_field(:route, :style =>"width: 400px") %>
-  </div>
+
+ <div data-role="fieldcontain">
+ 	<fieldset data-role="controlgroup">
+		<input type="checkbox" name="acl[create_bit]" id="create_bit" class="custom" />
+		<label for="create_bit">Create</label>
+		<input type="checkbox" name="acl[read_bit]" id="read_bit" class="custom" />
+		<label for="read_bit">Read</label>
+		<input type="checkbox" name="acl[update_bit]" id="update_bit" class="custom" />
+		<label for="update_bit">Update</label>
+		<input type="checkbox" name="acl[delete_bit]" id="delete_bit" class="custom" />
+		<label for="delete_bit">Read</label>
+    </fieldset>
+   <fieldset data-role="controlgroup">
+        <%= f.label :entity_id %>
+        <%= f.select(:entity_id, @potential_entities) %>
+        <%= f.label :owned_resource_id %>
+        <%= f.select(:owned_resource_id, @potential_owned_resources) %>
+        <%= f.label :route %>
+        <%= f.text_field(:route, :style =>"width: 400px") %>
+    </fieldset>
+</div>
+
   <div class="actions">
     <%= f.submit "Assign" %>
   </div>
