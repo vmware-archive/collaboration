@@ -1,13 +1,17 @@
 <%- content_for :header do %>
+  <%= link_to 'Back', org_group_path(@org, @group), :class => 'ui-btn-right' %>
   <h1>Members <%=@group.display_name %></h1>
   <%= link_to 'New Group member', new_org_group_group_member_path(@org, @group), :class => 'ui-btn-right', "data-icon" => "plus" %>
 <%- end %>
 
 <div data-role="content">
-<ul data-role="listview" data-inset="true">
-<% @group_members.each do |group_member| %>
-  <li><%= link_to group_member.user.display_name, group_member.user %></li>
-<% end %>
-</ul>
-
+  <%- if @group_members.count > 0 %>
+    <ul data-role="listview" data-inset="true">
+    <% @group_members.each do |group_member| %>
+      <li><%= link_to group_member.user.display_name, group_member.user %></li>
+    <% end %>
+    </ul>
+  <%-else %>
+  <p>There are no members in this group.</p>
+  <%- end %>
 </div>

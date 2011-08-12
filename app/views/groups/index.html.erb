@@ -1,5 +1,5 @@
 <%- content_for :header do %>
- <%= link_to "Back to #{@org.display_name}", @org, :class => "ui-btn-left" %>
+ <%= link_to "Back", @org, :class => "ui-btn-left" %>
  <h1>Groups</h1>
   <%=link_to 'New Group', new_org_group_path(@org), :class => 'ui-btn-right', "data-icon" => "plus" %>
 <%- end %>
