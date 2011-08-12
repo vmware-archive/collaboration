@@ -1,4 +1,5 @@
-<%= form_for([@org, @group, @group_member]) do |f| %>
+<div data-role="content">
+  <%= form_for([@org, @group, @group_member]) do |f| %>
   <% if @group_member.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@group_member.errors.count, "error") %> prohibited this group_member from being saved:</h2>
@@ -19,3 +20,4 @@
     <%= f.submit %>
   </div>
 <% end %>
+</div>

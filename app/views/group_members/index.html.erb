@@ -1,20 +1,14 @@
-<h1>Listing Group Members for <%=@group.display_name %></h1>
+<div data-role="header">
+  <h1>Members <%=@group.display_name %></h1>
+  <%= link_to 'New Group member', new_org_group_group_member_path(@org, @group), :class => 'ui-btn-right', "data-icon" => "plus" %>
+</div>
 
-<table>
-  <tr>
-    <th>User</th>
-    <th></th>
-    <th></th>
-  </tr>
-
+<div data-role="content">
+<ul data-role="listview" data-inset="true">
 <% @group_members.each do |group_member| %>
-  <tr>
-    <td><%= link_to group_member.user.display_name, group_member.user %></td>
-    <td><%= link_to 'Destroy', org_group_group_member_path(@org, @group, group_member), :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+  <li><%= link_to group_member.user.display_name, group_member.user %></li>
 <% end %>
-</table>
+</ul>
 
-<br />
 
-<%= link_to 'New Group member', new_org_group_group_member_path(@org, @group) %>
+ </div>
