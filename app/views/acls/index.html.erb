@@ -26,30 +26,30 @@
     <td><%= acl.route %></td>
     <td>
       <%-if acl.create? %>
-        <input type="checkbox" name="acl[create_bit]" disabled class="custom" checked>
+        <input type="checkbox" name="acl[create_bit]" class="custom" checked>
       <%-else %>
-        <input type="checkbox" name="acl[create_bit]" disabled class="custom">
+        <input type="checkbox" name="acl[create_bit]" class="custom">
       <%-end%>
       </td>
     <td>
       <%-if acl.read? %>
-        <input type="checkbox" name="acl[read_bit]" disabled class="custom" checked>
+        <input type="checkbox" name="acl[read_bit]" class="custom" checked>
       <%-else %>
-        <input type="checkbox" name="acl[read_bit]" disabled class="custom">
+        <input type="checkbox" name="acl[read_bit]" class="custom">
       <%-end%>
     </td>
     <td>
       <%-if acl.update? %>
-        <input type="checkbox" name="acl[update_bit]" disabled class="custom" checked>
+        <input type="checkbox" name="acl[update_bit]" class="custom" checked>
       <%-else %>
-        <input type="checkbox" name="acl[update_bit]" disabled class="custom">
+        <input type="checkbox" name="acl[update_bit]" class="custom">
       <%-end%>
     </td>
     <td>
       <%-if acl.delete? %>
-        <input type="checkbox" name="acl[delete_bit]" disabled class="custom" checked>
+        <input type="checkbox" name="acl[delete_bit]" class="custom" checked>
       <%-else %>
-        <input type="checkbox" name="acl[delete_bit]" disabled class="custom">
+        <input type="checkbox" name="acl[delete_bit]" class="custom">
       <%-end%>
     </td>
     <td><%= link_to 'Edit', edit_org_project_acl_path(@org, @project, acl) %></td>
