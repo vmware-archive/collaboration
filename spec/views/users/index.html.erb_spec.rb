@@ -6,14 +6,16 @@ describe "users/index.html.erb" do
       stub_model(User,
         :first_name => "Monica",
       :last_name => "Wilkinson",
+      :display_name => 'Monica W.',
       :username => "ciberch",
       :password => 'sasasasa',
       :confirm_password => 'sasasasa',
       :email => 'monica@vmware.com'
       ),
       stub_model(User,
-        :first_name => "Monica",
+      :first_name => "Monica",
       :last_name => "Wilkinson",
+      :display_name => 'Monica W.',
       :username => "ciberch",
       :password => 'sasasasa',
       :confirm_password => 'sasasasa',
@@ -25,10 +27,6 @@ describe "users/index.html.erb" do
   it "renders a list of users" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    assert_select "tr>td", :text => "Monica".to_s, :count => 2
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
-    assert_select "tr>td", :text => "Wilkinson".to_s, :count => 2
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
-    assert_select "tr>td", :text => "ciberch".to_s, :count => 2
+    assert_select "ul>li", :text => "Monica W.".to_s, :count => 2
   end
 end

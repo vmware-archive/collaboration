@@ -24,7 +24,6 @@ describe "apps/new.html.erb" do
       assert_select "input#app_display_name", :name => "app[display_name]"
       assert_select "input#app_framework", :name => "app[framework]"
       assert_select "input#app_runtime", :name => "app[runtime]"
-      assert_select "input#app_state", :name => "app[state]"
     end
   end
 end

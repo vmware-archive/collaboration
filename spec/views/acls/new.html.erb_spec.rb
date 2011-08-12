@@ -14,7 +14,7 @@ describe "acls/new.html.erb" do
     render
 
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    assert_select "form", :action => org_project_acls_path(@org, @project), :method => "post" do
+    assert_select "form", :action => org_project_acls_path(@org, @project, 'entity_type' => 'User'), :method => "post" do
       assert_select "select#acl_entity_id", :name => "acl[entity_id]"
       assert_select "select#acl_owned_resource_id", :name => "acl[owned_resource_id]"
     end

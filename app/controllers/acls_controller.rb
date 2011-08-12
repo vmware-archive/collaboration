@@ -50,18 +50,17 @@ class AclsController < ApplicationController
   end
 
   def potential_entities
-   if (params[:entity_type] == User.to_s)
-     # TODO: Replace first with default
-     # Or should it be m.id ?
+   if (params.has_key? :entity_type && params[:entity_type] == User.to_s)
+     logger.info "In user case"
      if  (@org.groups.first && @org.groups.first.group_members)
        x = @org.groups.first.group_members.collect {|m| [m.user.display_name, m.user.id]}
-       x.uniq
-     else
-       []
+       return x.uniq!
       end
    else
-     @org.groups.collect{|g| [g.display_name, g.id]} if @org.groups
+     logger.info "In group case"
+     return @org.groups.collect{|g| [g.display_name, g.id]} if @org.groups
    end
+    []
   end
 
   # POST /acls
