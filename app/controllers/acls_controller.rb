@@ -92,7 +92,7 @@ class AclsController < ApplicationController
     respond_to do |format|
       if @acl.update_attributes(params[:acl])
         flash[:notice] = 'Resource assignment was successfully updated.'
-        format.html { redirect_to org_project_acl_url(@org, @project, @acl) }
+        format.html { redirect_to org_project_acls_url(@org, @project) }
         format.json  { head :ok }
       else
         format.html { render :action => "edit" }

@@ -24,10 +24,34 @@
     <td><%= acl.entity_type %></td>
     <td><%= acl.owned_resource %></td>
     <td><%= acl.route %></td>
-    <td><%= acl.create? %></td>
-    <td><%= acl.read? %></td>
-    <td><%= acl.update? %></td>
-    <td><%= acl.delete? %></td>
+    <td>
+      <%-if acl.create? %>
+        <input type="checkbox" name="acl[create_bit]" disabled class="custom" checked>
+      <%-else %>
+        <input type="checkbox" name="acl[create_bit]" disabled class="custom">
+      <%-end%>
+      </td>
+    <td>
+      <%-if acl.read? %>
+        <input type="checkbox" name="acl[read_bit]" disabled class="custom" checked>
+      <%-else %>
+        <input type="checkbox" name="acl[read_bit]" disabled class="custom">
+      <%-end%>
+    </td>
+    <td>
+      <%-if acl.update? %>
+        <input type="checkbox" name="acl[update_bit]" disabled class="custom" checked>
+      <%-else %>
+        <input type="checkbox" name="acl[update_bit]" disabled class="custom">
+      <%-end%>
+    </td>
+    <td>
+      <%-if acl.delete? %>
+        <input type="checkbox" name="acl[delete_bit]" disabled class="custom" checked>
+      <%-else %>
+        <input type="checkbox" name="acl[delete_bit]" disabled class="custom">
+      <%-end%>
+    </td>
     <td><%= link_to 'Edit', edit_org_project_acl_path(@org, @project, acl) %></td>
     <td><%= link_to 'Destroy', org_project_acl_path(@org, @project, acl), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
