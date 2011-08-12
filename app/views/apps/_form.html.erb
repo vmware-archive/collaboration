@@ -1,3 +1,4 @@
+<div data-role="content">
 <%= form_for(@app) do |f| %>
   <% if @app.errors.any? %>
     <div id="error_explanation">
@@ -23,11 +24,8 @@
     <%= f.label :runtime %><br />
     <%= f.text_field :runtime %>
   </div>
-  <div class="field">
-    <%= f.label :state %><br />
-    <%= f.text_field :state %>
-  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+ </div>

@@ -1,23 +1,21 @@
-<p>
-  <b>Display name:</b>
-  <%= @app.display_name %>
-</p>
+<div data-role="header">
+  <%= link_to 'Back', apps_path %>
+  <h1><%= @app.display_name %></h1>
+  <%= link_to 'Edit', edit_app_path(@app) %>
+</div>
 
-<p>
-  <b>Framework:</b>
-  <%= @app.framework %>
-</p>
-
-<p>
-  <b>Runtime:</b>
-  <%= @app.runtime %>
-</p>
-
-<p>
-  <b>State:</b>
-  <%= @app.state %>
-</p>
+<div data-role="content">
+  <ul data-role="listview" data-inset="true">
+    <li><span class="field">Framework:</span> <span><%= @app.framework %></span></li>
+    <li><span class="field">Runtime:</span> <span><%= @app.runtime %></span></li>
+    <li><span class="field">State:</span> <span><%= @app.state %></span></li>
+  </ul>
 
 
-<%= link_to 'Edit', edit_app_path(@app) %> |
-<%= link_to 'Back', apps_path %>
+  <%- if @app.state == "STOPPED" %>
+  <%= link_to 'Start', app_path(@app), 'data-role'=>"button", 'data-inline'=>"true" %>
+  <%- else %>
+  <%= link_to 'Stop', app_path(@app), 'data-role'=>"button", 'data-inline'=>"true" %>
+  <%- end %>
+
+ </div>

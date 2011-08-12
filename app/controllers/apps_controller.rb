@@ -43,6 +43,8 @@ class AppsController < ApplicationController
   def create
     #TODO: Assign the newly app service to the user's current org
     @app = App.new(params[:app])
+    @app.creator = current_user
+
 
     respond_to do |format|
       if @app.save

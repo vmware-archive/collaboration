@@ -1,10 +1,15 @@
 <div data-role="header">
   <h1>Collaborate</h1>
+  <%- if current_user %>
+    <%= link_to "Logout #{current_user.display_name}", "/users/sign_out", 'rel'=>"external" ,:class => 'ui-btn-right', 'data-icon'=>"delete"  %>
+    <%- end %>
 </div>
 
 <div data-role="content">
 <p>
   Welcome <%= current_user.display_name %>
 </p>
-<%= link_to("Your Organizations", orgs_path, 'data-role'=>"button")  %>
+<%= link_to("Organizations", orgs_path, 'data-role'=>"button", 'data-inline'=>"true")  %>
+<%= link_to("Apps", apps_path, 'data-role'=>"button", 'data-inline'=>"true")  %>
+<%= link_to("Services", services_path, 'data-role'=>"button", 'data-inline'=>"true")  %>
 </div>

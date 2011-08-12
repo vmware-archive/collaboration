@@ -1,6 +1,9 @@
-<p id="notice"><%= notice %></p>
-<h1>Listing resources for <%= link_to @org.display_name, @org %></h1>
+<div data-role="header">
+  <h1>Listing resources for <%= link_to @org.display_name, @org %></h1>
+  <%= link_to 'New Resource', new_org_owned_resource_path(@org), :class => 'ui-btn-right', "data-icon" => "plus" %>
+</div>
 
+<div data-role="content">
 <table>
   <tr>
     <th>Display name</th>
@@ -23,6 +26,6 @@
 <% end %>
 </table>
 
-<br />
+</div>
 
-<%= link_to 'New Resource', new_org_owned_resource_path(@org) %>
+

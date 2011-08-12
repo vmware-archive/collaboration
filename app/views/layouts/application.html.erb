@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Collaboration</title>
+  <%= stylesheet_link_tag :all %>
   <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0b2/jquery.mobile-1.0b2.min.css" />
   <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
   <script src="http://code.jquery.com/mobile/1.0b2/jquery.mobile-1.0b2.min.js"></script>
@@ -9,18 +10,18 @@
   <%= csrf_meta_tag %>
 </head>
 <body data-role="page">
-<p id="notice"><%= notice %></p>
-<p id="alert"><%= alert %></p>
-
-
 <%= yield %>
 
+<%-if notice %>
+<div data-role="content">
+<p id="notice" class='ui-state-highlight'><%= notice %></p>
+<p id="alert"><%= alert %></p>
+</div>
+<%-end %>
+
+
 <div data-role="footer" class="ui-bar">
-<%- if current_user %>
-<%= link_to "Logout #{current_user.display_name}", "/users/sign_out", 'rel'=>"external" ,'data-role'=>"button", 'data-icon'=>"delete"  %>
-<%- else %>
- <h1>Collaborate on GitHub</h1>
-<%- end %>
-    </div>
+<%= link_to 'Home', home_index_path, :class => 'ui-btn-left', "data-icon" => "home" %>
+</div>
 </body>
 </html>

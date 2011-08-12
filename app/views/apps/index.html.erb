@@ -1,27 +1,20 @@
-<h1>Listing apps</h1>
+<div data-role="header">
+  <%= link_to 'Home', home_index_path, :class => 'ui-btn-left', "data-icon" => "home" %>
+  <h1>Applications</h1>
+  <%= link_to 'New App', new_app_path, :class => 'ui-btn-right', "data-icon" => "plus" %>
+</div>
 
-<table>
-  <tr>
-    <th>Display name</th>
-    <th>Framework</th>
-    <th>Runtime</th>
-    <th>State</th>
-    <th></th>
-    <th></th>
-  </tr>
+<div data-role="content">
 
+<%-if @apps.count > 0 %>
+<ul data-role="listview" data-inset="true">
 <% @apps.each do |app| %>
-  <tr>
-    <td><%= link_to app.display_name, app %></td>
-    <td><%= app.framework %></td>
-    <td><%= app.runtime %></td>
-    <td><%= app.state %></td>
-    <td><%= link_to 'Edit', edit_app_path(app) %></td>
-    <td><%= link_to 'Destroy', app, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+  <li><%= link_to app.display_name, app %></li>
 <% end %>
-</table>
+</ul>
+<%- else %>
+<p>You do not have any applications</p>
+<%- end %>
+</div>
 
-<br />
 
-<%= link_to 'New App', new_app_path %>
