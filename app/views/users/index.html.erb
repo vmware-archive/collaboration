@@ -1,29 +1,15 @@
 <div data-role="header">
+  <%= link_to 'Home', home_index_path, :class => 'ui-btn-left', "data-icon" => "home" %>
   <h1>Listing users</h1>
 </div>
 
-<table>
-  <tr>
-    <th>First name</th>
-    <th>Last name</th>
-    <th>Username</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
+<div data-role="content">
+<ul data-role="listview" data-inset="true">
 <% @users.each do |user| %>
-  <tr>
-    <td><%= user.first_name %></td>
-    <td><%= user.last_name %></td>
-    <td><%= user.username %></td>
-    <td><%= link_to 'Show', user %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <td><%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+  <li><%= link_to user.display_name, user_path(user) %></li>
 <% end %>
-</table>
+</ul>
+</div>
 
-<br />
 
-<%= link_to 'New User', new_user_path %>
+

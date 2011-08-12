@@ -1,23 +1,14 @@
-<h1>Listing services</h1>
+<div data-role="header">
+  <%= link_to 'Home', home_index_path, :class => 'ui-btn-left', "data-icon" => "home" %>
+  <h1>Listing services</h1>
+  <%= link_to 'New Service', new_service_path, :class => 'ui-btn-right', "data-icon" => "plus" %>
+</div>
 
-<table>
-  <tr>
-    <th>Display name</th>
-    <th>Url</th>
-    <th></th>
-    <th></th>
-  </tr>
-
+<div data-role="content">
+<ul data-role="listview" data-inset="true">
 <% @services.each do |service| %>
-  <tr>
-    <td><%= link_to service.display_name, service %></td>
-    <td><%= service.url %></td>
-    <td><%= link_to 'Edit', edit_service_path(service) %></td>
-    <td><%= link_to 'Destroy', service, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+  <li><%= link_to service.display_name, service %></li>
+
 <% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Service', new_service_path %>
+</ul>
+ </div>

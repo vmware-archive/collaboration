@@ -1,6 +1,9 @@
-<h1>Editing Organization</h1>
+<div data-role="header">
+  <%= link_to 'Back', orgs_path, :class => "ui-btn-left" %>
+  <h1>Editing Organization</h1>
+  <%= link_to 'Show', @org, :class => "ui-btn-right" %>
+</div>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @org %> |
-<%= link_to 'Back', orgs_path %>
+

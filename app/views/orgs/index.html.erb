@@ -8,7 +8,7 @@
 <ul data-role="listview" data-inset="true">
 <% @orgs.each do |org| %>
       <!-- <img src="<%= org.avatar %>" -->
-  <li><%= link_to org.display_name, org %><br /><%= org.description %></li>
+  <li><%= link_to org.display_name, org %><p><%= org.description %></p></li>
 <% end %>
 </ul>
 </div>

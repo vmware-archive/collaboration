@@ -1,7 +1,7 @@
 <div data-role="header">
   <%= link_to 'Back', org_projects_path(@org), :class => "ui-btn-left" %>
   <h1>Editing project</h1>
-  <%= link_to 'Destroy', org_project_path(@org, @project), :confirm => 'Are you sure?', :method => :delete, :class => "ui-btn-left" %>
+  <%= link_to 'Destroy', org_project_path(@org, @project), :confirm => 'Are you sure?', :method => :delete, :class => "ui-btn-right" %>
 </div>
 
 <%= render 'form' %>

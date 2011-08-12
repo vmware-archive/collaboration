@@ -1,6 +1,10 @@
-<h1>Editing service</h1>
+<div data-role="header">
+  <%= link_to 'Back', services_path, :class => "ui-btn-left" %>
+  <h1>Editing service</h1>
+  <%= link_to 'Show', @service, :class => "ui-btn-right" %>
+</div>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @service %> |
-<%= link_to 'Back', services_path %>
+
+

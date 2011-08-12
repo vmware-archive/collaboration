@@ -1,15 +1,24 @@
 <div data-role="header">
   <h1>Collaborate</h1>
   <%- if current_user %>
-    <%= link_to "Logout #{current_user.display_name}", "/users/sign_out", 'rel'=>"external" ,:class => 'ui-btn-right', 'data-icon'=>"delete"  %>
-    <%- end %>
+      <%= link_to "Logout #{current_user.display_name}", "/users/sign_out", 'rel'=>"external", :class => 'ui-btn-right', 'data-icon'=>"delete" %>
+  <%- end %>
 </div>
 
 <div data-role="content">
-<p>
-  Welcome <%= current_user.display_name %>
-</p>
-<%= link_to("Organizations", orgs_path, 'data-role'=>"button", 'data-inline'=>"true")  %>
-<%= link_to("Apps", apps_path, 'data-role'=>"button", 'data-inline'=>"true")  %>
-<%= link_to("Services", services_path, 'data-role'=>"button", 'data-inline'=>"true")  %>
+  <div class="ui-grid-b">
+    <p>
+      Hi, <%= current_user.display_name %>
+    </p>
+
+    <div class="ui-block-a">
+      Newsfeed goes here.
+    </div>
+    <div class="ui-block-b" data-role="controlgroup">
+      <%= link_to("Organizations", orgs_path, 'data-role'=>"button", 'data-icon'=> 'my') %>
+      <%= link_to("Users", users_path, 'data-role'=>"button", 'data-icon'=> 'my') %>
+      <%= link_to("Apps", apps_path, 'data-role'=>"button", 'data-icon'=> 'my') %>
+      <%= link_to("Services", services_path, 'data-role'=>"button", 'data-icon'=>'my') %>
+    </div>
+  </div>
 </div>

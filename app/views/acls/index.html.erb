@@ -1,5 +1,9 @@
-<h1>Listing ACLs for Project <%=link_to @project.display_name, org_project_path(@org, @project) %></h1>
+<div data-role="header">
+  <%=link_to @project.display_name, org_project_path(@org, @project), :class => "ui-btn-left" %>
+  <h1>Listing ACLs</h1>
+</div>
 
+<div data-role="content">
 <table>
   <tr>
     <th>Entity</th>
@@ -32,6 +36,7 @@
 
 <br />
 
-<h3>Provide Access:</h3>
-<%= link_to 'Group to Resource', new_org_project_acl_path(@org, @project, :entity_type => 'Group') %>
-<%= link_to 'User to Resource', new_org_project_acl_path(@org, @project, :entity_type => 'User') %>
+<h3>Grant/Deny Access:</h3>
+<%= link_to 'To Group', new_org_project_acl_path(@org, @project, :entity_type => 'Group'), 'data-role'=>"button", 'data-inline'=>"true" %>
+<%= link_to 'To User', new_org_project_acl_path(@org, @project, :entity_type => 'User'), 'data-role'=>"button", 'data-inline'=>"true" %>
+</div>

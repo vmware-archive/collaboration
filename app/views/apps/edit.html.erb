@@ -1,8 +1,9 @@
 <div data-role="header">
+  <%= link_to 'Back', apps_path, :class => "ui-btn-left" %>
   <h1>Editing app</h1>
+  <%= link_to 'Show', @app, :class => "ui-btn-right" %>
 </div>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @app %> |
-<%= link_to 'Back', apps_path %>
+
