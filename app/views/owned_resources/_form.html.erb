@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :resource_id %><br />
-    <%= f.select :resource_id, App.all.collect{|a|[a.display_,a.id]} %>
+    <%= f.select :resource_id, App.all.collect{|a|[a.display_name,a.id]} %>
   </div>
 
   <div class="field">
