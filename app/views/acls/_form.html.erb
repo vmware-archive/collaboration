@@ -43,6 +43,7 @@
         <fieldset data-role="controlgroup">
           <%= f.label :entity_id %>
           <%= f.select(:entity_id, @potential_entities) %>
+          <%= f.hidden_field :entity_type %>
           <%= f.label :owned_resource_id %>
           <%= f.select(:owned_resource_id, @potential_owned_resources) %>
           <%= f.label :route %>

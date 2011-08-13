@@ -33,6 +33,7 @@ class AclsController < ApplicationController
   # GET /acls/new.json
   def new
     @acl = @project.acls.build
+    @acl.entity_type = params[:entity_type]
 
     respond_to do |format|
       format.html # new.html.erb
@@ -52,14 +53,14 @@ class AclsController < ApplicationController
   end
 
   def potential_entities
-   if (params.has_key? :entity_type && params[:entity_type] == User.to_s)
+   if ((params.has_key? :entity_type) && (params[:entity_type] == "User"))
      logger.info "In user case"
      if  (@org.groups.first && @org.groups.first.group_members)
-       x = @org.groups.first.group_members.collect {|m| [m.user.display_name, m.user.id]}
-       return x.uniq!
+       x = @org.groups.first.group_members.collect {|m| [m.user.display_name, m.user_id]}
+       return x.uniq
       end
    else
-     logger.info "In group case"
+     logger.info "In group case #{params[:entity_type]}"
      return @org.groups.collect{|g| [g.display_name, g.id]} if @org.groups
    end
     []
@@ -73,7 +74,7 @@ class AclsController < ApplicationController
     respond_to do |format|
       if @acl.save
         flash[:notice] = 'Resource assignment was successfully created.'
-        format.html { redirect_to org_project_acl_url(@org, @project, @acl)}
+        format.html { redirect_to org_project_acls_url(@org, @project)}
         format.json  { render :json => @acl, :status => :created, :location => @acl }
       else
         format.html { render :action => "new" }

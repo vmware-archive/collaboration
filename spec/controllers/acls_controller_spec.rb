@@ -86,7 +86,7 @@ describe AclsController do
 
       it "redirects to the created acl" do
         post :create, :acl => valid_attributes, :org_id => @org.id, :project_id => @project.id
-        response.should redirect_to org_project_acl_path(@org, @project, Acl.last)
+        response.should redirect_to org_project_acls_path(@org, @project)
       end
     end
 
