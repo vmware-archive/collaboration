@@ -1,11 +1,18 @@
 <%- content_for :header do %>
-  <h1>Cloud Foundry</h1>
+  <h1>Home</h1>
 <% end-%>
 
 <div data-role="content">
 
+  <img src="http://cloudfoundry.com/images/cloud_foundry_logo.png" class="logo" />
     <p>
-      Hi, <%= current_user.display_name %> !
+      Hi, <%= link_to current_user.display_name, user_path(current_user) %> Welcome to <strong>Cloud Foundry Collaboration Spaces</strong>.
+      This is a Proof of Concept project to understand how teams of all sizes can best manage their resources on a Cloud Foundry Instance.
     </p>
+
+    <p>To get started create an <%= link_to 'App', apps_path %> or <%= link_to 'Service', services_path %> and select which <%= link_to 'Organization', orgs_path %> owns it.</p>
+
+  <p>By default when you created your account you were given a <%= link_to 'Personal Organization', org_path(current_user.personal_org) %>.
+    You can create more <%= link_to 'organizations', orgs_path %> to manage work projects.</p>
 
 </div>

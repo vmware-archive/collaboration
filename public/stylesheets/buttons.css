@@ -18,3 +18,23 @@
     background-image: url("../images/service.png");
     background-position: 0px, 0px
 }
+
+.ui-listview, .ui-checkbox, .ui-input-text, .ui-btn  {
+    max-width: 600px;
+}
+
+.ui-content{
+    padding: 20px;
+
+}
+
+.ui-body-e
+{
+    margin-right: 30px;
+    float:right;
+    display: inline;
+}
+
+.logo {
+    width: 400px;
+}
