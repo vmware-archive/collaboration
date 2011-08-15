@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails'
-gem 'mysql'
+gem 'mysql2'
 gem 'devise'
 gem 'carrierwave'
 
