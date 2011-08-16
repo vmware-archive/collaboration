@@ -6,7 +6,7 @@
 <div data-role="content">
 <ul data-role="listview" data-inset="true">
 <% @services.each do |service| %>
-  <li><%= link_to service.display_name, service %></li>
+  <li><%= link_to service.display_name, edit_service_path(service) %></li>
 
 <% end %>
 </ul>

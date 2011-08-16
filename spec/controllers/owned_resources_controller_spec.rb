@@ -25,8 +25,7 @@ describe OwnedResourcesController do
     sign_in @user
     @org = Org.create! :display_name => 'VMWare', :creator => @user
     @app = App.create! :display_name => 'Stream', :creator => @user, :project => @org.default_project
-    @owned_resource = @org.owned_resources.build valid_attributes
-    @owned_resource.save!
+    @owned_resource = @app.main_owned_resource
   end
 
   # This should return the minimal set of attributes required to create a valid

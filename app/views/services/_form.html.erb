@@ -12,14 +12,20 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :display_name %><br />
+  <div class="field" data-role="fieldcontain">
+    <%= f.label :display_name %>
     <%= f.text_field :display_name %>
   </div>
-  <div class="field">
-    <%= f.label :url %><br />
+  <div class="field" data-role="fieldcontain">
+    <%= f.label :url %>
     <%= f.text_field :url %>
   </div>
+  <%- if @projects %>
+      <div class="field" data-role="fieldcontain">
+          <%= f.label :project_id %>
+          <%= f.select :project_id, @projects %>
+      </div>
+   <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>

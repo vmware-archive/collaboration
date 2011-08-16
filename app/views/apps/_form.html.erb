@@ -12,18 +12,20 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :display_name %><br />
-    <%= f.text_field :display_name %>
+  <div class="field" data-role="fieldcontain">
+    <%= f.label :display_name %><%= f.text_field :display_name %>
   </div>
-  <div class="field">
-    <%= f.label :framework %><br />
-    <%= f.text_field :framework %>
+  <div class="field" data-role="fieldcontain">
+    <%= f.label :framework %><%= f.text_field :framework %>
   </div>
-  <div class="field">
-    <%= f.label :runtime %><br />
-    <%= f.text_field :runtime %>
+  <div class="field" data-role="fieldcontain">
+    <%= f.label :runtime %><%= f.text_field :runtime %>
   </div>
+  <%-if @projects %>
+      <div class="field" data-role="fieldcontain">
+       <%= f.label :project_id %><%= f.select :project_id, @projects %>
+      </div>
+  <%- end %>
   <div class="actions">
     <%= f.submit %>
   </div>

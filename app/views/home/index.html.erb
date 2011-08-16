@@ -6,13 +6,17 @@
 
   <img src="http://cloudfoundry.com/images/cloud_foundry_logo.png" class="logo" />
     <p>
-      Hi, <%= link_to current_user.display_name, user_path(current_user) %> Welcome to <strong>Cloud Foundry Collaboration Spaces</strong>.
-      This is a Proof of Concept project to understand how teams of all sizes can best manage their resources on a Cloud Foundry Instance.
+      Hi, <%= link_to current_user.display_name, user_path(current_user) %> Welcome to the <strong>Cloud Foundry Management App</strong>.
+      Here, you will be able to organize your applications and work with others on your Personal or Enterprise Applications.
     </p>
 
-    <p>To get started create an <%= link_to 'App', apps_path %> or <%= link_to 'Service', services_path %> and select which <%= link_to 'Organization', orgs_path %> owns it.</p>
+    To get started:
+      <ol>
+        <li>Create an <%= link_to 'App', apps_path %> or <%= link_to 'Service', services_path %></li>
+        <li>Assign permissions to apps and other resources in your <%= link_to 'Organizations', orgs_path %> via <strong>Projects</strong> and <strong>Groups</strong></li>
+      </ol>
 
   <p>By default when you created your account you were given a <%= link_to 'Personal Organization', org_path(current_user.personal_org) %>.
-    You can create more <%= link_to 'organizations', orgs_path %> to manage work projects.</p>
+    Note that you can always create more <%= link_to 'organizations', orgs_path %> to manage work projects, as well as be invited by someone else to be part of an organization.</p>
 
 </div>

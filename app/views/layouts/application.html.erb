@@ -36,7 +36,7 @@
 <%- end %>
 <div data-role="footer" class="ui-bar" data-theme="b">
   <%- if current_user %>
-      <%= link_to "Logout #{current_user.display_name}", "/users/sign_out", 'rel'=>"external", :class => 'ui-btn-right', 'data-icon'=>"delete" %>
+      <%= link_to "Logout #{current_user.display_name}", "/users/sign_out", 'rel'=>"external", :class => 'ui-btn-right' %>
   <%-end%>
   <%= yield :footer %>
 </div>

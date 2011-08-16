@@ -1,7 +1,7 @@
 class App < ActiveRecord::Base
-  has_many :owned_resources, :as => :resource
+  has_many :owned_resources, :as => :resource, :dependent => :destroy
 
-  attr_accessor :creator, :project
+  attr_accessor :creator, :project, :project_id
 
   validates_presence_of :display_name
 
@@ -9,6 +9,16 @@ class App < ActiveRecord::Base
   validates_presence_of :project, :on => :create
 
   after_create do
-    project.org.owned_resources.build :resource => self
+    owned_res = project.org.owned_resources.build :resource => self
+    owned_res.save!
+  end
+
+
+  def main_owned_resource
+    if owned_resources.count >0
+      owned_resources.first
+    else
+      nil
+    end
   end
 end

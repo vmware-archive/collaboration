@@ -19,7 +19,7 @@
     background-position: 0px, 0px
 }
 
-.ui-listview, .ui-checkbox, .ui-input-text, .ui-btn  {
+.ui-listview, .ui-checkbox, .ui-input-text, .ui-btn, .ui-field-contain  {
     max-width: 600px;
 }
 

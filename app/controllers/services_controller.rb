@@ -1,4 +1,15 @@
 class ServicesController < ApplicationController
+  before_filter :list_projects, :only => :new
+
+  def list_projects
+    @projects = []
+    current_user.orgs_with_access.each do |org|
+      org.projects.each do |project|
+        @projects << ["#{org.display_name}-#{project.display_name}", project.id] if project.can_user PermissionManager::CREATE, 'services', current_user
+      end
+    end
+  end
+
   # GET /services
   # GET /services.json
   def index
@@ -43,6 +54,11 @@ class ServicesController < ApplicationController
   def create
     #TODO: Assign the newly created service to the user's current org
     @service = Service.new(params[:service])
+    @service.creator = current_user
+    begin
+      @service.project = Project.find params[:service][:project_id]
+    rescue
+    end
 
     respond_to do |format|
       if @service.save

@@ -3,16 +3,17 @@
   <%= link_to 'New App', new_app_path, :class => 'ui-btn-right', "data-icon" => "plus" %>
 <%- end %>
 
-<div data-role="content">
 
+<div data-role="content">
 <%-if @apps.count > 0 %>
+<p>This is the current list of applications that you can access:</p>
 <ul data-role="listview" data-inset="true">
 <% @apps.each do |app| %>
-  <li><%= link_to app.display_name, app %></li>
+  <li><%= link_to app.display_name, edit_app_path(app) %></li>
 <% end %>
 </ul>
 <%- else %>
-<p>You do not have any applications</p>
+<p>You do not have any applications. Get started by creating a <%= link_to 'New App', new_app_path %></p>
 <%- end %>
 </div>
 
