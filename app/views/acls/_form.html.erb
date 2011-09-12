@@ -12,43 +12,41 @@
           </div>
       <% end %>
 
+      <%= f.hidden_field :entity_type %>
 
-      <div data-role="fieldcontain">
-        <fieldset data-role="controlgroup">
-          <%- if @acl.create? %>
-            <input type="checkbox" name="acl[create_bit]" id="acl[create_bit]" class="custom" checked/>
-          <%- else %>
-              <input type="checkbox" name="acl[create_bit]" id="acl[create_bit]" class="custom"/>
-          <% end %>
-          <label for="acl[create_bit]">Create</label>
-          <%- if @acl.read? %>
-              <input type="checkbox" name="acl[read_bit]" id="acl[read_bit]" class="custom" checked/>
-          <%- else %>
-              <input type="checkbox" name="acl[read_bit]" id="acl[read_bit]" class="custom"/>
-          <% end %>
-          <label for="acl[read_bit]">Read</label>
-          <%- if @acl.read? %>
-              <input type="checkbox" name="acl[update_bit]" id="acl[update_bit]" class="custom" checked/>
-          <%- else %>
-              <input type="checkbox" name="acl[update_bit]" id="acl[update_bit]" class="custom"/>
-          <% end %>
-          <label for="acl[update_bit]">Update</label>
-          <%- if @acl.delete? %>
-              <input type="checkbox" name="acl[delete_bit]" id="acl[delete_bit]" class="custom" checked/>
-          <%- else %>
-              <input type="checkbox" name="acl[delete_bit]" id="acl[delete_bit]" class="custom"/>
-          <% end %>
-          <label for="acl[delete_bit]">Delete</label>
-        </fieldset>
-        <fieldset data-role="controlgroup">
-          <%= f.label :entity_id %>
-          <%= f.select(:entity_id, @potential_entities) %>
-          <%= f.hidden_field :entity_type %>
-          <%= f.label :owned_resource_id %>
-          <%= f.select(:owned_resource_id, @potential_owned_resources) %>
-          <%= f.label :route %>
-          <%= f.text_field(:route, :style =>"width: 400px") %>
-        </fieldset>
+      <div class="field" data-role="fieldcontain">
+        <%= f.label :create_bit %>
+        <%= f.check_box :create_bit %>
+      </div>
+
+      <div class="field" data-role="fieldcontain">
+        <%= f.label :read_bit %>
+        <%= f.check_box :read_bit %>
+      </div>
+
+      <div class="field" data-role="fieldcontain">
+        <%= f.label :update_bit %>
+        <%= f.check_box :update_bit %>
+      </div>
+
+      <div class="field" data-role="fieldcontain">
+        <%= f.label :delete_bit %>
+        <%= f.check_box :delete_bit %>
+      </div>
+
+      <div class="field" data-role="fieldcontain">
+        <%= f.label :entity_id %>
+        <%= f.select(:entity_id, @potential_entities) %>
+      </div>
+
+      <div class="field" data-role="fieldcontain">
+        <%= f.label :owned_resource_id %>
+        <%= f.select(:owned_resource_id, @potential_owned_resources) %>
+      </div>
+
+      <div class="field" data-role="fieldcontain">
+        <%= f.label :route %>
+        <%= f.text_field(:route, :style =>"width: 400px") %>
       </div>
 
       <div class="actions">

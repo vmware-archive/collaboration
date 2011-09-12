@@ -71,6 +71,10 @@ class AclsController < ApplicationController
   def create
     @acl = @project.acls.build(params[:acl])
 
+    params[:acl].each do |key, val|
+      params[:acl][key] = (val == "1") if (key =~ /_bit/)
+    end
+
     respond_to do |format|
       if @acl.save
         flash[:notice] = 'Resource assignment was successfully created.'
