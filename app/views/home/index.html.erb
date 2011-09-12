@@ -7,13 +7,13 @@
   <img src="http://cloudfoundry.com/images/cloud_foundry_logo.png" class="logo" />
     <p>
       Hi, <%= link_to current_user.display_name, user_path(current_user) %> Welcome to the <strong>Cloud Foundry Management App</strong>.
-      Here, you will be able to organize your applications and work with others on your Personal or Enterprise Applications.
+      Here, you will be able to organize your applications and work with others.
     </p>
 
     To get started:
       <ol>
-        <li>Create an <%= link_to 'App', apps_path %> or <%= link_to 'Service', services_path %></li>
-        <li>Assign permissions to apps and other resources in your <%= link_to 'Organizations', orgs_path %> via <strong>Projects</strong> and <strong>Groups</strong></li>
+        <li>Add an <%= link_to 'App', apps_path %> or <%= link_to 'Service', services_path %></li>
+        <li>Then assign permissions to apps and other resources in your <%= link_to 'Organizations', orgs_path %> via <strong>Projects</strong> and <strong>Groups</strong></li>
       </ol>
 
   <p>By default when you created your account you were given a <%= link_to 'Personal Organization', org_path(current_user.personal_org) %>.
