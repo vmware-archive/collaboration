@@ -8,33 +8,19 @@ class Org < ActiveRecord::Base
   attr_accessor :creator
   validates_presence_of :creator, :on => :create
 
-  after_create do
-    admins = self.groups.build :display_name => 'Admins'
-    admins.save!
-    member = admins.group_members.build :user => @creator
-    member.save!
-    devs = self.groups.build :display_name => 'Developers'
-    devs.save!
-    default_project = self.projects.build :display_name => 'Default', :is_default => true
-    default_project.save!
-    acl = default_project.acls.build :route => 'groups', :permission_set => PermissionManager::ALL, :entity => admins
-    acl.save!
-    acl = default_project.acls.build :route => 'groups/*/group_members', :permission_set => PermissionManager::ALL, :entity => admins
-    acl.save!
-    acl = default_project.acls.build :route => 'projects', :permission_set => PermissionManager::ALL, :entity => admins
-    acl.save!
-    acl = default_project.acls.build :route => 'projects/*/acls', :permission_set => PermissionManager::ALL, :entity => admins
-    acl.save!
-    acl = default_project.acls.build :route => 'projects/*/acls/*', :permission_set => PermissionManager::ALL, :entity => admins
-    acl.save!
-    acl = default_project.acls.build :route => 'owned_resources', :permission_set => PermissionManager::ALL, :entity => admins
-    acl.save!
-    acl = default_project.acls.build :route => 'owned_resources/*', :permission_set => PermissionManager::ALL, :entity => admins
-    acl.save!
+  before_create do
+    @admins = groups.build :display_name => 'Admins'
+    @devs = groups.build :display_name => 'Developers'
+    @default_project = projects.build :display_name => 'Default', :is_default => true
 
-    acl = default_project.acls.build :route => 'apps' , :permission_set => PermissionManager::ALL, :entity => devs
-    acl = default_project.acls.build :route => 'services' , :permission_set => PermissionManager::ALL, :entity => devs
-    acl.save!
+  end
+
+  after_create do
+    @admins.group_members.build :user => @creator
+    @admins.save!
+    @default_project.add_admin_role @admins
+    @default_project.add_dev_role @devs
+    @default_project.save!
   end
 
 public

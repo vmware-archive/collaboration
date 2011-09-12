@@ -56,6 +56,7 @@ describe Org do
     end
 
     it "creator must be able to edit development group" do
+      @org.default_project.acls.count.should > 0
      @org.can_user(PermissionManager::CREATE, "groups/*/group_members", @user).should be_true
     end
   end
