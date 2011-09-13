@@ -1,3 +1,9 @@
+## Status
+
+Development **In Progress**
+
+Travis CI : [![Build Status](https://secure.travis-ci.org/ciberch/collaboration.png)](http://travis-ci.org/ciberch/collaboration)
+
 ## Overview
 
 Collaboration is Proof of Concept project which will be used as the predecessor to a "collaborate" gem.
@@ -5,8 +11,7 @@ Collaboration is Proof of Concept project which will be used as the predecessor 
 The project demonstrates how we can model permissions to resources in such a way that teams of any size can have as
 fine grained control to their resources as they need.
 
-This design was created by Dale Olds with participation of the Cloud Foundry team. For more details see
-https://wiki.springsource.com/display/ACDEV/Identity+Services
+This design was created by Dale Olds with participation of the Cloud Foundry team.
 
 The main question being answered is whether a user can perform an action on a resource.
 Typically in most rails applications default to basic roles whether the user is an admin or not.
