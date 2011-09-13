@@ -1,11 +1,5 @@
 class AclsController < ApplicationController
   before_filter :identify_parent
-  before_filter :get_potential
-
-  def get_potential
-    @potential_owned_resources = potential_owned_resources
-    @potential_entities = potential_entities
-  end
 
   # GET /acls
   # GET /acls.json
@@ -44,26 +38,6 @@ class AclsController < ApplicationController
   # GET /acls/1/edit
   def edit
     @acl = @project.acls.find(params[:id])
-  end
-
-  def potential_owned_resources
-    if @org.owned_resources
-      @org.owned_resources.collect{|o| ["#{o.resource_type} - #{o.resource.display_name}", o.id]}
-    end
-  end
-
-  def potential_entities
-   if ((params.has_key? :entity_type) && (params[:entity_type] == "User"))
-     logger.info "In user case"
-     if  (@org.groups.first && @org.groups.first.group_members)
-       x = @org.groups.first.group_members.collect {|m| [m.user.display_name, m.user_id]}
-       return x.uniq
-      end
-   else
-     logger.info "In group case #{params[:entity_type]}"
-     return @org.groups.collect{|g| [g.display_name, g.id]} if @org.groups
-   end
-    []
   end
 
   # POST /acls
