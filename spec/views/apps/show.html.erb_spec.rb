@@ -11,6 +11,7 @@ describe "apps/show.html.erb" do
       :runtime => "Runtime",
       :state => "State",
       :creator => @user,
+      :id => 3,
       :project => @user.personal_org.default_project
     ))
   end
@@ -22,6 +23,7 @@ describe "apps/show.html.erb" do
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     rendered.should match(/Runtime/)
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/State/)
+    rendered.should match(/Url/)
+    rendered.should match(/Description/)
   end
 end

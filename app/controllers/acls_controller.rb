@@ -71,8 +71,8 @@ class AclsController < ApplicationController
   def create
     @acl = @project.acls.build(params[:acl])
 
-    params[:acl].each do |key, val|
-      params[:acl][key] = (val == "1") if (key =~ /_bit/)
+    [:read_bit, :create_bit, :update_bit, :delete_bit].each do |key|
+      params[:acl][key] = (params.has_key? key.to_s)
     end
 
     respond_to do |format|
@@ -92,8 +92,8 @@ class AclsController < ApplicationController
   def update
     @acl = @project.acls.find(params[:id])
 
-    params[:acl].each do |key, val|
-      params[:acl][key] = (val == "1") if (key =~ /_bit/)
+    [:read_bit, :create_bit, :update_bit, :delete_bit].each do |key|
+      params[:acl][key] = (params.has_key? key.to_s)
     end
 
     respond_to do |format|

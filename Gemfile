@@ -4,6 +4,7 @@ gem 'rails'
 gem 'mysql2', '0.2.7'
 gem 'devise'
 gem 'carrierwave'
+gem 'jquery-rails'
 
 group :development, :test do
   gem 'rspec-rails'

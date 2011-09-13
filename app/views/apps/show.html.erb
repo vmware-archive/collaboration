@@ -1,19 +1,25 @@
 <%- content_for :header do %>
   <%= link_to 'Back', apps_path, :class => 'ui-btn-left' %>
-  <h1><%= @app.display_name %></h1>
+  <h1><%= link_to @app.display_name, @app.url, :target=> '_blank', :style => "text-decoration:none; color:white" %></h1>
   <%= link_to 'Edit', edit_app_path(@app), :class => 'ui-btn-right'%>
 <%- end %>
 
 <div data-role="content">
 <%= form_for(@app) do |f| %>
  <div class="field" data-role="fieldcontain">
-    <%= f.label :display_name %><%= f.text_field :display_name %>
+    <%= f.label :display_name %><%= f.text_field :display_name, :readonly=>true %>
   </div>
   <div class="field" data-role="fieldcontain">
-    <%= f.label :framework %><%= f.text_field :framework %>
+    <%= f.label :description %><%= f.text_area :description, :readonly=>true %>
   </div>
   <div class="field" data-role="fieldcontain">
-    <%= f.label :runtime %><%= f.text_field :runtime %>
+    <%= f.label :url %><%= f.text_field :url, :readonly=>true %>
+  </div>
+  <div class="field" data-role="fieldcontain">
+    <%= f.label :framework %><%= f.text_field :framework, :readonly=>true %>
+  </div>
+  <div class="field" data-role="fieldcontain">
+    <%= f.label :runtime %><%= f.text_field :runtime, :readonly=>true %>
   </div>
 <%- end %>
 </div>

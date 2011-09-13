@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110810210947) do
+ActiveRecord::Schema.define(:version => 20110913003955) do
 
   create_table "acls", :force => true do |t|
     t.integer  "permission_set",    :default => 0
@@ -31,6 +31,8 @@ ActiveRecord::Schema.define(:version => 20110810210947) do
     t.string   "state",        :default => "STOPPED"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "description"
+    t.string   "url"
   end
 
   create_table "group_members", :force => true do |t|

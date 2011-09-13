@@ -15,23 +15,23 @@
       <%= f.hidden_field :entity_type %>
 
       <div class="field" data-role="fieldcontain">
-        <%= f.label :create_bit %>
-        <%= f.check_box :create_bit %>
+        <%= f.label :create_bit, :for => :create_bit %>
+        <%= check_box_tag :create_bit, 1, @acl.create_bit %>
       </div>
 
       <div class="field" data-role="fieldcontain">
-        <%= f.label :read_bit %>
-        <%= f.check_box :read_bit %>
+        <%= f.label :read_bit, :for => :read_bit %>
+        <%= check_box_tag :read_bit, 1, @acl.read_bit %>
       </div>
 
       <div class="field" data-role="fieldcontain">
-        <%= f.label :update_bit %>
-        <%= f.check_box :update_bit %>
+        <%= f.label :update_bit, :for => :update_bit %>
+        <%= check_box_tag :update_bit, 1, @acl.update_bit %>
       </div>
 
       <div class="field" data-role="fieldcontain">
-        <%= f.label :delete_bit %>
-        <%= f.check_box :delete_bit %>
+        <%= f.label :delete_bit, :for => :delete_bit %>
+        <%= check_box_tag :delete_bit, 1, @acl.delete_bit %>
       </div>
 
       <div class="field" data-role="fieldcontain">
