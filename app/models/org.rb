@@ -43,23 +43,25 @@ public
   ## Helper Method which list all potential resources in an org
   def potential_owned_resources
     if owned_resources
-      owned_resources.collect{|o| ["#{o.resource_type} - #{o.resource.display_name}", o.id]}
+      owned_resources.collect{|o| [o.to_s, o.id]}
     end
   end
 
   ## Helper Method which returns the list of users in an org
   def potential_users
-    if (groups.first && groups.first.group_members)
-      x = groups.first.group_members.collect {|m| [m.user.display_name, m.user_id]}
-      return x.uniq
+    user_list = []
+    groups.each do |group|
+      group.group_members.each do |m|
+        user_list << [m.user.display_name, m.user_id]
+      end
     end
-    []
+    user_list.uniq
   end
 
   ## Helper Method which returns the list of groups in an org
   def potential_groups
     if groups
-      groups.collect{|g| [g.display_name, g.id]}
+      return groups.collect{|g| [g.display_name, g.id]}
     end
     []
   end

@@ -6,7 +6,8 @@ class OwnedResource < ActiveRecord::Base
   validates_presence_of :resource, :owner
 
   def to_s
-    resource.display_name if resource
+    return "#{resource_type} - #{resource.display_name}" if resource
+    base.to_s
   end
 
 end
