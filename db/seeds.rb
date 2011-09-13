@@ -8,10 +8,24 @@
 
 # pwc = cloud$
 pwd = 'cloud$'
-@user = User.create! :first_name => 'Dale', :last_name => 'Olds', :display_name => 'Dale O.', :password => pwd, :confirm_password => pwd, :email => 'olds@vmware.com'
-@user2 = User.create! :first_name => 'Monica', :last_name => 'Wilkinson', :display_name => 'Monica W.', :password => pwd, :confirm_password => pwd, :email => 'mwilkinson@vmware.com'
+@user = User.create! ({
+      :first_name => 'Peter',
+      :last_name => 'Smith',
+      :display_name => 'Peter S.',
+      :password => pwd,
+      :confirm_password => pwd,
+      :email => 'peter@montrics.com'
+    })
+@user2 = User.create! ({
+    :first_name => 'Monica',
+    :last_name => 'Wilkinson',
+    :display_name => 'Monica W.',
+    :password => pwd,
+    :confirm_password => pwd,
+    :email => 'monica@montrics.com'
+    })
 
-@org = Org.create! :display_name => 'VMWare', :creator => @user
+@org = Org.create! :display_name => 'Montrics', :creator => @user
 
 @group = @org.groups.find_by_display_name 'Admins'
 @group_member = @group.group_members.build :user => @user
