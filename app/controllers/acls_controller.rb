@@ -69,11 +69,10 @@ class AclsController < ApplicationController
   # POST /acls
   # POST /acls.json
   def create
-    @acl = @project.acls.build(params[:acl])
-
     [:read_bit, :create_bit, :update_bit, :delete_bit].each do |key|
       params[:acl][key] = (params.has_key? key.to_s)
     end
+    @acl = @project.acls.build(params[:acl])
 
     respond_to do |format|
       if @acl.save
@@ -95,6 +94,9 @@ class AclsController < ApplicationController
     [:read_bit, :create_bit, :update_bit, :delete_bit].each do |key|
       params[:acl][key] = (params.has_key? key.to_s)
     end
+
+    # Needed since we dont switch types
+    params[:acl].delete :entity_type
 
     respond_to do |format|
       if @acl.update_attributes(params[:acl])
