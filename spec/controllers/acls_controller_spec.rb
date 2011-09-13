@@ -114,7 +114,7 @@ describe AclsController do
         # specifies that the Acl created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Acl.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
+        Acl.any_instance.should_receive(:update_attributes).with({'these' => 'params', "read_bit" => false, "create_bit" => false, "update_bit" => false, "delete_bit" => false})
         put :update, :id => @acl.id, :acl => {'these' => 'params'}, :org_id => @org.id, :project_id => @project.id
       end
 
