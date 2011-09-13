@@ -7,6 +7,5 @@ require 'rake'
 Collaboration::Application.load_tasks
 
 task :test do
-  Rake::Task['db:migrate'].invoke
   Rake::Task['spec'].invoke
 end
