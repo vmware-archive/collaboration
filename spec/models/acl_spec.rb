@@ -9,6 +9,9 @@ describe Acl do
     @app = App.create! :display_name => 'Optimus', :creator => @user, :project => @project
     @owned_resource = @app.owned_resources.first
 
+    @org2 = Org.create! :display_name => 'DELL', :creator => @user
+    @project2 = @org2.default_project
+
     @acl = @project.acls.build :owned_resource => @owned_resource, :entity => @user
     @acl.save!
   end
@@ -46,5 +49,18 @@ describe Acl do
     @acl.update?.should be_true
     @acl.update_bit = false
     @acl.update?.should be_false
-  end
+   end
+
+    context "on save" do
+
+      it "errors on distinct projects" do
+        @acl = @project2.acls.build :owned_resource => @owned_resource, :entity => @user
+        @acl.valid?.should be_false
+      end
+
+      it "no errors on same projects" do
+        @acl = @project.acls.build :owned_resource => @owned_resource, :entity => @user
+        @acl.valid?.should be_true
+      end
+    end
 end

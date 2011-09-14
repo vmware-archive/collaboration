@@ -45,9 +45,8 @@ class Acl < ActiveRecord::Base
     delete! val
   end
 
-protected
   def owned_resource_in_same_org
-    errors[:acl] << "Resource must be in the same org" if (@org == owned_resource.owner)
+    errors[:acl] <<  "Resource must be in the same org" unless (project.org == owned_resource.owner)
   end
 
 end
