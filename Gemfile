@@ -4,7 +4,7 @@ gem 'rails'
 gem 'mysql2', '0.2.7'
 gem 'devise'
 gem 'carrierwave'
-gem 'jquery-rails'
+gem "oa-oauth", :require => "omniauth/oauth"
 
 group :development, :test do
   gem 'rspec-rails'

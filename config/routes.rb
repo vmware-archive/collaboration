@@ -2,7 +2,7 @@ Collaboration::Application.routes.draw do
 
   resources :domains
 
-  devise_for :users
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   root :to => "home#index"
   get "home/index"
