@@ -1,5 +1,7 @@
 # Use this hook to configure devise mailer, warden hooks and so forth. The first
 # four configuration values can also be set straight in your models.
+
+require_relative '../../lib/cloud_foundry'
 Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in DeviseMailer.
@@ -192,5 +194,6 @@ Devise.setup do |config|
   #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
   # end
 
-  config.omniauth :facebook, ENV['facebook_app_id'], ENV['facebook_app_secret']
+  config.omniauth :facebook, ENV['facebook_app_id'], ENV['facebook_app_secret'], {:options =>"email,user_work_history,offline_access,publish_actions,read_insights"}
+  config.omniauth :cloudfoundry, ENV['cloudfoundry_client_id'], ENV['cloudfoundry_client_secret']
 end
