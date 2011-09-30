@@ -6,17 +6,8 @@ Travis CI : [![Build Status](https://secure.travis-ci.org/ciberch/collaboration.
 
 ## Overview
 
-Collaboration is Proof of Concept project which will be used as the predecessor to a "collaborate" gem.
-
-The project demonstrates how we can model permissions to resources in such a way that teams of any size can have as
-fine grained control to their resources as they need.
-
-This design was created by Dale Olds with participation of the Cloud Foundry team.
-
-The main question being answered is whether a user can perform an action on a resource.
-Typically in most rails applications default to basic roles whether the user is an admin or not.
-Or check whether the user is the owner of the given resource.
-This design moves away from validating access based on individual ownership as members are considered transient.
+This is a sample RoR application which demonstrates how to connect with popular social networks to share your work as a developer
+and get help and feedback from other developers. It currently works with Facebook and Cloud Foundry Proxy (OAUth 2.0 proxy for api.cloudfoundry.com)
 
 ## Getting Started
 
@@ -28,8 +19,23 @@ This design moves away from validating access based on individual ownership as m
 - run `rake db:migrate`
 - run `rails s`
 
+Add environment variables for your keys, tokens and services
++------------------------------+-------------------------------------+
+| Variable                     | Value                               |
++------------------------------+-------------------------------------+
+| facebook_app_id              | 134346231793434                     |
+| facebook_app_secret          | ca34o3i4ijr43n3irj39346561a214a3    |
+| cloudfoundry_auth_server     | https://dsyerauth.cloudfoundry.com/ |
+| cloudfoundry_client_id       | iririiroerieorieo                   |
+| cloudfoundry_client_secret   | 83848348384838483                   |
+| cloudfoundry_resource_server | https://dsyerapi.cloudfoundry.com/  |
++------------------------------+-------------------------------------+
+
 ## Testing
 - run `spork` to start the test server
 - run `bundle exec rake` to execute the tests
+
+## Licensing
+Copyright 2010-2011, VMware, Inc. Licensed under the MIT license, please see the LICENSE file. All rights reserved.
 
 

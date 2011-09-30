@@ -8,8 +8,14 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook"
       sign_in_and_redirect @user, :event => :authentication
     else
-      session["devise.facebook_data"] = env["omniauth.auth"]
-      redirect_to new_user_registration_url
+      flash[:notice] = 'No Account found on App Gallery. Please Sign Up to import Apps'
+      begin
+        env["omniauth.auth"].delete 'extra'
+        session["devise.omniauth_info"] = env["omniauth.auth"]
+        redirect_to new_user_registration_url
+      rescue Exception => ex
+        puts ex
+      end
     end
   end
 
@@ -21,7 +27,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Cloudfoundry"
       sign_in_and_redirect @user, :event => :authentication
     else
-      session["devise.cloudfoundry_data"] = env["omniauth.auth"]
+      flash[:notice] = 'No Account found on App Gallery. Please Sign Up to import Apps'
+      env["omniauth.auth"].delete 'extra'
+      session["devise.omniauth_info"] = env["omniauth.auth"]
       redirect_to new_user_registration_url
     end
   end

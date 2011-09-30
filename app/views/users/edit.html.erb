@@ -1,6 +1,7 @@
 <%- content_for :header do %>
   <%= link_to 'Back', users_path, :class => "ui-btn-left"  %>
   <h1>Editing user</h1>
+  <%= link_to 'Destroy User', user_path(@user), :confirm => 'Are you sure?', 'data-role'=>"button", 'data-inline'=>"true", :method => :delete, 'data-icon'=>"delete"%>
 <%- end %>
 
 <%= render 'form' %>

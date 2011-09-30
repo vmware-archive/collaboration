@@ -21,6 +21,32 @@ class User < ActiveRecord::Base
     Org.create! :creator => self, :display_name => "#{display_name}'s Personal Org", :personal => true
   end
 
+  class << self
+    def new_with_session(params, session)
+      super.tap do |user|
+        #logger.info "in tap for user #{session['devise.omniauth_info'].inspect}"
+        if data = session['devise.omniauth_info']['user_info']
+          user.display_name = data['name'] if data.has_key? 'name'
+          user.email = data['email']
+          user.username = data['nickname'] if data.has_key? 'nickname'
+          user.first_name = data['first_name'] if data.has_key? 'first_name'
+          user.last_name = data['last_name'] if data.has_key? 'last_name'
+          #user.remote_avatar_url = data['image'] if data.has_key? 'image'
+        end
+      end
+    end
+  end
+
+  def set_token_from_hash(hash)
+    token = self.authorizations.find_or_initialize_by_provider(hash[:provider])
+    token.update_attributes(
+      :uid         => hash[:uid],
+      :nickname    => hash[:nickname],
+      :url         => hash[:url],
+      :credentials => hash[:credentials]
+    )
+  end
+
 public
 
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
