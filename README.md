@@ -20,16 +20,16 @@ and get help and feedback from other developers. It currently works with Faceboo
 - run `rails s`
 
 Add environment variables for your keys, tokens and services
-+------------------------------+-------------------------------------+
-| Variable                     | Value                               |
-+------------------------------+-------------------------------------+
-| facebook_app_id              | 134346231793434                     |
-| facebook_app_secret          | ca34o3i4ijr43n3irj39346561a214a3    |
-| cloudfoundry_auth_server     | https://dsyerauth.cloudfoundry.com/ |
-| cloudfoundry_client_id       | iririiroerieorieo                   |
-| cloudfoundry_client_secret   | 83848348384838483                   |
-| cloudfoundry_resource_server | https://dsyerapi.cloudfoundry.com/  |
-+------------------------------+-------------------------------------+
+
+### Example
+
+- facebook_app_id              => 134346231793434                     
+- facebook_app_secret          => ca34o3i4ijr43n3irj39346561a214a3    
+- cloudfoundry_auth_server     => https://dsyerauth.cloudfoundry.com/ 
+- cloudfoundry_client_id       => iririiroerieorieo                   
+- cloudfoundry_client_secret   => 83848348384838483                   
+- cloudfoundry_resource_server => https://dsyerapi.cloudfoundry.com/  
+
 
 ## Testing
 - run `spork` to start the test server
