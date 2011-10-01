@@ -4,6 +4,9 @@ gem 'rails'
 gem 'mysql2', '0.2.7'
 gem 'devise'
 gem 'carrierwave'
+gem 'mongo'
+gem 'bson'
+gem 'carrierwave-mongoid', :require => "carrierwave/mongoid"
 gem "oa-oauth", :require => "omniauth/oauth"
 
 group :development, :test do

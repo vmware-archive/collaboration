@@ -16,7 +16,7 @@
         <li>Then assign permissions to apps and other resources in your <%= link_to 'Organizations', orgs_path %> via <strong>Projects</strong> and <strong>Groups</strong></li>
       </ol>
 
-  <p>By default when you created your account you were given a <%= link_to 'Personal Organization', org_path(current_user.personal_org) %>.
+  <p>By default when you created your account you were given a <%= link_to 'Personal Organization', current_user.personal_org ? org_path(current_user.personal_org) : '' %>.
     Note that you can always create more <%= link_to 'organizations', orgs_path %> to manage work projects, as well as be invited by someone else to be part of an organization.</p>
 
 </div>

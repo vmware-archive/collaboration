@@ -5,9 +5,10 @@
 <%- end %>
 
 <div data-role="content">
-<ul data-role="listview" data-inset="true">
-<li><label>First name</label>: <%= @user.first_name %></li>
-<li><label>Last name</label>: <%= @user.last_name %></li>
-<li><label>Username</label>: <%= @user.username %></li>
- </ul>
+  <img src='<%= @user.avatar.url %>' />
+    <ul data-role="listview" data-inset="true">
+        <li><label>First name</label>: <%= @user.first_name %></li>
+        <li><label>Last name</label>: <%= @user.last_name %></li>
+        <li><label>Username</label>: <%= @user.username %></li>
+     </ul>
 </div>

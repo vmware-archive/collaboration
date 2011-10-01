@@ -17,6 +17,8 @@ class User < ActiveRecord::Base
 
   validates_presence_of :display_name
 
+  mount_uploader :avatar, AvatarUploader
+
   after_create do
     Org.create! :creator => self, :display_name => "#{display_name}'s Personal Org", :personal => true
   end
@@ -31,7 +33,7 @@ class User < ActiveRecord::Base
           user.username = data['nickname'] if data.has_key? 'nickname'
           user.first_name = data['first_name'] if data.has_key? 'first_name'
           user.last_name = data['last_name'] if data.has_key? 'last_name'
-          #user.remote_avatar_url = data['image'] if data.has_key? 'image'
+          user.remote_avatar_url = data['image'] if data.has_key? 'image'
         end
       end
     end
