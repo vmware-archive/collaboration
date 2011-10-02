@@ -1,10 +1,12 @@
 # encoding: utf-8
 
+require 'carrierwave/processing/mini_magick'
+
 class AvatarUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or ImageScience support:
   # include CarrierWave::RMagick
-  # include CarrierWave::MiniMagick
+  include CarrierWave::MiniMagick
   # include CarrierWave::ImageScience
 
   # Choose what kind of storage to use for this uploader:
@@ -34,6 +36,10 @@ class AvatarUploader < CarrierWave::Uploader::Base
   # version :thumb do
   #   process :scale => [50, 50]
   # end
+
+  version :thumb do
+    process :resize_to_fill => [80,80]
+  end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:

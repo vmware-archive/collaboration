@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :display_name, :username, :personal_org, :orgs_with_access
+  attr_accessible :avatar, :remote_avatar_url, :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :display_name, :username, :personal_org, :orgs_with_access
 
   attr_readonly :personal_org
 
@@ -27,13 +27,15 @@ class User < ActiveRecord::Base
     def new_with_session(params, session)
       super.tap do |user|
         #logger.info "in tap for user #{session['devise.omniauth_info'].inspect}"
-        if data = session['devise.omniauth_info']['user_info']
-          user.display_name = data['name'] if data.has_key? 'name'
-          user.email = data['email']
-          user.username = data['nickname'] if data.has_key? 'nickname'
-          user.first_name = data['first_name'] if data.has_key? 'first_name'
-          user.last_name = data['last_name'] if data.has_key? 'last_name'
-          user.remote_avatar_url = data['image'] if data.has_key? 'image'
+        if session['devise.omniauth_info']
+          if data = session['devise.omniauth_info']['user_info']
+            user.display_name = data['name'] if data.has_key? 'name'
+            user.email = data['email']
+            user.username = data['nickname'] if data.has_key? 'nickname'
+            user.first_name = data['first_name'] if data.has_key? 'first_name'
+            user.last_name = data['last_name'] if data.has_key? 'last_name'
+            user.remote_avatar_url = data['image'] if data.has_key? 'image'
+          end
         end
       end
     end
