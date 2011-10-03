@@ -36,6 +36,7 @@ Add environment variables for your keys, tokens and services
 - run `bundle exec rake` to execute the tests
 
 ## Licensing
-Copyright 2010-2011, VMware, Inc. Licensed under the MIT license, please see the LICENSE file. All rights reserved.
+Copyright 2010-2011, VMware, Inc. Licensed under the Apache Version 2.0 license, please see the LICENSE file. All rights reserved.
+http://www.apache.org/licenses/LICENSE-2.0.html
 
 
