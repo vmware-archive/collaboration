@@ -23,7 +23,7 @@ CarrierWave.configure do |config|
 
   cnx = Mongo::Connection.new(conn_info['hostname'], conn_info['port'], :pool_size => 5, :timeout => 5)
   db = cnx['db']
-  puts "DB = #{db.inspect}"
+
   if conn_info['username'] and conn_info['password']
     db.authenticate(conn_info['username'], conn_info['password'])
   end
