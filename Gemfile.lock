@@ -132,12 +132,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bson
   carrierwave
   carrierwave-mongoid
   devise
   mini_magick
-  mongo
   mysql2 (= 0.2.7)
   oa-oauth
   rails
