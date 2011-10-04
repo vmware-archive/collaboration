@@ -1,18 +1,44 @@
 require 'omniauth/oauth'
 require 'multi_json'
 
+module CloudFoundry
+
+  class Api
+
+    attr_accessor :access_token
+
+    OAUTH_OPTIONS = {
+            :site => ENV['cloudfoundry_auth_server'],
+            :authorize_url =>'/oauth/user/authorize?resource_id=app&scope=read_vcap,write_vcap',
+            :token_url => '/oauth/authorize?scope=read_vcap,write_vcap',
+            :ssl=>{:verify=>false}
+        }
+
+    def initialize session_info
+      @client = OAuth2::Client.new( ENV['cloudfoundry_client_id'], ENV['cloudfoundry_client_secret'], CloudFoundry::Api::OAUTH_OPTIONS)
+      @access_token = nil
+      if session_info
+        @access_token = OAuth2::AccessToken.from_hash @client, session_info
+      else
+        puts "No access token"
+      end
+    end
+
+    def apps
+      return @access_token.get("#{ENV['cloudfoundry_resource_server']}apps") if @access_token
+      []
+    end
+  end
+
+end
+
 # <oauth:client clientId="oauth_cf_callback" resource-ids="api"
 # authorizedGrantTypes="authorization_code,refresh_token" scope="read_vcap,write_vcap" authorities="ROLE_GUEST"/>
 module OmniAuth
   module Strategies
     class Cloudfoundry < OmniAuth::Strategies::OAuth2
       def initialize(app, client_id=nil, client_secret=nil, options={}, &block)
-        client_options = {
-            :site => ENV['cloudfoundry_auth_server'],
-            :authorize_url =>'/oauth/user/authorize?resource_id=app&scope=read_vcap,write_vcap',
-            :token_url => '/oauth/authorize?scope=read_vcap,write_vcap',
-            :ssl=>{:verify=>false}
-        }
+        client_options = CloudFoundry::Api::OAUTH_OPTIONS
 
         super(app, :cloudfoundry, client_id, client_secret, client_options, options, &block)
       end

@@ -26,7 +26,6 @@ class User < ActiveRecord::Base
   class << self
     def new_with_session(params, session)
       super.tap do |user|
-        #logger.info "in tap for user #{session['devise.omniauth_info'].inspect}"
         if session['devise.omniauth_info']
           if data = session['devise.omniauth_info']['user_info']
             user.display_name = data['name'] if data.has_key? 'name'
