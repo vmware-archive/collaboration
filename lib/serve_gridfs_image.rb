@@ -1,5 +1,3 @@
-require 'mongo_cloud_foundry'
-
 class ServeGridfsImage
   def initialize(app)
       @app = app
