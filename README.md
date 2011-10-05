@@ -19,6 +19,9 @@ and get help and feedback from other developers. It currently works with Faceboo
 - run `rake db:migrate`
 - run `rails s`
 
+- Install MongoDB
+- run `rake db:mongoid:create_indexes`
+
 Add environment variables for your keys, tokens and services
 
 ### Example

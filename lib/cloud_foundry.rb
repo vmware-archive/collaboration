@@ -24,8 +24,28 @@ module CloudFoundry
       end
     end
 
+    # [{"name"=>"salesforce-demo", "staging"=>{"model"=>"sinatra", "stack"=>"ruby19"}, "uris"=>["salesforce-demo.cloudfoundry.com"], "instances"=>1, "runningInstances"=>nil,
+    #"resources"=>{"memory"=>128, "disk"=>2048, "fds"=>256}, "state"=>"STARTED", "services"=>["redis-8dedb"], "version"=>"f7fd7a0922cb26c6bb2d795737dfd66f49877944-1",
+    #"env"=>["salesforce_key=bbb", "salesforce_secret=oooo",
+    #"linkedin_key=bbb", "linkedin_secret=tttt", "salesforce_instance_url=na3"], "meta"=>{"debug"=>nil, "version"=>1014, "created"=>1317854795}},
+    #{"name"=>"SuperSalads", "staging"=>{"model"=>"sinatra", "stack"=>"ruby18"}, "uris"=>["supersalads.cloudfoundry.com"], "instances"=>1, "runningInstances"=>nil,
+    #"resources"=>{"memory"=>128, "disk"=>2048, "fds"=>256}, "state"=>"STARTED", "services"=>[], "version"=>"e35bec3dace813a750500ab2e5dcbfbcd4ed8ecf-3",
+    #"env"=>["FACEBOOK_APP_ID=ooop", "FACEBOOK_SECRET=ewewew"], "meta"=>{"debug"=>nil, "version"=>8, "created"=>1317854796}},
+    #{"name"=>"collaboration", "staging"=>{"model"=>"rails3", "stack"=>"ruby19"}, "uris"=>["collaboration.cloudfoundry.com"], "instances"=>1, "runningInstances"=>nil,
+    #"resources"=>{"memory"=>256, "disk"=>2048, "fds"=>256}, "state"=>"STARTED", "services"=>["mongodb-1d07b", "mysql-ad96e"],
+    #"version"=>"6a7c2edb8b502a9bfb7b5f94abc781d8da3539b9-1", "env"=>["facebook_app_id=sdsd", "facebook_app_secret=wwwww",
+    #"cloudfoundry_auth_server=https://dsyerauth.cloudfoundry.com/", "cloudfoundry_client_id=oauth_cf_callback", "cloudfoundry_client_secret=dsdsdsds",
+    #"cloudfoundry_resource_server=https://dsyerapi.cloudfoundry.com/"], "meta"=>{"debug"=>nil, "version"=>369, "created"=>1317854796}}, {"name"=>"developers",
+    #"staging"=>{"model"=>"sinatra", "stack"=>"ruby18"}, "uris"=>["developers.cloudfoundry.com"], "instances"=>1, "runningInstances"=>nil, "resources"=>{"memory"=>128,
+    #"disk"=>2048, "fds"=>256}, "state"=>"STARTED", "services"=>[], "version"=>"4f70937586e6ea8b454d5823eddc1c203b23d6ec-3", "env"=>["facebook_app_id=147862838623179",
+    #"internal_link_apps=http://collaboration.cloudfoundry.com", "internal_link_faq=http://faq.cloudfoundry.com", "external_link_blog=http://blog.cloudfoundry.com",
+    #"external_link_support=http://support.cloudfoundry.com"], "meta"=>{"debug"=>nil, "version"=>177, "created"=>1317854796}}]
     def apps
-      return @access_token.get("#{ENV['cloudfoundry_resource_server']}apps") if @access_token
+      begin
+        return @access_token.get("#{ENV['cloudfoundry_resource_server']}apps") if @access_token
+      rescue OAuth2::Error => ex
+        puts "Got error getting apps #{ex.inspect}"
+      end
       []
     end
   end

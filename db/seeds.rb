@@ -33,5 +33,3 @@ pwd = 'cloud$'
 @group_member2 = @group.group_members.build :user => @user2
 @group_member2.save!
 
-@service = Service.create! :display_name => 'Identity Service', :creator => @user, :project => @org.default_project
-@app = App.create! :display_name => 'Collaborate', :creator => @user2, :project => @org.default_project

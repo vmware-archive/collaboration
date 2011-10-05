@@ -61,7 +61,7 @@ describe Org do
     end
 
     it "must properly list all of the available resources" do
-      app = App.create! :display_name => 'Rocket Launcher', :creator => @user, :project => @org.default_project
+      app = App.create! :display_name => 'Rocket Launcher', :creator => @user, :project => @org.default_project, :url => "rl.cloudfoundry.com"
       @org = @org.reload
       @org.potential_owned_resources.should == [["#{app.main_owned_resource}", app.main_owned_resource.id]]
     end

@@ -6,7 +6,7 @@ describe Acl do
     @user = User.create! :first_name => 'Dale', :last_name => 'Olds', :display_name => 'Dale O.', :password => pwd, :confirm_password => pwd, :email => 'olds@vmware.com'
     @org = Org.create! :display_name => 'VMWare', :creator => @user
     @project = @org.default_project
-    @app = App.create! :display_name => 'Optimus', :creator => @user, :project => @project
+    @app = App.create! :display_name => 'Optimus', :creator => @user, :project => @project, :url => "optimus.cloudfoundry.com"
     @owned_resource = @app.owned_resources.first
 
     @org2 = Org.create! :display_name => 'DELL', :creator => @user

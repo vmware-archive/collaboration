@@ -2,7 +2,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def facebook
     # You need to implement the method below in your model
-    @user = User.find_for_facebook_oauth(env["omniauth.auth"], current_user)
+    email = env["omniauth.auth"]['user_info']['email']
+    @user = User.get_user_from_auth(email, current_user)
 
     #Facebook {"provider"=>"facebook", "uid"=>"608201527",
     #"credentials"=>{"token"=>"147862838623179|1de66c285580f2db308d7c78.1-608201527|a7wAL8ZdROt7nc7xuveTGF3hSq4"},
@@ -33,7 +34,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     #"name"=>"Rafael Nadal"}, {"id"=>"64760994940", "name"=>"Roger Federer"}, {"id"=>"111054225589401", "name"=>"Kim Clisters"}, {"id"=>"65920772679", "name"=>"Maria Sharapova"}],
     #"gender"=>"female", "email"=>"monica.keller@gmail.com", "timezone"=>-7, "locale"=>"en_US", "languages"=>[{"id"=>"110343528993409", "name"=>"Spanish"}, {"id"=>"108106272550772",
     #"name"=>"French"}, {"id"=>"106059522759137", "name"=>"English"}], "verified"=>true, "updated_time"=>"2011-10-03T21:37:19+0000"}}}
-    session['devise.facebook'] = env["omniauth.auth"].delete 'credentials'
+
+    creds = env["omniauth.auth"]['credentials']
+    UserAccessToken.add_tokens(email, :facebook, creds['token'])
+    logger.info "Added #{ut.inspect}"
 
     if @user.persisted?
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook"
@@ -52,7 +56,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def cloudfoundry
     # You need to implement the method below in your model
-    @user = User.find_for_cloudfoundry_oauth(env["omniauth.auth"], current_user)
+    email = env["omniauth.auth"]['user_info']['email']
+
+    @user = User.get_user_from_auth email, current_user
     #{"provider"=>"cloudfoundry", "uid"=>nil, "credentials"=>{"token"=>"f6b6eae3-e9bc-4cd9-ae73-24d411033f49", "refresh_token"=>"ea0ce292-f665-44b9-a8c8-dd3a08ece075"},
     #"user_info"=>{"email"=>"mwilkinson@vmware.com"}, "extra"=>{"user_hash"=>{"name"=>"vcap", "build"=>2222, "support"=>"http://support.cloudfoundry.com", "version"=>"0.999",
     #"description"=>"VMware's Cloud Application Platform", "allow_debug"=>false, "user"=>"mwilkinson@vmware.com", "limits"=>{"memory"=>2048, "app_uris"=>4, "services"=>16, "apps"=>20},
@@ -67,9 +73,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     #"appservers"=>[{"name"=>"tomcat", "description"=>"Tomcat"}], "detection"=>[{"*.war"=>true}]}, "spring"=>{"name"=>"spring", "runtimes"=>[{"name"=>"java", "version"=>1.6,
     #"description"=>"Java 6"}], "appservers"=>[{"name"=>"tomcat", "description"=>"Tomcat"}], "detection"=>[{"*.war"=>true}]}}, "org"=>"mwilkinson@vmware.com",
     #"prompt"=>{"email"=>["text", "CloudFoundry ID (email)"], "password"=>["password", "CloudFoundry Password"]}}}}
-    session['devise.cloudfoundry'] = env["omniauth.auth"].delete 'credentials'
 
-    logger.info "ok #{session['devise.cloudfoundry'].inspect}" if session.has_key?'devise.cloudfoundry'
+
+    creds = env["omniauth.auth"]['credentials']
+    ut = UserAccessToken.add_tokens email, :cloudfoundry, creds['token'], creds['refresh_token']
+    logger.info "Added #{ut.inspect}"
 
     if @user.persisted?
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Cloudfoundry"

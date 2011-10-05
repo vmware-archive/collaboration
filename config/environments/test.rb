@@ -33,5 +33,5 @@ Collaboration::Application.configure do
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
 
-  config.gem "mongo_store"
+  config.gem "mongo-store"
 end

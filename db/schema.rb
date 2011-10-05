@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(:version => 20110912230912) do
     t.string   "url"
   end
 
+  add_index "apps", ["url"], :name => "index_apps_on_url"
+
   create_table "group_members", :force => true do |t|
     t.integer  "user_id",    :null => false
     t.integer  "group_id",   :null => false

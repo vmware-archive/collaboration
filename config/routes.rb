@@ -18,7 +18,11 @@ Collaboration::Application.routes.draw do
   end
 
 
-  resources :apps#, :only => [:show, :edit, :update]
+  resources :apps do
+    collection do
+      get 'import'
+    end
+  end
   resources :services#, :only => [:show, :edit, :update]
   resources :users#, :only => [:show, :edit, :update]
 
