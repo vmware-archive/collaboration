@@ -4,7 +4,19 @@ class OwnedResourcesController < ApplicationController
   # GET /owned_resources
   # GET /owned_resources.json
   def index
-    @owned_resources = @org.owned_resources
+    @owned_resources = nil
+
+    @title = @org.display_name
+    if params[:resource_type] == 'Service'
+      @title += " Services"
+      @owned_resources = @org.owned_resources.where(:resource_type => 'Service')
+    elsif params[:resource_type] == 'App'
+       @title += " Apps"
+       @owned_resources = @org.owned_resources.where(:resource_type => 'App')
+    else
+       @title += "'s Resources"
+       @owned_resources = @org.owned_resources
+    end
 
     respond_to do |format|
       format.html # index.html.erb

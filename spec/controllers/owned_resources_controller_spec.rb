@@ -45,6 +45,20 @@ describe OwnedResourcesController do
     end
   end
 
+   describe "GET index with resource type App" do
+    it "assigns all owned_resources of type App as @owned_resources" do
+      get :index, :org_id => @org.id, :resource_type => 'App'
+      assigns(:owned_resources).should eq([@owned_resource])
+    end
+   end
+
+   describe "GET index with resource_type Service" do
+    it "assigns all owned_resources of type App as @owned_resources" do
+      get :index, :org_id => @org.id, :resource_type => 'Service'
+      assigns(:owned_resources).should eq([])
+    end
+  end
+
   describe "GET show" do
     it "assigns the requested owned_resource as @owned_resource" do
       get :show, :id => @owned_resource.id.to_s, :org_id => @org.id

@@ -1,31 +1,16 @@
 <%- content_for :header do %>
-  <h1>Listing resources for <%= link_to @org.display_name, @org %></h1>
+  <h1><%= @title %></h1>
   <%= link_to 'New Resource', new_org_owned_resource_path(@org), :class => 'ui-btn-right', "data-icon" => "plus" %>
 <%- end %>
 
 <div data-role="content">
-<table>
-  <tr>
-    <th>Display name</th>
-    <th>Marked for transfer</th>
-    <th>Deleted</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
 
-<% @owned_resources.each do |owned_resource| %>
-  <tr>
-    <td><%= owned_resource.resource.display_name %></td>
-    <td><%= owned_resource.marked_for_transfer %></td>
-    <td><%= owned_resource.deleted %></td>
-    <td><%= link_to 'Show', org_owned_resource_path(@org, owned_resource) %></td>
-    <td><%= link_to 'Edit', edit_org_owned_resource_path(@org, owned_resource) %></td>
-    <td><%= link_to 'Destroy', org_owned_resource_path(@org, owned_resource), :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
+  <%- if @owned_resources.count > 0 %>
+      <ul data-role="listview" data-inset="true">
+    <% @owned_resources.each do |owned_resource| %>
+      <li><%= link_to owned_resource.resource.display_name, edit_org_owned_resource_path(@org, owned_resource) %></li>
+    <% end %>
+    </ul>
+  <% end %>
 
 </div>
-
-
