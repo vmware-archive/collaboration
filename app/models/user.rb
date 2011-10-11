@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_many :email_addresses, :dependent => :destroy
   has_many :acls, :as => :entity
   has_many :projects, :through => :acls
 
@@ -18,6 +19,10 @@ class User < ActiveRecord::Base
   validates_presence_of :display_name
 
   mount_uploader :avatar, AvatarUploader
+
+  before_create do
+    self.email_addresses.build :email => email
+  end
 
   after_create do
     Org.create! :creator => self, :display_name => "#{display_name}'s Personal Org", :personal => true
@@ -52,11 +57,25 @@ class User < ActiveRecord::Base
 
 public
 
+  def external_identities
+    identities = UserAccessToken.get_tokens(self).collect &:provider
+    identities.uniq
+  end
+
   def self.get_user_from_auth(email, signed_in_resource=nil)
-    if user = User.find_by_email(email)
-      user
-    else # Create a user with a stub password.
+    if addy = EmailAddress.find_by_email(email)
+      addy.user
+    elsif user = User.find_by_email(email)
+      logger.debug "Cleaned user record #{email}"
+      user.email_addresses.build :email => email
+      user.save!
+      return user
+    elsif (signed_in_resource.nil?)
       User.create(:email => email, :password => Devise.friendly_token[0,20])
+    else
+      signed_in_resource.email_addresses.build :email => email
+      signed_in_resource.save!
+      signed_in_resource
     end
   end
 

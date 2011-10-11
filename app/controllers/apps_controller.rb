@@ -4,35 +4,37 @@ class AppsController < ApplicationController
   before_filter :list_projects, :only => :new
 
   def import
+    saved = 0
 
-    user_token = UserAccessToken.get_user_token current_user.email, :cloudfoundry
+    UserAccessToken.get_access_tokens(current_user, :cloudfoundry).values.each do |user_token|
+      if user_token
+        logger.info "Got user_token #{user_token.inspect}"
+        api = CloudFoundry::Api.new :access_token => user_token.token
+        apps = api.apps.parsed
 
-    if user_token
-      logger.info "user_token #{user_token.inspect}"
-      api = CloudFoundry::Api.new :access_token => user_token.token
-      apps = api.apps.parsed
 
-      saved = 0
-      apps.each do |app|
-        app_hash = {
-            :display_name => app['name'],
-            :state => app['state'],
-            :url => app['uris'].first,
-            :framework => app['staging']['model'],
-            :runtime => app['staging']['stack']
-        }
+        apps.each do |app|
+          app_hash = {
+              :display_name => app['name'],
+              :state => app['state'],
+              :url => app['uris'].first,
+              :framework => app['staging']['model'],
+              :runtime => app['staging']['stack']
+          }
 
-        @app = App.new(app_hash)
-        @app.creator = current_user
-        begin
-          @app.project = current_user.personal_org.default_project
-          @app.save!
-          saved += 1
-        rescue Exception => ex
-          logger.error "Could not import #{@app.display_name} due to #{ex.inspect}"
+          @app = App.new(app_hash)
+          @app.creator = current_user
+          begin
+            @app.project = current_user.personal_org.default_project
+            @app.description = "Imported from #{user_token.email} on #{user_token.provider}"
+            @app.save!
+            saved += 1
+          rescue Exception => ex
+            logger.error "Could not import #{@app.display_name} due to #{ex.inspect}"
+          end
         end
+        flash[:notice] = "Done importing #{saved.to_s} apps"
       end
-      flash[:notice] = "Done importing #{saved.to_s} apps"
     end
     redirect_to apps_path
 

@@ -12,6 +12,60 @@ describe User do
     user.reload.id.should_not be_nil
   end
 
+  it "requires unique email addresses" do
+   pwd = 'cloud$'
+    user = User.create!  :first_name => 'Dale', :last_name => 'Olds', :display_name => 'Dale O.', :password => pwd, :confirm_password => pwd, :email => 'olds@vmware.com'
+    user.reload.id.should_not be_nil
+
+    user2 = User.new :first_name => 'Dale', :last_name => 'Olds 2', :display_name => 'Dale O.', :password => pwd, :confirm_password => pwd, :email => 'olds@vmware.com'
+    user2.valid?.should be_false
+  end
+
+  context "with CF Single Sign On" do
+    before(:each) do
+      @env = {}
+      @env["omniauth.auth"] = {}
+      @creds = {}
+      @creds['token'] = "wehiqhejqkhejkqheqjkehq"
+      @creds['refresh_token'] = "165354f3vhdjdk"
+      @env["omniauth.auth"]["credentials"] = @creds
+
+      @env["omniauth.auth"]['user_info'] = {}
+      @env["omniauth.auth"]['user_info']['email'] = "another@mail.com"
+
+      @ut = UserAccessToken.add_tokens @env["omniauth.auth"]['user_info']['email'], :cloudfoundry, @creds
+
+    end
+
+
+
+    it "SSO finds user by email" do
+      pwd = 'cloud$'
+      @user = User.create! :first_name => 'Dale', :last_name => 'Olds', :display_name => 'Dale O.', :password => pwd, :confirm_password => pwd, :email => 'olds@vmware.com'
+      @sso_user = User.get_user_from_auth('olds@vmware.com', nil)
+      @sso_user.should == @user
+
+
+    end
+
+    it "SSO Defaults to signed in user" do
+      pwd = 'cloud$'
+      @user = User.create! :first_name => 'Dale', :last_name => 'Olds', :display_name => 'Dale O.', :password => pwd, :confirm_password => pwd, :email => 'olds@vmware.com'
+      @sso_user = User.get_user_from_auth("another@mail.com", @user)
+      @sso_user.id.should == @user.id
+
+      @ut.update_attribute :user_id, @user.id
+
+      UserAccessToken.first_access_token(@user, :cloudfoundry).should_not be_nil
+    end
+
+    it "SSO creates new user if no logged in user" do
+      @sso_user = User.get_user_from_auth("another@mail.com", nil)
+      @sso_user.persisted?.should be_false
+    end
+  end
+
+
   it "creates a personal org for the user" do
     pwd = 'cloud$'
     user = User.create! :first_name => 'Dale', :last_name => 'Olds', :display_name => 'Dale O.', :password => pwd, :confirm_password => pwd, :email => 'olds@vmware.com'

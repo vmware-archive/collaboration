@@ -48,15 +48,85 @@ module CloudFoundry
       end
       []
     end
+
+    # [
+  #  {
+  #    "name": "mongodb-1d07b",
+  #    "type": "key-value",
+  #    "vendor": "mongodb",
+  #    "version": "1.8",
+  #    "tier": "free",
+  #    "properties": {
+  #
+  #    },
+  #    "meta": {
+  #      "created": 1317323364,
+  #      "updated": 1317323364,
+  #      "tags": [
+  #        "mongodb",
+  #        "mongodb-1.8",
+  #        "nosql"
+  #      ],
+  #      "version": 1
+  #    }
+  #  },
+  #  {
+  #    "name": "redis-8dedb",
+  #    "type": "key-value",
+  #    "vendor": "redis",
+  #    "version": "2.2",
+  #    "tier": "free",
+  #    "properties": {
+  #
+  #    },
+  #    "meta": {
+  #      "created": 1315356101,
+  #      "updated": 1315356101,
+  #      "tags": [
+  #        "redis",
+  #        "redis-2.2",
+  #        "key-value",
+  #        "nosql"
+  #      ],
+  #      "version": 1
+  #    }
+  #  },
+  #  {
+  #    "name": "mysql-ad96e",
+  #    "type": "database",
+  #    "vendor": "mysql",
+  #    "version": "5.1",
+  #    "tier": "free",
+  #    "properties": {
+  #
+  #    },
+  #    "meta": {
+  #      "created": 1313374731,
+  #      "updated": 1313374731,
+  #      "tags": [
+  #        "mysql",
+  #        "mysql-5.1",
+  #        "relational"
+  #      ],
+  #      "version": 1
+  #    }
+  #  }
+  #]
+    def services
+
+    end
   end
 
 end
+
+
 
 # <oauth:client clientId="oauth_cf_callback" resource-ids="api"
 # authorizedGrantTypes="authorization_code,refresh_token" scope="read_vcap,write_vcap" authorities="ROLE_GUEST"/>
 module OmniAuth
   module Strategies
-    class Cloudfoundry < OmniAuth::Strategies::OAuth2
+
+    class Cloudfoundry < OAuth2
       def initialize(app, client_id=nil, client_secret=nil, options={}, &block)
         client_options = CloudFoundry::Api::OAUTH_OPTIONS
 
