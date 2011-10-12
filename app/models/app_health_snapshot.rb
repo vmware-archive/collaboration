@@ -16,6 +16,6 @@ class AppHealthSnapshot
   end
 
   def percentage
-    running_instances * 100 / instances
+    (running_instances || 0) * 100 / (instances || 1)
   end
 end
