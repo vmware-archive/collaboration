@@ -8,9 +8,8 @@ module CloudFoundry
     attr_accessor :access_token
 
     OAUTH_OPTIONS = {
-            :site => ENV['cloudfoundry_auth_server'],
-            :authorize_url =>'/oauth/user/authorize?resource_id=app&scope=read_vcap,write_vcap',
-            :token_url => '/oauth/authorize?scope=read_vcap,write_vcap',
+            :authorize_url =>"#{ENV['cloudfoundry_auth_server']}/oauth/user/authorize?resource_id=app&scope=read_vcap,write_vcap",
+            :token_url => "#{ENV['cloudfoundry_auth_server']}/oauth/authorize?scope=read_vcap,write_vcap",
             :ssl=>{:verify=>false}
         }
 
@@ -113,7 +112,12 @@ module CloudFoundry
   #  }
   #]
     def services
-
+      begin
+        return @access_token.get("#{ENV['cloudfoundry_resource_server']}services") if @access_token
+      rescue OAuth2::Error => ex
+        puts "Got error getting apps #{ex.inspect}"
+      end
+      []
     end
   end
 
