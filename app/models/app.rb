@@ -15,6 +15,18 @@ class App < ActiveRecord::Base
     owned_res.save!
   end
 
+  def self.create_or_find app_hash
+    app = App.find_by_url app_hash[:url]
+    unless (app)
+      logger.info "Could not find #{app_hash.inspect} -- Creating"
+      app = App.create! app_hash
+    end
+    app
+  end
+
+  def latest_health_snapshot
+    AppHealthSnapshot.latest id
+  end
 
   def main_owned_resource
     if owned_resources.count >0

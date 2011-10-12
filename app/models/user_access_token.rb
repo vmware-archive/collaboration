@@ -19,6 +19,8 @@ class UserAccessToken
 
   index :user_id
 
+  attr_accessible :provider
+
   public
 
   def self.get_tokens user

@@ -5,32 +5,38 @@ class AppsController < ApplicationController
 
   def import
     saved = 0
-
     UserAccessToken.get_access_tokens(current_user, :cloudfoundry).values.each do |user_token|
       if user_token
         logger.info "Got user_token #{user_token.inspect}"
         api = CloudFoundry::Api.new :access_token => user_token.token
-        apps = api.apps.parsed
+        apps = api.apps
+        if (apps.respond_to? :parsed)
+          apps = apps.parsed
+          apps.each do |app|
+            begin
 
-
-        apps.each do |app|
-          app_hash = {
-              :display_name => app['name'],
-              :state => app['state'],
-              :url => app['uris'].first,
-              :framework => app['staging']['model'],
-              :runtime => app['staging']['stack']
-          }
-
-          @app = App.new(app_hash)
-          @app.creator = current_user
-          begin
-            @app.project = current_user.personal_org.default_project
-            @app.description = "Imported from #{user_token.email} on #{user_token.provider}"
-            @app.save!
-            saved += 1
-          rescue Exception => ex
-            logger.error "Could not import #{@app.display_name} due to #{ex.inspect}"
+              app_hash = {
+                :display_name => app['name'],
+                :state => app['state'],
+                :url => app['uris'].first,
+                :framework => app['staging']['model'],
+                :runtime => app['staging']['stack'],
+                :creator => current_user,
+                :project => current_user.personal_org.default_project
+              }
+              @app = App.create_or_find(app_hash)
+              app_health = {
+                :app_id => @app.id,
+                :email => user_token.email,
+                :provider => user_token.provider,
+                :running_instances => app['runningInstances'],
+                :instances => app['instances']
+              }
+              AppHealthSnapshot.create! app_health
+              saved += 1
+            rescue Exception => ex
+              logger.error "Could not import #{app['name']} due to #{ex.inspect}"
+            end
           end
         end
         flash[:notice] = "Done importing #{saved.to_s} apps"

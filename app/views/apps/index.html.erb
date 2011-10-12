@@ -10,7 +10,10 @@
 <p>This is the current list of applications that you can access:</p>
 <ul data-role="listview" data-inset="true">
 <% @apps.each do |app| %>
-  <li><%= link_to app.display_name, edit_app_path(app) %></li>
+  <li>
+    <h3><%= link_to app.display_name, edit_app_path(app) %></h3>
+    <p><%= app.state %> and <%= (app.latest_health_snapshot) ? app.latest_health_snapshot.percentage : '?' %> % running</p>
+  </li>
 <% end %>
 </ul>
 <%- else %>
