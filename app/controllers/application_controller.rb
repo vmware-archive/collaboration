@@ -1,7 +1,7 @@
 require 'permission_manager'
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :authenticate_user!
+  before_filter :authenticate_user_with_fb_too!
   before_filter :check_action_can_be_done
 
   REST_TO_CRUD = {
@@ -13,6 +13,16 @@ class ApplicationController < ActionController::Base
       :update => PermissionManager::UPDATE,
       :edit => PermissionManager::UPDATE
   }
+  def authenticate_user_with_fb_too! opts={}
+
+    opts[:scope] = :user
+
+    logger.info "Cookies #{cookies.inspect}"
+
+     if (!devise_controller? || opts.delete(:force) )
+      warden.authenticate!(:facebook_cookie, :database_authenticatable, :rememberable)
+    end
+  end
 
   def identify_parent
     if params.has_key? :org_id

@@ -60,6 +60,10 @@ class UserAccessToken
     UserAccessToken.get_access_tokens(user, provider).values.first
   end
 
+  def self.find_by_provider_user_id user_id
+    UserAccessToken.where(:provider_user_id=> user_id).first
+  end
+
   def self.get_access_tokens user, provider
     access_tokens = {}
 
