@@ -15,6 +15,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     # Store the Access token under the email address
     ut = UserAccessToken.add_tokens email, provider, env["omniauth.auth"]['credentials']
+    ut.user_provider_id = env["omniauth.auth"]['user_info']['id']
 
     # Find a user with that email or return the current user
     @user = User.get_user_from_auth email, current_user
