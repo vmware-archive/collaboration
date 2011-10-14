@@ -40,12 +40,7 @@ module CloudFoundry
     #"internal_link_apps=http://collaboration.cloudfoundry.com", "internal_link_faq=http://faq.cloudfoundry.com", "external_link_blog=http://blog.cloudfoundry.com",
     #"external_link_support=http://support.cloudfoundry.com"], "meta"=>{"debug"=>nil, "version"=>177, "created"=>1317854796}}]
     def apps
-      begin
-        return @access_token.get("#{ENV['cloudfoundry_resource_server']}apps") if @access_token
-      rescue OAuth2::Error => ex
-        puts "Got error getting apps #{ex.inspect}"
-      end
-      []
+      return @access_token.get("#{ENV['cloudfoundry_resource_server']}apps")
     end
 
     # [

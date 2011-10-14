@@ -7,10 +7,17 @@ class AppsController < ApplicationController
     saved = 0
     UserAccessToken.get_access_tokens(current_user, :cloudfoundry).values.each do |user_token|
       if user_token
-        logger.info "Got user_token #{user_token.inspect}"
-        api = CloudFoundry::Api.new :access_token => user_token.token
-        apps = api.apps
-        if (apps.respond_to? :parsed)
+        apps = nil
+        begin
+          api = CloudFoundry::Api.new :access_token => user_token.token
+          apps = api.apps
+        rescue OAuth2::Error => ex
+          user_token.delete
+          logger.error "Got error getting apps #{ex.inspect} with access token #{user_token} -- deleting"
+          next
+        end
+
+        if (apps && apps.respond_to?(:parsed))
           apps = apps.parsed
           apps.each do |app|
             begin
@@ -38,6 +45,9 @@ class AppsController < ApplicationController
               logger.error "Could not import #{app['name']} due to #{ex.inspect}"
             end
           end
+        else
+          logger.error "Did not get a valid response from apps #{apps.inspect}"
+          user_token.delete!
         end
         flash[:notice] = "Done importing #{saved.to_s} apps"
       end
