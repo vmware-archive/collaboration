@@ -56,6 +56,13 @@ describe AppsController do
     end
   end
 
+  describe "GET import" do
+    it "does not import any apps and redirects to the oauth authorization page for cloudfoundry" do
+      get :import
+      response.should redirect_to "/users/auth/cloudfoundry"
+    end
+  end
+
   describe "GET edit" do
     it "assigns the requested app as @app" do
       app = App.create! valid_attributes
