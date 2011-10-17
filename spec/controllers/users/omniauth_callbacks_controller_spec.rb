@@ -107,4 +107,34 @@ describe Users::OmniauthCallbacksController do
       end
     end
   end
+
+  context "with existing user in db and same user signed in" do
+    before(:each) do
+      pwd = 'cloud$'
+      @user = User.create! :first_name => 'Test', :last_name => 'Testing', :display_name => 'Tester', :password => pwd, :confirm_password => pwd, :email => @email
+      sign_in @user
+    end
+
+    describe "GET endpoint with matching data" do
+
+      PROVIDERS.each do |provider|
+        before(:each) do
+          env = {"omniauth.auth" => @hash[provider]}
+          @controller.stub!(:env).and_return(env)
+          get provider
+        end
+
+        it "should find the user by email" do
+          assert_redirected_to root_path
+          assert_match flash[:notice], /Successfully authorized from .+ account/
+        end
+
+        it { should be_user_signed_in }
+
+        it "should store the access token for the provider" do
+          UserAccessToken.get_access_tokens(@user, provider).count.should == 1
+        end
+      end
+    end
+  end
 end
