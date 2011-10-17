@@ -1,5 +1,7 @@
 require 'spec_helper'
 
+PROVIDERS = [:facebook, :cloudfoundry]
+
 describe Users::OmniauthCallbacksController do
   include Devise::TestHelpers
 
@@ -8,7 +10,8 @@ describe Users::OmniauthCallbacksController do
 
     @email = 'test@vmware.com'
 
-    @cloudfoundry_hash = {
+    @hash = {}
+    @hash[:cloudfoundry] = {
         'provider' => 'cloudfoundry',
         'user_info' => {
             'email' => @email
@@ -17,7 +20,7 @@ describe Users::OmniauthCallbacksController do
             'token' => "ewiewuoirwoierjewirjhewkrne"
         }
     }
-    @facebook_hash = {
+    @hash[:facebook] = {
         'provider' => 'facebook',
         'user_info' => {
             'email' => @email
@@ -29,69 +32,49 @@ describe Users::OmniauthCallbacksController do
     request.env["devise.mapping"] = Devise.mappings[:user]
   end
 
-  context "url hacking" do
-    describe "GET facebook endpoint directly" do
-      it "should redirect the user to sign up" do
-        get :facebook
-        assert_redirected_to new_user_session_path
-        assert_match flash[:notice], /Not enough information to sign in/
-      end
+  describe "OmniAuth Config" do
+    it "should have facebook and cloudfoundry as providers" do
+      User.omniauth_providers.should == PROVIDERS
     end
+  end
 
-    describe "GET cloudfoundry endpoint directly" do
-      it "should redirect the user to sign up" do
-        get :cloudfoundry
-        assert_redirected_to new_user_session_path
-        assert_match flash[:notice], /Not enough information to sign in/
+  context "URL hacking" do
+    describe "GET endpoint directly" do
+
+      PROVIDERS.each do |provider|
+        it "#{provider} endpoint should redirect the user to sign up" do
+          get provider
+          assert_redirected_to new_user_session_path
+          assert_match flash[:notice], /Not enough information to sign in/
+        end
       end
     end
   end
 
   context "with no user in db" do
+    describe "GET endpoint with good data" do
 
-    describe "GET facebook with good data" do
-      before(:each) do
-        env = {"omniauth.auth" => @facebook_hash}
-        @controller.stub!(:env).and_return(env)
-        get :facebook
-        @new_user = assigns(:user)
-      end
+      PROVIDERS.each do |provider|
+        before(:each) do
+          env = {"omniauth.auth" => @hash[provider]}
+          @controller.stub!(:env).and_return(env)
+          get provider
+          @new_user = assigns(:user)
+        end
 
-      it "should set the user record" do
-        @new_user.should_not be_nil
-        @new_user.should_not be_persisted
-      end
+        it "should set the user record" do
+          @new_user.should_not be_nil
+          @new_user.should_not be_persisted
+        end
 
-      it "should prompt the user to finish sign up" do
-        assert_redirected_to new_user_registration_url
-        assert_match flash[:notice], /Please complete registration to App Gallery/
-      end
+        it "should prompt the user to finish sign up" do
+          assert_redirected_to new_user_registration_url
+          assert_match flash[:notice], /Please complete registration to App Gallery/
+        end
 
-      it "should store the access token for the provider" do
-        UserAccessToken.get_access_tokens(@new_user, :facebook).count.should == 1
-      end
-    end
-
-    describe "GET cloudfoundry with good data" do
-      before do
-        env = {"omniauth.auth" => @cloudfoundry_hash}
-        @controller.stub!(:env).and_return(env)
-        get :cloudfoundry
-        @new_user = assigns(:user)
-      end
-
-      it "should set the user record" do
-        @new_user.should_not be_nil
-        @new_user.should_not be_persisted
-      end
-
-      it "should prompt the user to finish sign up" do
-        assert_redirected_to new_user_registration_url
-        assert_match flash[:notice], /Please complete registration to App Gallery/
-      end
-
-      it "should store the access token for the provider" do
-        UserAccessToken.get_access_tokens(@new_user, :cloudfoundry).count.should == 1
+        it "should store the access token for the provider" do
+          UserAccessToken.get_access_tokens(@new_user, provider).count.should == 1
+        end
       end
     end
   end
@@ -102,41 +85,25 @@ describe Users::OmniauthCallbacksController do
       @user = User.create! :first_name => 'Test', :last_name => 'Testing', :display_name => 'Tester', :password => pwd, :confirm_password => pwd, :email => @email
     end
 
-    describe "GET facebook with matching data" do
-      before(:each) do
-        env = {"omniauth.auth" => @facebook_hash}
-        @controller.stub!(:env).and_return(env)
-        get :facebook
-      end
+    describe "GET endpoint with matching data" do
 
-      it "should find the user by email" do
-        assert_redirected_to root_path
-        assert_match flash[:notice], /Successfully authorized from facebook account/
-      end
+      PROVIDERS.each do |provider|
+        before(:each) do
+          env = {"omniauth.auth" => @hash[provider]}
+          @controller.stub!(:env).and_return(env)
+          get provider
+        end
 
-      it { should be_user_signed_in }
+        it "should find the user by email" do
+          assert_redirected_to root_path
+          assert_match flash[:notice], /Successfully authorized from .+ account/
+        end
 
-      it "should store the access token for the provider" do
-        UserAccessToken.get_access_tokens(@user, :facebook).count.should == 1
-      end
-    end
+        it { should be_user_signed_in }
 
-    describe "GET cloudfoundry with matching data" do
-      before do
-        env = {"omniauth.auth" => @cloudfoundry_hash}
-        @controller.stub!(:env).and_return(env)
-        get :cloudfoundry
-      end
-
-      it "should find the user by email" do
-        assert_redirected_to root_path
-        assert_match flash[:notice], /Successfully authorized from cloudfoundry account/
-      end
-
-      it { should be_user_signed_in }
-
-      it "should store the access token for the provider" do
-        UserAccessToken.get_access_tokens(@user, :cloudfoundry).count.should == 1
+        it "should store the access token for the provider" do
+          UserAccessToken.get_access_tokens(@user, provider).count.should == 1
+        end
       end
     end
   end
