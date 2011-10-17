@@ -66,7 +66,7 @@ public
     if addy = EmailAddress.find_by_email(email)
       addy.user
     elsif user = User.find_by_email(email)
-      logger.debug "Cleaned user record #{email}"
+      logger.debug "Cleaning user record #{email}"
       user.email_addresses.build :email => email
       user.save!
       return user

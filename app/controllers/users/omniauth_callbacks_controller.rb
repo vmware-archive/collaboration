@@ -26,6 +26,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         ut.update_attribute :user_id, @user.id
 
         flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => provider
+
+        if (current_user != @user)
+          flash[:notice] = "Switching logged in user to #{@user.display_name}"
+        end
         sign_in_and_redirect @user, :event => :authentication
       else
         flash[:notice] = 'Please complete registration to App Gallery'
