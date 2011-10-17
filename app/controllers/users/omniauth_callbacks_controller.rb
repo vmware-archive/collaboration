@@ -28,7 +28,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => provider
         sign_in_and_redirect @user, :event => :authentication
       else
-        flash[:notice] = 'No Account found on App Gallery. Please Sign Up to import Apps'
+        flash[:notice] = 'Please complete registration to App Gallery'
 
         # Persist the data
         session["devise.omniauth_info"] = env["omniauth.auth"]
