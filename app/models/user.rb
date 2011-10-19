@@ -11,8 +11,25 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
+  def emails
+    email_addresses.collect(&:email).join(', ')
+  end
+
+  def emails=value
+    if (value != self.emails)
+      email_addys = value.split(',')
+      email_addys.each do |email|
+        email = email.strip
+        unless emails.include? email
+          email_addresses.build :email => email
+          # TODO not validated
+        end
+      end
+    end
+  end
+
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :avatar, :remote_avatar_url, :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :display_name, :username, :personal_org, :orgs_with_access
+  attr_accessible :emails, :avatar, :remote_avatar_url, :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :display_name, :username, :personal_org, :orgs_with_access
 
   attr_readonly :personal_org
 
@@ -39,6 +56,8 @@ class User < ActiveRecord::Base
             user.first_name = data['first_name'] if data.has_key? 'first_name'
             user.last_name = data['last_name'] if data.has_key? 'last_name'
             user.remote_avatar_url = data['image'] if data.has_key? 'image'
+            user.password = Devise.friendly_token[0,20]
+            user.password_confirmation = user.password
           end
         end
       end

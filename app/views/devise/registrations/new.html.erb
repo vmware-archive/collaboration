@@ -30,12 +30,13 @@
   <p><%= f.label :email %><br />
   <%= f.email_field :email %></p>
 
-  <p><%= f.label :password %><br />
-  <%= f.password_field :password %></p>
+  <%- if @user.password.blank? || @user.password_confirmation.blank? %>
+      <p><%= f.label :password %><br />
+      <%= f.password_field :password %></p>
 
-  <p><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></p>
-
+      <p><%= f.label :password_confirmation %><br />
+      <%= f.password_field :password_confirmation %></p>
+  <%- end %>
 
   <p><%= f.submit "Sign up", 'data-theme' => 'b' %></p>
   <%-end%>
