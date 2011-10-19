@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111010230912) do
+ActiveRecord::Schema.define(:version => 20111018230922) do
 
   create_table "acls", :force => true do |t|
     t.integer  "permission_set",    :default => 0
@@ -38,10 +38,11 @@ ActiveRecord::Schema.define(:version => 20111010230912) do
   add_index "apps", ["url"], :name => "index_apps_on_url"
 
   create_table "email_addresses", :force => true do |t|
-    t.string   "email",      :null => false
-    t.integer  "user_id",    :null => false
+    t.string   "email",                         :null => false
+    t.integer  "user_id",                       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "validated",  :default => false, :null => false
   end
 
   add_index "email_addresses", ["email"], :name => "index_email_addresses_on_email"
