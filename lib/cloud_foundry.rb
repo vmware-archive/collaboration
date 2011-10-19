@@ -153,7 +153,8 @@ module OmniAuth
           #'name' => user_hash['name'],
           #'first_name' => user_hash['given_name'],
           #'last_name' => user_hash['family_name'],
-          'email' => user_hash['user']
+          'email' => user_hash['user'],
+          #'remote_avatar_url' => user_hash['picture'],
           #'location' => user_hash['address']['formatted'],
           #'image' => user_hash['picture'],
           #'phone' => user_hash['phone_number'],
