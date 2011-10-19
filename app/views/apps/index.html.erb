@@ -1,5 +1,5 @@
 <%- content_for :header do %>
-  <%= link_to 'Import Cloud Foundry Apps', import_apps_path, :class => 'ui-btn-left', "data-icon" => "gear" %>
+  <%= link_to 'Import Cloud Foundry Apps', import_apps_path, :class => 'ui-btn-left', "data-icon" => "gear", :rel => 'external' %>
   <h1>Applications</h1>
   <%= link_to 'New App', new_app_path, :class => 'ui-btn-right', "data-icon" => "plus" %>
 <%- end %>
@@ -12,7 +12,8 @@
 <% @apps.each do |app| %>
   <li>
     <h3><%= link_to app.display_name, edit_app_path(app) %></h3>
-    <p><%= app.state %> and <%= (app.latest_health_snapshot) ? app.latest_health_snapshot.percentage : '?' %> % running</p>
+    <p><%= app.state %></p>
+    <p><%= (app.latest_health_snapshot) ? app.latest_health_snapshot.percentage : '?' %> % running</p>
   </li>
 <% end %>
 </ul>
