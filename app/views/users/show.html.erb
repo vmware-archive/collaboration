@@ -5,10 +5,18 @@
 <%- end %>
 
 <div data-role="content">
-  <img src='<%= @user.avatar.url %>' />
-    <ul data-role="listview" data-inset="true">
+  <img src='<%= @user.avatar.url %>' style='width:100px' />
+  <h3><%= @user.display_name %></h3>
+    <ul data-role="listview">
         <li><label>First name</label>: <%= @user.first_name %></li>
         <li><label>Last name</label>: <%= @user.last_name %></li>
         <li><label>Username</label>: <%= @user.username %></li>
+      <li><label>Emails</label>:
+
+        <%- @user.email_addresses.each do |email_record| %>
+         <span class='email'><%= link_to email_record.email, "mailto:#{email_record.email}", 'rel' => 'external' %></span>
+        <%-end %>
+
+        </li>
      </ul>
 </div>

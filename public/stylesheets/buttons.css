@@ -35,6 +35,10 @@
     display: inline;
 }
 
-.logo {
+.logo img {
     width: 120px;
+}
+
+.email {
+    margin-left: 5px;
 }
