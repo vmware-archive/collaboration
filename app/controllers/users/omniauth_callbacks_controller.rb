@@ -8,19 +8,32 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     handle_oauth :cloudfoundry
   end
 
+  def github
+    handle_oauth :github
+  end
+
 
   def handle_oauth provider
     if (env && env["omniauth.auth"] && env["omniauth.auth"]['credentials'])
        # Get email from external service the current user just authenticated with
-      email = env["omniauth.auth"]['user_info']['email']
+      id = env["omniauth.auth"]['uid']
 
-      # Store the Access token under the email address
-      ut = UserAccessToken.add_tokens email, provider, env["omniauth.auth"]['credentials']
+      @user = nil
+      if (env["omniauth.auth"]['user_info']['email'])
+        email = env["omniauth.auth"]['user_info']['email']
+        id = email
+        # Find a user with that email or return the current user
+        @user = User.get_user_from_auth_by_email email, current_user
+      end
 
-      # Find a user with that email or return the current user
-      @user = User.get_user_from_auth email, current_user
+      unless @user
+        @user = User.get_user_from_auth_by_id provider, id, current_user
+      end
 
-      if @user.persisted?
+      # Store the Access token under the email address or unique id
+      ut = UserAccessToken.add_tokens email, id, provider, env["omniauth.auth"]['credentials']
+
+      if @user && @user.persisted?
         # If the user already existed
         # Make sure the access token is pointing to the proper user
         ut.update_attribute :user_id, @user.id

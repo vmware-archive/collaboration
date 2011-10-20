@@ -1,6 +1,7 @@
 require 'spec_helper'
 
-PROVIDERS = [:facebook, :cloudfoundry]
+LOGIN_PROVIDERS = [:facebook, :cloudfoundry]
+ALL_PROVIDERS  = [:facebook, :cloudfoundry, :github]
 
 describe Users::OmniauthCallbacksController do
   include Devise::TestHelpers
@@ -13,6 +14,7 @@ describe Users::OmniauthCallbacksController do
     @hash = {}
     @hash[:cloudfoundry] = {
         'provider' => 'cloudfoundry',
+        'uid' => 77474,
         'user_info' => {
             'email' => @email
         },
@@ -22,6 +24,7 @@ describe Users::OmniauthCallbacksController do
     }
     @hash[:facebook] = {
         'provider' => 'facebook',
+        'uid' => '23232323vnvnvn',
         'user_info' => {
             'email' => @email
         },
@@ -29,19 +32,34 @@ describe Users::OmniauthCallbacksController do
             'token' => "ewiewuoirwoierjewirjhewkrne"
         }
     }
+    @hash[:github] = {
+      'provider' => 'github',
+      'uid' => 12129819281,
+      'user_info' => {
+          'urls' => {
+              'GitHub' => 'http://github.com/someone'
+          }
+      },
+      'credentials' => {
+          'token' => "ewiewuoirwoierjewirjhewkrne"
+      }
+    }
     request.env["devise.mapping"] = Devise.mappings[:user]
   end
 
   describe "OmniAuth Config" do
-    it "should have facebook and cloudfoundry as providers" do
-      User.omniauth_providers.should == PROVIDERS
+    it "should have github, facebook and cloudfoundry as providers" do
+      User.omniauth_providers.should == ALL_PROVIDERS
+    end
+    it "should have only facebook and cloudfoundry as sign in providers" do
+      EmailAddress::VERIFIED_EMAIL_PROVIDERS.should == LOGIN_PROVIDERS
     end
   end
 
   context "URL hacking" do
     describe "GET endpoint directly" do
 
-      PROVIDERS.each do |provider|
+      ALL_PROVIDERS.each do |provider|
         it "#{provider} endpoint should redirect the user to sign up" do
           get provider
           assert_redirected_to new_user_session_path
@@ -54,7 +72,7 @@ describe Users::OmniauthCallbacksController do
   context "with no user in db" do
     describe "GET endpoint with good data" do
 
-      PROVIDERS.each do |provider|
+      LOGIN_PROVIDERS.each do |provider|
         before(:each) do
           env = {"omniauth.auth" => @hash[provider]}
           @controller.stub!(:env).and_return(env)
@@ -87,7 +105,7 @@ describe Users::OmniauthCallbacksController do
 
     describe "GET endpoint with matching data" do
 
-      PROVIDERS.each do |provider|
+      LOGIN_PROVIDERS.each do |provider|
         before(:each) do
           env = {"omniauth.auth" => @hash[provider]}
           @controller.stub!(:env).and_return(env)
@@ -117,7 +135,7 @@ describe Users::OmniauthCallbacksController do
 
     describe "GET endpoint with matching data" do
 
-      PROVIDERS.each do |provider|
+      ALL_PROVIDERS.each do |provider|
         before(:each) do
           env = {"omniauth.auth" => @hash[provider]}
           @controller.stub!(:env).and_return(env)
@@ -148,10 +166,14 @@ describe Users::OmniauthCallbacksController do
 
     describe "GET endpoint with matching data" do
 
-      PROVIDERS.each do |provider|
+      ALL_PROVIDERS.each do |provider|
         before(:each) do
           env = {"omniauth.auth" => @hash[provider]}
           @controller.stub!(:env).and_return(env)
+
+          # Fake the fact that the user has already logged in with the external id
+          UserAccessToken.create! :external_id => @hash[provider]['uid'], :provider => provider, :user_id => @user.id, :token =>  'wewewewewewewew'
+
           get provider
         end
 
@@ -181,7 +203,7 @@ describe Users::OmniauthCallbacksController do
     end
 
     describe "GET endpoint with proper data" do
-      PROVIDERS.each do |provider|
+      LOGIN_PROVIDERS.each do |provider|
         before(:each) do
           env = {"omniauth.auth" => @hash[provider]}
           @controller.stub!(:env).and_return(env)

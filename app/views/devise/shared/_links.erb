@@ -2,7 +2,7 @@
     <div data-role="header" data-theme="b">
     <div data-role="navbar">
         <%- if devise_mapping.omniauthable? %>
-            <%- resource_class.omniauth_providers.each do |provider| %>
+            <%- EmailAddress::VERIFIED_EMAIL_PROVIDERS.each do |provider| %>
                 <%= link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider), :rel => 'external' %>
             <% end -%>
         <% end -%>

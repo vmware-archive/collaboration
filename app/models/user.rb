@@ -81,19 +81,29 @@ public
     identities.uniq
   end
 
-  def self.get_user_from_auth(email, signed_in_resource=nil)
+  def self.get_user_from_auth_by_email(email, signed_in_resource=nil)
     if addy = EmailAddress.find_by_email(email)
       addy.user
     elsif user = User.find_by_email(email)
       logger.debug "Cleaning user record #{email}"
-      user.email_addresses.build :email => email
+      user.email_addresses.build :email => email, :validated => true
       user.save!
       return user
     elsif (signed_in_resource.nil?)
       User.create(:email => email, :password => Devise.friendly_token[0,20])
     else
-      signed_in_resource.email_addresses.build :email => email
+      # Facebook and Cloud Foundry only provide validated email addresses
+      signed_in_resource.email_addresses.build :email => email, :validated => true
       signed_in_resource.save!
+      signed_in_resource
+    end
+  end
+
+  def self.get_user_from_auth_by_id(provider, id, signed_in_resource=nil)
+    uid = UserAccessToken.get_user_by_provider_and_id provider, id
+    if uid
+      return User.find uid
+    else
       signed_in_resource
     end
   end
