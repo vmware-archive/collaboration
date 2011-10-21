@@ -64,7 +64,6 @@ class UserAccessToken
       user_token.refresh_token = creds['refresh_token'] if creds.has_key? 'refresh_token'
       user_token.save!
       user_token = user_token.reload
-      logger.info "Updated Access Token #{user_token.inspect}"
     end
 
     return user_token
@@ -75,12 +74,8 @@ class UserAccessToken
   end
 
   def self.get_user_by_provider_and_id provider, id
-    record = UserAccessToken.where(provider: provider, id: id).first
-    if (record)
-      record.user_id
-    else
-      nil
-    end
+    record = UserAccessToken.where(provider: provider, external_id: id).first
+    return record
   end
 
   def self.get_access_tokens user, provider

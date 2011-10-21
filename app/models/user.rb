@@ -100,12 +100,16 @@ public
   end
 
   def self.get_user_from_auth_by_id(provider, id, signed_in_resource=nil)
-    uid = UserAccessToken.get_user_by_provider_and_id provider, id
-    if uid
-      return User.find uid
-    else
-      signed_in_resource
+    rec = UserAccessToken.get_user_by_provider_and_id provider, id
+    if rec
+      begin
+        return User.find rec.user_id
+      rescue
+        logger.info "Cleaning orphan User Access Token record #{rec}"
+        rec.delete
+      end
     end
+    signed_in_resource
   end
 
 

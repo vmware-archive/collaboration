@@ -33,7 +33,7 @@ describe User do
       @env["omniauth.auth"]['user_info'] = {}
       @env["omniauth.auth"]['user_info']['email'] = "another@mail.com"
 
-      @ut = UserAccessToken.add_tokens @env["omniauth.auth"]['user_info']['email'], :cloudfoundry, @creds
+      @ut = UserAccessToken.add_tokens @env["omniauth.auth"]['user_info']['email'], 23, :cloudfoundry, @creds
 
     end
 
@@ -42,7 +42,8 @@ describe User do
     it "SSO finds user by email" do
       pwd = 'cloud$'
       @user = User.create! :first_name => 'Dale', :last_name => 'Olds', :display_name => 'Dale O.', :password => pwd, :confirm_password => pwd, :email => 'olds@vmware.com'
-      @sso_user = User.get_user_from_auth('olds@vmware.com', nil)
+
+      @sso_user = User.get_user_from_auth_by_email('olds@vmware.com', nil)
       @sso_user.should == @user
 
 
@@ -51,7 +52,7 @@ describe User do
     it "SSO Defaults to signed in user" do
       pwd = 'cloud$'
       @user = User.create! :first_name => 'Dale', :last_name => 'Olds', :display_name => 'Dale O.', :password => pwd, :confirm_password => pwd, :email => 'olds@vmware.com'
-      @sso_user = User.get_user_from_auth("another@mail.com", @user)
+      @sso_user = User.get_user_from_auth_by_email("another@mail.com", @user)
       @sso_user.id.should == @user.id
 
       @ut.update_attribute :user_id, @user.id
@@ -60,7 +61,7 @@ describe User do
     end
 
     it "SSO creates new user if no logged in user" do
-      @sso_user = User.get_user_from_auth("another@mail.com", nil)
+      @sso_user = User.get_user_from_auth_by_email("another@mail.com", nil)
       @sso_user.persisted?.should be_false
     end
   end
