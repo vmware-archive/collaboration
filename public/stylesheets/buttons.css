@@ -43,15 +43,23 @@
     margin-left: 5px;
 }
 
-.home, .homebox {
-    width: 100%;
+.home, .homebox, .homebuddy, .homep {
     float:left;
     display:inline;
 }
 
+
 .homebox {
-    width:30%;
     padding-left: 3%;
+    width:30%;
+}
+
+.homebuddy img {
+    width:50px;
+}
+
+.homebuddy h3 {
+    display:inline;
 }
 
 @media (max-width: 600px) {
