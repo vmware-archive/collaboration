@@ -11,12 +11,6 @@
         <li><label>First name</label>: <%= @user.first_name %></li>
         <li><label>Last name</label>: <%= @user.last_name %></li>
         <li><label>Username</label>: <%= @user.username %></li>
-      <li><label>Emails</label>:
-
-        <%- @user.email_addresses.each do |email_record| %>
-         <span class='email'><%= link_to email_record.email, "mailto:#{email_record.email}", 'rel' => 'external' %></span>
-        <%-end %>
-
-        </li>
+      <li><%= link_to 'Emails', user_email_addresses_path(@user) %></li>
      </ul>
 </div>

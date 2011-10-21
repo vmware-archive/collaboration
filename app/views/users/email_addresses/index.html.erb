@@ -1,0 +1,15 @@
+<%- content_for :header do %>
+  <%= link_to @user.display_name, user_path(@user), :class => 'ui-btn-left', "data-icon" => "user" %>
+  <h1>Email Addresses</h1>
+<%- end %>
+
+<div data-role="content">
+<ul data-role="listview" data-inset="true">
+<% @user.email_addresses.each do |email_record| %>
+  <li><%= link_to email_record.email, "mailto:#{email_record.email}", 'rel' => 'external' %></li>
+<% end %>
+</ul>
+</div>
+
+
+
