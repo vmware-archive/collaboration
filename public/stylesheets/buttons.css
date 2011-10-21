@@ -42,3 +42,21 @@
 .email {
     margin-left: 5px;
 }
+
+.home, .homebox {
+    width: 100%;
+    float:left;
+    display:inline;
+}
+
+.homebox {
+    width:30%;
+    padding-left: 3%;
+}
+
+@media (max-width: 600px) {
+    .homebox{
+        width:100% ;
+        padding-left: 1%;
+    }
+}

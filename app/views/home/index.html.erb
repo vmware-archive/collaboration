@@ -7,18 +7,22 @@
 
   <div class="home">
 
-    <p>
+    <div class="homebox"><p>
       Hi, <%= link_to current_user.display_name, user_path(current_user) %> Welcome to the <strong>Cloud Foundry App Gallery</strong>.
       Here, you will be able to organize your applications and work with others.
     </p>
+    </div>
 
+    <div class="homebox">
     To get started:
       <ol>
         <li>Add an <%= link_to 'App', apps_path %> or <%= link_to 'Service', services_path %></li>
         <li>Then assign permissions to apps and other resources in your <%= link_to 'Organizations', orgs_path %> via <strong>Projects</strong> and <strong>Groups</strong></li>
       </ol>
-
+      </div>
+  <div class="homebox">
   <p>By default when you created your account you were given a <%= link_to 'Personal Organization', current_user.personal_org ? org_path(current_user.personal_org) : '' %>.
     Note that you can always create more <%= link_to 'organizations', orgs_path %> to manage work projects, as well as be invited by someone else to be part of an organization.</p>
+    </div>
    </div>
 </div>
