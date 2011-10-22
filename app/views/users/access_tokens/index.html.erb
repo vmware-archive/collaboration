@@ -1,0 +1,20 @@
+<%- content_for :header do %>
+  <%= link_to @user.display_name, user_path(@user), :class => 'ui-btn-left', "data-icon" => "user" %>
+  <h1>Access Tokens</h1>
+<%- end %>
+
+<div data-role="content">
+<ul data-role="listview" data-inset="true">
+<% @tokens.each do |token| %>
+  <li><a title="<% token.token %>" hreg="http://<%=token.provider%>.com" rel="dialog"><%= token.provider %> | <%= token.external_id %>
+  <p class="ui-li-aside"><strong><%= token.created_at %></strong></p>
+  </a>
+  <%= link_to 'Destroy', user_access_token_path(@user, token.id), :confirm => 'Are you sure?', :method => :delete, 'data-icon'=>"delete"%>
+
+  </li>
+<% end %>
+</ul>
+</div>
+
+
+

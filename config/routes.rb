@@ -24,7 +24,7 @@ Collaboration::Application.routes.draw do
   resources :services#, :only => [:show, :edit, :update]
   resources :users do
     resources :email_addresses, :only => [:index], :controller => "users/email_addresses"
-    resources :access_tokens
+    resources :access_tokens, :controller => "users/access_tokens"
   end
 
   # The priority is based upon order of creation:

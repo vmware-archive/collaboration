@@ -1,6 +1,7 @@
 class UserAccessToken
 
   include Mongoid::Document
+  include Mongoid::Timestamps
 
   field :email, type: String
   field :external_id, type: String
@@ -76,6 +77,10 @@ class UserAccessToken
   def self.get_user_by_provider_and_id provider, id
     record = UserAccessToken.where(provider: provider, external_id: id).first
     return record
+  end
+
+  def self.access_tokens_for_user user_id
+    UserAccessToken.where(user_id: user_id)
   end
 
   def self.get_access_tokens user, provider

@@ -5,7 +5,7 @@
 
 <div data-role="content">
 <ul data-role="listview" data-inset="true">
-<% @user.email_addresses.each do |email_record| %>
+<% @emails.each do |email_record| %>
   <li><%= link_to email_record.email, "mailto:#{email_record.email}", 'rel' => 'external' %></li>
 <% end %>
 </ul>

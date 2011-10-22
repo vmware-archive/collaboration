@@ -12,5 +12,6 @@
         <li><label>Last name</label>: <%= @user.last_name %></li>
         <li><label>Username</label>: <%= @user.username %></li>
       <li><%= link_to 'Emails', user_email_addresses_path(@user) %></li>
+      <li><%= link_to 'Access Tokens', user_access_tokens_path(@user) %></li>
      </ul>
 </div>
