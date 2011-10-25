@@ -69,6 +69,7 @@ Uploading Application:
 Push Status: OK
 Staging Application: OK
 Starting Application: ......................... OK
+```
 
 ### Bind the MongoDB service
 
