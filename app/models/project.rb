@@ -13,11 +13,12 @@ class Project < ActiveRecord::Base
   end
 
   def add_dev_role devs
-    acls.build :route => 'apps' , :permission_set => PermissionManager::ALL, :entity => devs
-    acls.build :route => 'services' , :permission_set => PermissionManager::ALL, :entity => devs
+    acls.build :route => '/apps' , :permission_set => PermissionManager::ALL, :entity => devs
+    acls.build :route => '/services' , :permission_set => PermissionManager::ALL, :entity => devs
   end
 
   def add_admin_role admins
+    acls.build :route => '/users', :permission_set => PermissionManager::ALL, :entity => admins # Only personal orgs
     acls.build :route => 'groups', :permission_set => PermissionManager::ALL, :entity => admins
     acls.build :route => 'groups/*/group_members', :permission_set => PermissionManager::ALL, :entity => admins
     acls.build :route => 'projects', :permission_set => PermissionManager::ALL, :entity => admins

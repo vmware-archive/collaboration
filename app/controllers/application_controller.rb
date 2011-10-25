@@ -25,26 +25,47 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def check_action_can_be_done
-    if params[:action]
-      permission_needed = REST_TO_CRUD[params[:action].to_sym]
-      path = request.path
-      org = nil
-      logger.info "Starting Authorization for #{current_user}"
-      if (request.path_parameters.has_key? :org_id)
-        org = Org.find params[:org_id]
-        logger.info "Org = #{org}"
-        path.gsub! "/orgs/#{params[:org_id]}/", ''
-        if (org && !permission_needed.nil? & path)
-          org.projects.each do |project|
-            return true if project.can_user permission_needed, path, current_user
-            logger.info " No permission #{permission_needed} in project #{project} for path #{path}"
-          end
-          redirect_to :root, :status => 401
-          return false
-        end
+  def permission_needed
+    return REST_TO_CRUD[params[:action].to_sym] if params[:action]
+    nil
+  end
+
+  def get_repo_and_path
+    repo = nil
+    path = request.path
+
+    if (request.path_parameters.has_key? :org_id)
+      repo = Org.find params[:org_id]
+      path.gsub! "/orgs/#{params[:org_id]}/", ''
+    elsif (request.path_parameters.has_key? 'user_id')
+      repo = User.find(params[:user_id]).personal_org
+    elsif request.path_parameters.has_key?(:id)
+      case params['controller']
+        when "orgs"
+          repo = Org.find params[:id]
+          path = ''
+        when "users"
+          repo = User.find(params[:id]).personal_org
+        when "apps"
+          repo = App.find(params[:id]).main_owned_resource
       end
     end
+
+    logger.info "Auth repo = #{repo}"
+    logger.info "Target Path = #{path}"
+    [repo, path]
+  end
+
+  def check_action_can_be_done
+    logger.info "Starting Authorization for #{current_user} with controller #{params['controller']}"
+    auth_repo, path = get_repo_and_path
+    perms = permission_needed
+    if (auth_repo && perms && path)
+      return true if auth_repo.can_user perms, path, current_user
+      redirect_to :root, :status => 401
+      return false
+    end
+
     logger.info "No security controls for #{path}"
     return true
 
