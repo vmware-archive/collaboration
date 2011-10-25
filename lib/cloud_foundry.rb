@@ -8,8 +8,8 @@ module CloudFoundry
     attr_accessor :access_token
 
     OAUTH_OPTIONS = {
-            :authorize_url =>"#{ENV['cloudfoundry_auth_server']}/oauth/user/authorize?resource_id=app&scope=read_vcap,write_vcap",
-            :token_url => "#{ENV['cloudfoundry_auth_server']}/oauth/authorize?scope=read_vcap,write_vcap",
+            :authorize_url =>"#{ENV['cloudfoundry_auth_server']}oauth/authorize?resource_id=app&scope=read_vcap,write_vcap",
+            :token_url => "#{ENV['cloudfoundry_auth_server']}oauth/token?scope=read_vcap,write_vcap",
             :ssl=>{:verify=>false}
         }
 
