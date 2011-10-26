@@ -1,7 +1,5 @@
 <%- content_for :header do %>
-  <%= link_to 'Back', org_project_acls_path(@org, @project), :class => "ui-btn-left" %>
   <h1>Editing Access Control List</h1>
-  <%= link_to 'Show', org_project_acl_path(@org, @project, @acl), :class => "ui-btn-right" %>
 <% end -%>
 
 <%= render 'form' %>
