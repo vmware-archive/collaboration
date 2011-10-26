@@ -22,10 +22,10 @@ describe OrgsController do
 
   before do
     pwd = 'cloud$'
-    @user = User.create! :first_name => 'Dale', :last_name => 'Olds', :display_name => 'Dale O.', :password => pwd, :confirm_password => pwd, :email => 'olds@vmware.com'
+    @user = User.create! :first_name => 'Tester', :last_name => 'Testing', :display_name => 'TT', :password => pwd, :confirm_password => pwd, :email => 'tt@vmware.com'
     sign_in @user
 
-    @org = Org.create! valid_attributes
+    @org = @user.personal_org
   end
 
   # This should return the minimal set of attributes required to create a valid
@@ -41,7 +41,7 @@ describe OrgsController do
   describe "GET index" do
     it "assigns all orgs as @orgs" do
       get :index
-      assigns(:orgs).should eq([@user.personal_org, @org])
+      assigns(:orgs).should eq([@user.personal_org])
     end
   end
 
