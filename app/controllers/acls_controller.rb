@@ -38,6 +38,8 @@ class AclsController < ApplicationController
   # GET /acls/1/edit
   def edit
     @acl = @project.acls.find(params[:id])
+
+    render :edit, :layout => 'modal'
   end
 
   # POST /acls
