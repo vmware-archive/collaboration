@@ -11,6 +11,10 @@ describe Users::AccessTokensController do
     @user2 = User.create! :first_name => 'Jane', :last_name => 'Smith', :display_name => 'JS', :password => pwd, :confirm_password => pwd, :email => 'jane@vmware.com'
   end
 
+  after(:each) do
+    @ut.destroy
+  end
+
   context "when users match" do
     before(:each) do
       sign_in @user

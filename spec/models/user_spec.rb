@@ -37,7 +37,9 @@ describe User do
 
     end
 
-
+    after(:each) do
+      @ut.destroy
+    end
 
     it "SSO finds user by email" do
       pwd = 'cloud$'

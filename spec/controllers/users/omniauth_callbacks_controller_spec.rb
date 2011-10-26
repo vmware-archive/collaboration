@@ -172,10 +172,14 @@ describe Users::OmniauthCallbacksController do
           @controller.stub!(:env).and_return(env)
 
           # Fake the fact that the user has already logged in with the external id
-          ut = UserAccessToken.add_tokens nil, @hash[provider]['uid'], provider, @hash[provider]['credentials']
-          ut.update_attribute  :user_id, @user.id
+          @ut = UserAccessToken.add_tokens nil, @hash[provider]['uid'], provider, @hash[provider]['credentials']
+          @ut.update_attribute  :user_id, @user.id
 
           get provider
+        end
+
+        after(:each) do
+          @ut.destroy
         end
 
         it { should be_user_signed_in }
