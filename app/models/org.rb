@@ -44,29 +44,4 @@ public
   #  return true if project.can_user perms, path, current_user
   #end
 
-  ## Helper Method which list all potential resources in an org
-  def potential_owned_resources
-    if owned_resources
-      owned_resources.collect{|o| [o.to_s, o.id]}
-    end
-  end
-
-  ## Helper Method which returns the list of users in an org
-  def potential_users
-    user_list = []
-    groups.each do |group|
-      group.group_members.each do |m|
-        user_list << [m.user.display_name, m.user_id]
-      end
-    end
-    user_list.uniq
-  end
-
-  ## Helper Method which returns the list of groups in an org
-  def potential_groups
-    if groups
-      return groups.collect{|g| [g.display_name, g.id]}
-    end
-    []
-  end
 end
