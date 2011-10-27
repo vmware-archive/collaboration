@@ -11,6 +11,8 @@ class Org < ActiveRecord::Base
   before_create do
     @admins = groups.build :display_name => 'Admins'
     @devs = groups.build :display_name => 'Developers'
+    @everyone = Everyone.new
+    groups << @everyone
     @default_project = projects.build :display_name => 'Default', :is_default => true
 
   end
@@ -18,8 +20,13 @@ class Org < ActiveRecord::Base
   after_create do
     @admins.group_members.build :user => @creator
     @admins.save!
+
+    @devs.group_members.build :user => @creator
+    @devs.save!
+
     @default_project.add_admin_role @admins
     @default_project.add_dev_role @devs
+    @default_project.add_everyone_role @everyone
     @default_project.save!
   end
 

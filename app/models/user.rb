@@ -75,6 +75,10 @@ class User < ActiveRecord::Base
   end
 
 public
+  def to_s
+    display_name
+  end
+
   def includes? user
     return user == self
   end

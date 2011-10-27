@@ -11,7 +11,8 @@ class ApplicationController < ActionController::Base
       :create => PermissionManager::CREATE,
       :destroy => PermissionManager::DELETE,
       :update => PermissionManager::UPDATE,
-      :edit => PermissionManager::UPDATE
+      :edit => PermissionManager::UPDATE,
+      :import => PermissionManager::CREATE
   }
 
   def identify_parent
@@ -34,12 +35,17 @@ class ApplicationController < ActionController::Base
     repo = nil
     path = request.path
 
-    if (request.path_parameters.has_key? :org_id)
+    # Taken care of by permissions requested
+    path.gsub! '/new', ''
+    path.gsub! '/import', ''
+    path.gsub! '/edit', ''
+
+    if (params.has_key? :org_id)
       repo = Org.find params[:org_id]
       path.gsub! "/orgs/#{params[:org_id]}/", ''
-    elsif (request.path_parameters.has_key? 'user_id')
+    elsif (params.has_key? 'user_id')
       repo = User.find(params[:user_id]).personal_org
-    elsif request.path_parameters.has_key?(:id)
+    elsif params.has_key?(:id)
       case params['controller']
         when "orgs"
           repo = Org.find params[:id]
@@ -47,28 +53,36 @@ class ApplicationController < ActionController::Base
         when "users"
           repo = User.find(params[:id]).personal_org
         when "apps"
-          repo = App.find(params[:id]).main_owned_resource
+          repo = App.find(params[:id]).main_owned_resource.owner
       end
     end
 
-    logger.info "Auth repo = #{repo}"
-    logger.info "Target Path = #{path}"
+    unless repo
+      repo = current_user.personal_org if current_user
+    end
+
+    logger.debug "Auth repo = #{repo}"
+    logger.debug "Target Path = #{path}"
     [repo, path]
   end
 
   def check_action_can_be_done
-    logger.info "Starting Authorization for #{current_user} with controller #{params['controller']}"
+    logger.debug "Starting Authorization for #{current_user} with controller #{params['controller']}"
+
     auth_repo, path = get_repo_and_path
     perms = permission_needed
     if (auth_repo && perms && path)
-      return true if auth_repo.can_user perms, path, current_user
-      redirect_to :root, :status => 401
-      return false
+      if auth_repo.can_user perms, path, current_user
+        return true
+      else
+        logger.debug "Not allowed -- params = #{params.inspect} for #{path} and #{auth_repo}"
+        redirect_to :root, :status => 401
+        return false
+      end
     end
 
-    logger.info "No security controls for #{path}"
-    return true
-
+    logger.debug "No security controls for #{path} and #{auth_repo}"
+    return false
   end
 
 end
