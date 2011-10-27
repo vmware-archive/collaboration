@@ -9,13 +9,12 @@ describe "acls/index.html.erb" do
     @acl = stub_model(Acl, :route => "/groups/*", :entity => @user, :permission_set => PermissionManager::ALL, :project => @project)
     @acl2 = stub_model(Acl, :route => "/apps/*", :entity => @user, :permission_set => PermissionManager::ALL, :project => @project)
     @acl3 = stub_model(Acl, :route => "/apps/*", :entity => @user2, :permission_set => PermissionManager::ALL, :project => @project)
-    assign(:acls, [@acl, @acl2, @acl3])
+    assign(:entities, {@acl.entity_display_name => [@acl, @acl2], @acl3.entity_display_name => [@acl3]})
   end
 
   it "renders a list of acls" do
     render
-    assert_select "tr>td", :text => @user.display_name, :count => 2
-    assert_select "tr>td", :text => "User", :count => 3
-    assert_select "tr>td", :text => "/apps/*", :count => 2
+    assert_select "h4", :text => "#{@acl.entity_display_name} has", :count => 1
+    assert_select "li>a", :text => ""
   end
 end

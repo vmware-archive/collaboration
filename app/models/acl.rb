@@ -49,4 +49,9 @@ class Acl < ActiveRecord::Base
     errors[:acl] <<  "Resource must be in the same org" unless (project.org == owned_resource.owner)
   end
 
+  public
+    def entity_display_name
+      "#{entity_type} '#{entity.display_name}'"
+    end
+
 end

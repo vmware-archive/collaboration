@@ -36,12 +36,12 @@
 
       <div class="field" data-role="fieldcontain">
         <%= f.label :entity_id %>
-        <%= f.select(:entity_id, params[:entity_type] == 'User' ? @org.potential_users : @org.potential_groups) %>
+        <%= f.select(:entity_id, params[:entity_type] == 'User' ? potential_users(@org) : potential_groups(@org)) %>
       </div>
 
       <div class="field" data-role="fieldcontain">
         <%= f.label :owned_resource_id %>
-        <%= f.select(:owned_resource_id, @org.potential_owned_resources) %>
+        <%= f.select(:owned_resource_id, potential_owned_resources(@org)) %>
       </div>
 
       <div class="field" data-role="fieldcontain">
