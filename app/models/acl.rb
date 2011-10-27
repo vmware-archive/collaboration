@@ -54,4 +54,10 @@ class Acl < ActiveRecord::Base
       "#{entity_type} '#{entity.display_name}'"
     end
 
+    def literal_route
+      return route.gsub '*', '.+' if route
+      return "#{owned_resource.resource_type.pluralize}/#{owned_resource.resource_id}" if (owned_resource)
+      ''
+    end
+
 end

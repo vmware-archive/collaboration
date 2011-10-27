@@ -34,20 +34,12 @@ class Project < ActiveRecord::Base
     end
 
     def can_user(perm_to_check, path, user)
-      perms = 0
       acls.find_each do |acl|
-        route_expr = acl.route.gsub '*', '.+' if acl.route
-        route_expr = "#{acl.owned_resource.resource_type.pluralize}/#{acl.owned_resource.resource_id}" if (acl.owned_resource)
-        if (route_expr && path =~ Regexp.new(route_expr))
-          if (acl.entity.class ==  User && acl.entity == user)
-            perms = perms | acl.permission_set
-          else
-            acl.entity.group_members.each do |member|
-              perms = perms | acl.permission_set if (member.user_id == user.id)
-            end
-          end
+        if (path =~ Regexp.new(acl.literal_route) && acl.entity.respond_to?(:includes?) && acl.entity.includes?(user))
+          return true if (perm_to_check & acl.permission_set == perm_to_check)
         end
       end
-      return (perm_to_check & perms == perm_to_check)
+      false
     end
+
 end

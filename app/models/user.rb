@@ -75,6 +75,9 @@ class User < ActiveRecord::Base
   end
 
 public
+  def includes? user
+    return user == self
+  end
 
   def external_identities
     identities = UserAccessToken.get_tokens(self).collect &:provider
