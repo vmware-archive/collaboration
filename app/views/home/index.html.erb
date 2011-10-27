@@ -6,23 +6,25 @@
     <div class="homebox">
       <div class="homebuddy">
         <a href="<%= user_path(current_user) %>"><img src="<%= current_user.avatar_url %>"/></a>
-        <h3>Welcome</h3>
+        <h3>Welcome <%= link_to current_user.first_name, user_path(current_user) %></h3>
       </div>
       <br/>
       <p>&nbsp;</p>
       <div class="homep">
-        Welcome to the
-        <strong>Cloud Foundry App Gallery</strong> <%= link_to current_user.display_name, user_path(current_user) %>.
-        Here, you will be able to showcase your web applications and work with other developers.
+        In this gallery you will be able to showcase your code and collaborate with other developers.
+        We put special attention to highlight your skills in different services and in
+        different frameworks.
       </div>
     </div>
     <div class="homebox">
-      <h3>Getting Started</h3>
+      <h3>To get started</h3>
         <ol>
-          <li>Add or import your <%= link_to 'Apps', apps_path %></li>
-          <li>Connect them to your <%=link_to 'Facebook Apps', 'http://m.facebook.com/', 'rel' => 'external' %></li>
-          <li>Connect them to your <%= link_to 'GitHub', 'http://github.com', 'rel' =>'external' %> Repos</li>
-          <li>Share with your friends and followers !</li>
+          <li>Add or import your <%= link_to 'Cloud Foundry Apps', apps_path %></li>
+          <li>Link them to your <%= link_to 'GitHub', 'http://github.com', 'rel' =>'external' %> Repos</li>
+          <li>Link them to your <%=link_to 'Facebook Apps', 'https://developers.facebook.com/apps', 'rel' => 'external' %></li>
+          <li>Write some new features</li>
+          <li>Share with your friends and followers</li>
+          <li>Respond to feedback and repeat</li>
         </ol>
     </div>
     <div class="homebox">

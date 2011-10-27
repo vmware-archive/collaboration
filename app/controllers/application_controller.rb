@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
       case params['controller']
         when "orgs"
           repo = Org.find params[:id]
-          path = ''
+          path = '.'
         when "users"
           repo = User.find(params[:id]).personal_org
         when "apps"

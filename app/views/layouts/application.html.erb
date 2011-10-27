@@ -22,11 +22,14 @@
           <li><%= link_to("Developers", users_path, "data-icon" => "user") %> </li>
           <li><%= link_to("Apps", apps_path, "data-icon" => "gear") %></li>
 
+            <li><%= link_to "Logout", "/users/sign_out", 'rel'=>"external", 'data-icon' => 'delete'   %></li>
         </ul>
       </div>
       <!-- /navbar -->
+
     </div>
-<% end %>
+    <%-end %>
+
 <div data-role="header" data-theme="b">
   <%= yield :header %>
 </div>
@@ -37,23 +40,10 @@
       <strong id="alert"><%= alert %></strong>
     </div>
 <%- end %>
-<div data-role="footer" data-theme="b">
-  <%- if current_user %>
-      <div data-role="navbar">
-      <ul>
-        <%- User.omniauth_providers.each do |provider| %>
-            <% css_class = 'gear' %>
-            <%- if current_user.external_identities.include? provider %>
-                <% css_class = 'check' %>
-            <% end %>
-            <li><%= link_to "#{provider.to_s.titleize}", omniauth_authorize_path("user", provider), :rel => 'external', 'data-icon' => css_class, 'data-inline' => true%></li>
-        <% end -%>
-        <li><%= link_to "Logout", "/users/sign_out", 'rel'=>"external", 'data-icon' => 'delete', :class => 'ui-btn-right'   %></li>
-      </ul>
-     </div>
-  <%- end %>
+
+
   <%= yield :footer %>
-</div>
+
 <div>
 </div>
 </body>
