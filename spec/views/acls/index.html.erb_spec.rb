@@ -15,6 +15,5 @@ describe "acls/index.html.erb" do
   it "renders a list of acls" do
     render
     assert_select "h4", :text => "#{@acl.entity_display_name} has", :count => 1
-    assert_select "li>a", :text => ""
   end
 end
