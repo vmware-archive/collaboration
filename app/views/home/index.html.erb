@@ -1,22 +1,36 @@
 <%- content_for :header do %>
-  <h1>Home</h1>
-<% end-%>
-
+    <h1>App Gallery</h1>
+<% end -%>
 <div data-role="content">
-
-  <img src="/images/cf-square-300x300.png" class="logo"/>
-    <p>
-      Hi, <%= link_to current_user.display_name, user_path(current_user) %> Welcome to the <strong>Cloud Foundry Management App</strong>.
-      Here, you will be able to organize your applications and work with others.
-    </p>
-
-    To get started:
-      <ol>
-        <li>Add an <%= link_to 'App', apps_path %> or <%= link_to 'Service', services_path %></li>
-        <li>Then assign permissions to apps and other resources in your <%= link_to 'Organizations', orgs_path %> via <strong>Projects</strong> and <strong>Groups</strong></li>
-      </ol>
-
-  <p>By default when you created your account you were given a <%= link_to 'Personal Organization', current_user.personal_org ? org_path(current_user.personal_org) : '' %>.
-    Note that you can always create more <%= link_to 'organizations', orgs_path %> to manage work projects, as well as be invited by someone else to be part of an organization.</p>
-
+  <div class="home">
+    <div class="homebox">
+      <div class="homebuddy">
+        <a href="<%= user_path(current_user) %>"><img src="<%= current_user.avatar_url %>"/></a>
+        <h3>Welcome</h3>
+      </div>
+      <br/>
+      <p>&nbsp;</p>
+      <div class="homep">
+        Welcome to the
+        <strong>Cloud Foundry App Gallery</strong> <%= link_to current_user.display_name, user_path(current_user) %>.
+        Here, you will be able to showcase your web applications and work with other developers.
+      </div>
+    </div>
+    <div class="homebox">
+      <h3>Getting Started</h3>
+        <ol>
+          <li>Add or import your <%= link_to 'Apps', apps_path %></li>
+          <li>Connect them to your <%=link_to 'Facebook Apps', 'http://m.facebook.com/', 'rel' => 'external' %></li>
+          <li>Connect them to your <%= link_to 'GitHub', 'http://github.com', 'rel' =>'external' %> Repos</li>
+          <li>Share with your friends and followers !</li>
+        </ol>
+    </div>
+    <div class="homebox">
+      <h3>Security</h3>
+      <p>By default when you created your account you were given
+        a <%= link_to 'Personal Organization', current_user.personal_org ? org_path(current_user.personal_org) : '' %>.
+        Note that you can always create more <%= link_to 'organizations', orgs_path %> to manage permissions, as well
+        as be invited by someone else to be part of an organization.</p>
+    </div>
+  </div>
 </div>

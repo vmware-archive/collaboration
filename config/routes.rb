@@ -1,7 +1,5 @@
 Collaboration::Application.routes.draw do
 
-  resources :domains
-
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   root :to => "home#index"
@@ -24,7 +22,10 @@ Collaboration::Application.routes.draw do
     end
   end
   resources :services#, :only => [:show, :edit, :update]
-  resources :users#, :only => [:show, :edit, :update]
+  resources :users do
+    resources :email_addresses, :only => [:index], :controller => "users/email_addresses"
+    resources :access_tokens, :controller => "users/access_tokens"
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

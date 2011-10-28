@@ -11,8 +11,25 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
+  def emails
+    email_addresses.collect(&:email).join(', ')
+  end
+
+  def emails=value
+    if (value != self.emails)
+      email_addys = value.split(',')
+      email_addys.each do |email|
+        email = email.strip
+        unless emails.include? email
+          email_addresses.build :email => email
+          # TODO not validated
+        end
+      end
+    end
+  end
+
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :avatar, :remote_avatar_url, :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :display_name, :username, :personal_org, :orgs_with_access
+  attr_accessible :emails, :avatar, :remote_avatar_url, :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :display_name, :username, :personal_org, :orgs_with_access
 
   attr_readonly :personal_org
 
@@ -39,6 +56,8 @@ class User < ActiveRecord::Base
             user.first_name = data['first_name'] if data.has_key? 'first_name'
             user.last_name = data['last_name'] if data.has_key? 'last_name'
             user.remote_avatar_url = data['image'] if data.has_key? 'image'
+            user.password = Devise.friendly_token[0,20]
+            user.password_confirmation = user.password
           end
         end
       end
@@ -62,21 +81,35 @@ public
     identities.uniq
   end
 
-  def self.get_user_from_auth(email, signed_in_resource=nil)
+  def self.get_user_from_auth_by_email(email, signed_in_resource=nil)
     if addy = EmailAddress.find_by_email(email)
       addy.user
     elsif user = User.find_by_email(email)
       logger.debug "Cleaning user record #{email}"
-      user.email_addresses.build :email => email
+      user.email_addresses.build :email => email, :validated => true
       user.save!
       return user
     elsif (signed_in_resource.nil?)
       User.create(:email => email, :password => Devise.friendly_token[0,20])
     else
-      signed_in_resource.email_addresses.build :email => email
+      # Facebook and Cloud Foundry only provide validated email addresses
+      signed_in_resource.email_addresses.build :email => email, :validated => true
       signed_in_resource.save!
       signed_in_resource
     end
+  end
+
+  def self.get_user_from_auth_by_id(provider, id, signed_in_resource=nil)
+    rec = UserAccessToken.get_user_by_provider_and_id provider, id
+    if rec
+      begin
+        return User.find rec.user_id
+      rescue
+        logger.info "Cleaning orphan User Access Token record #{rec}"
+        rec.delete
+      end
+    end
+    signed_in_resource
   end
 
 

@@ -32,13 +32,17 @@ public
   end
 
   def can_user(perm_to_check, path, user)
-    default_project = projects.find_by_display_name 'Default'
     if default_project
       default_project.can_user(perm_to_check, path, user)
     else
       false
     end
   end
+
+  # Another options is to loop through all the projects
+  # org.projects.each do |project|
+  #  return true if project.can_user perms, path, current_user
+  #end
 
   ## Helper Method which list all potential resources in an org
   def potential_owned_resources

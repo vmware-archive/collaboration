@@ -35,6 +35,36 @@
     display: inline;
 }
 
-.logo {
+.logo img {
     width: 120px;
+}
+
+.email {
+    margin-left: 5px;
+}
+
+.home, .homebox, .homebuddy, .homep {
+    float:left;
+    display:inline;
+}
+
+
+.homebox {
+    padding-left: 3%;
+    width:30%;
+}
+
+.homebuddy img {
+    width:50px;
+}
+
+.homebuddy h3 {
+    display:inline;
+}
+
+@media (max-width: 600px) {
+    .homebox{
+        width:100% ;
+        padding-left: 1%;
+    }
 }
