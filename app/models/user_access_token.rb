@@ -10,7 +10,6 @@ class UserAccessToken
   field :refresh_token, type: String
   field :expires, type: DateTime
   field :user_id, type: Integer
-  field :provider_user_id, type: String
 
   index(
     [
@@ -29,9 +28,8 @@ class UserAccessToken
   )
 
   index :user_id
-  index :provider_user_id
 
-  attr_accessible :provider, :provider_user_id
+  attr_accessible :provider
 
   public
 
