@@ -46,8 +46,9 @@
         }());
 
   function handleStatusChange(response) {
-      alert (response);
-   //window.location.reload();
+<%- unless current_user %>
+    window.location.reload();
+<%- end %>
  }
   window.fbAsyncInit = function() {
     FB.init({ appId: '<%=ENV['facebook_app_id'] %>',
@@ -61,6 +62,14 @@
         function loginUser() {
         FB.login(function(response) { }, {scope:'<%=ENV['facebook_login_options'] %>'});
      }
+        function logoutUser() {
+            FB.logout( function(response) {
+                        window.location.href = "/users/sign_out";
+                    }
+
+            );
+        }
+
 </script>
 <div data-role="footer" data-theme="b">
   <%- if current_user %>
@@ -73,16 +82,9 @@
             <% end %>
             <li><%= link_to "#{provider.to_s.titleize}", omniauth_authorize_path("user", provider), :rel => 'external', 'data-icon' => css_class, 'data-inline' => true%></li>
         <% end -%>
-        <li><%= link_to "Logout", "/users/sign_out", 'rel'=>"external", 'data-icon' => 'delete', :class => 'ui-btn-right'   %></li>
-       <div id="logout">
-   <p><button  onClick="FB.logout();">Logout</button></p>
- </div>
+        <li><%= link_to "Logout", "javascript:logoutUser();", 'rel'=>"external", 'data-icon' => 'delete', :class => 'ui-btn-right'   %></li>
       </ul>
      </div>
-  <%-else %>
-  <div id="login">
-   <p><button onClick="loginUser();">Login</button></p>
- </div>
   <%- end %>
   <%= yield :footer %>
 </div>

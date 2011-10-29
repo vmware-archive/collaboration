@@ -1,7 +1,10 @@
 require 'permission_manager'
+require 'facebook_cookie'
+
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :authenticate_user_with_fb_too!
+  before_filter :check_fb_cookie
+  before_filter :authenticate_user!
   before_filter :check_action_can_be_done
 
   REST_TO_CRUD = {
@@ -13,14 +16,14 @@ class ApplicationController < ActionController::Base
       :update => PermissionManager::UPDATE,
       :edit => PermissionManager::UPDATE
   }
-  def authenticate_user_with_fb_too! opts={}
-
-    opts[:scope] = :user
-
-    logger.info "Cookies #{cookies.inspect}"
-
-     if (!devise_controller? || opts.delete(:force) )
-      warden.authenticate!(:facebook_cookie, :database_authenticatable, :rememberable)
+  def check_fb_cookie
+    unless current_user
+      if (params['controller'] == "devise/sessions" && params['action'] == 'new' )
+        code = FacebookCookie.get_fb_code request.cookies
+        if (code)
+         redirect_to "/users/auth/facebook"
+        end
+      end
     end
   end
 
