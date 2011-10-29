@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
         when "users"
           repo = User.find(params[:id]).personal_org
         when "apps"
-          repo = App.find(params[:id]).main_owned_resource
+          repo = App.find(params[:id]).main_owned_resource.owner
       end
     end
 

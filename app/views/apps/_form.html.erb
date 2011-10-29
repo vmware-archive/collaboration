@@ -21,6 +21,7 @@
   <div class="field" data-role="fieldcontain">
     <%= f.label :url %><%= f.text_field :url %>
     <%= link_to 'View', "http://#{@app.url}", :rel => 'external' %>
+    <div class="fb-like" data-href='<%= "http://#{@app.url}" %>' data-send="true" data-width="350" data-show-faces="true"></div>
   </div>
   <div class="field" data-role="fieldcontain">
     <%= f.label :framework %><%= f.text_field :framework %>
