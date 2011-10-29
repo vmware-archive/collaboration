@@ -30,6 +30,11 @@
   <div class="field" data-role="fieldcontain">
     <%= f.label :runtime %><%= f.text_field :runtime %>
   </div>
+      <div class="field" data-role="fieldcontain">
+    <%= f.label :owner %>
+        <%= link_to @app.main_owned_resource.owner.display_name, org_path(@app.main_owned_resource.owner), 'data-role'=>"button", 'data-inline'=>"true" %>
+
+  </div>
   <%-if @projects %>
       <div class="field" data-role="fieldcontain">
        <%= f.label :project_id %><%= f.select :project_id, @projects %>
