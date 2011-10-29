@@ -11,9 +11,13 @@
 <ul data-role="listview" data-inset="true">
 <% @apps.each do |app| %>
   <li>
-    <h3><%= link_to app.display_name, edit_app_path(app) %></h3>
+    <a href="<%= edit_app_path(app) %>">
+    <h3><%= app.display_name %></h3>
     <p><%= app.state %></p>
     <p><%= (app.latest_health_snapshot) ? app.latest_health_snapshot.percentage : '?' %> % running</p>
+    <div class="fb-like" data-href='<%= "http://#{app.url}" %>' data-send="true" data-width="350" data-show-faces="false"></div>
+    </a>
+    <%= link_to 'Visit', "http://#{app.url}", :target=>'_blank', :rel => 'external', 'data-role'=>'button', 'data-inline' => 'true' %>
   </li>
 <% end %>
 </ul>
