@@ -11,6 +11,8 @@ class Org < ActiveRecord::Base
   before_create do
     @admins = groups.build :display_name => 'Admins'
     @devs = groups.build :display_name => 'Developers'
+    @everyone = Everyone.new
+    groups << @everyone
     @default_project = projects.build :display_name => 'Default', :is_default => true
 
   end
@@ -18,8 +20,13 @@ class Org < ActiveRecord::Base
   after_create do
     @admins.group_members.build :user => @creator
     @admins.save!
+
+    @devs.group_members.build :user => @creator
+    @devs.save!
+
     @default_project.add_admin_role @admins
     @default_project.add_dev_role @devs
+    @default_project.add_everyone_role @everyone
     @default_project.save!
   end
 
@@ -44,29 +51,4 @@ public
   #  return true if project.can_user perms, path, current_user
   #end
 
-  ## Helper Method which list all potential resources in an org
-  def potential_owned_resources
-    if owned_resources
-      owned_resources.collect{|o| [o.to_s, o.id]}
-    end
-  end
-
-  ## Helper Method which returns the list of users in an org
-  def potential_users
-    user_list = []
-    groups.each do |group|
-      group.group_members.each do |m|
-        user_list << [m.user.display_name, m.user_id]
-      end
-    end
-    user_list.uniq
-  end
-
-  ## Helper Method which returns the list of groups in an org
-  def potential_groups
-    if groups
-      return groups.collect{|g| [g.display_name, g.id]}
-    end
-    []
-  end
 end

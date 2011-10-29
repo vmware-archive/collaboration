@@ -1,0 +1,28 @@
+<ul data-role="listview" data-inset="true">
+<% acls.each do |acl| %>
+  <li>
+    <a href="<%= resource_url acl %>">
+      <h1>
+        <%-if acl.create? %>
+        <span title='Create'>C</span>
+      <%-end%>
+
+      <%-if acl.read? %>
+        <span title='Read'>R</span>
+      <%-end%>
+
+      <%-if acl.update? %>
+        <span title='Update'>U</span>
+      <%-end%>
+
+      <%-if acl.delete? %>
+        <span title='Delete'>D</span>
+      <%-end%>
+      on <%= acl.owned_resource || acl.route %></h1>
+
+     </a>
+    <a href="<%= edit_org_project_acl_path(acl.project.org, acl.project, acl)%>" data-rel="dialog" data-theme='b' data-role="button" data-inline="true" data-icon='gear'>Modify</a>
+    <%= link_to 'Remove', org_project_acl_path(acl.project.org, acl.project, acl), :confirm => 'Are you sure?', :method => :delete, 'data-icon' => 'delete' %>
+</li>
+<% end %>
+</ul>

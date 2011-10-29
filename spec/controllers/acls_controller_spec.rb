@@ -22,7 +22,7 @@ describe AclsController do
 
   before(:each) do
     pwd = 'cloud$'
-    @user = User.create! :first_name => 'Dale', :last_name => 'Olds', :display_name => 'Dale O.', :password => pwd, :confirm_password => pwd, :email => 'olds@vmware.com'
+    @user = User.create! :first_name => 'Peter', :last_name => 'Jenkins', :display_name => 'PJ', :password => pwd, :confirm_password => pwd, :email => 'pj@vmware.com'
     sign_in @user
 
     @org = Org.create! :display_name => 'VMWare', :creator => @user
@@ -45,7 +45,7 @@ describe AclsController do
   describe "GET index" do
     it "assigns all acls as @acls" do
       get :index, :org_id => @org.id, :project_id => @project.id
-      assigns(:acls).should eq([@acl])
+      assigns(:entities).should eq({@acl.entity_display_name => [@acl]})
     end
   end
 

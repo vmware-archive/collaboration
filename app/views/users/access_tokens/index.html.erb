@@ -14,6 +14,16 @@
   </li>
 <% end %>
 </ul>
+
+  <ul data-role="listview" data-inset="true">
+    <%- User.omniauth_providers.each do |provider| %>
+        <% css_class = 'gear' %>
+        <%- if current_user.external_identities.include? provider %>
+            <% css_class = 'check' %>
+        <% end %>
+        <li><%= link_to "Add #{provider.to_s.titleize}", omniauth_authorize_path("user", provider), :rel => 'external', 'data-icon' => css_class, 'data-inline' => true %></li>
+    <% end -%>
+  </ul>
 </div>
 
 

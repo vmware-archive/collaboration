@@ -62,7 +62,7 @@
     display:inline;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
     .homebox{
         width:100% ;
         padding-left: 1%;

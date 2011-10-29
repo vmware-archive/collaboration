@@ -4,63 +4,14 @@
 <% end-%>
 
 <div data-role="content">
-<table>
-  <tr>
-    <th>Entity</th>
-    <th>Entity type</th>
-    <th>Resource</th>
-    <th>Route</th>
-    <th>Create</th>
-    <th>Read</th>
-    <th>Update</th>
-    <th>Delete</th>
-    <th></th>
-    <th></th>
-  </tr>
+  <h3>Give Access:</h3>
+  <%= link_to 'To Group', new_org_project_acl_path(@org, @project, :entity_type => 'Group'), 'data-role'=>"button", 'data-inline'=>"true" %>
+  <%= link_to 'To User', new_org_project_acl_path(@org, @project, :entity_type => 'User'), 'data-role'=>"button", 'data-inline'=>"true" %>
 
-<% @acls.each do |acl| %>
-  <tr>
-    <td><%= acl.entity.display_name %></td>
-    <td><%= acl.entity_type %></td>
-    <td><%= acl.owned_resource %></td>
-    <td><%= acl.route %></td>
-    <td>
-      <%-if acl.create? %>
-        <input type="checkbox" name="acl[create_bit]" class="custom" checked>
-      <%-else %>
-        <input type="checkbox" name="acl[create_bit]" class="custom">
-      <%-end%>
-      </td>
-    <td>
-      <%-if acl.read? %>
-        <input type="checkbox" name="acl[read_bit]" class="custom" checked>
-      <%-else %>
-        <input type="checkbox" name="acl[read_bit]" class="custom">
-      <%-end%>
-    </td>
-    <td>
-      <%-if acl.update? %>
-        <input type="checkbox" name="acl[update_bit]" class="custom" checked>
-      <%-else %>
-        <input type="checkbox" name="acl[update_bit]" class="custom">
-      <%-end%>
-    </td>
-    <td>
-      <%-if acl.delete? %>
-        <input type="checkbox" name="acl[delete_bit]" class="custom" checked>
-      <%-else %>
-        <input type="checkbox" name="acl[delete_bit]" class="custom">
-      <%-end%>
-    </td>
-    <td><%= link_to 'Edit', edit_org_project_acl_path(@org, @project, acl) %></td>
-    <td><%= link_to 'Destroy', org_project_acl_path(@org, @project, acl), :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
+  <h3>Existing Access:</h3>
+  <%- @entities.each do |key, acls| %>
+    <h4><%=key%> has</h4>
+    <%= render 'acl_for_entity', :acls => acls %>
+  <%- end %>
 
-<br />
-
-<h3>Grant/Deny Access:</h3>
-<%= link_to 'To Group', new_org_project_acl_path(@org, @project, :entity_type => 'Group'), 'data-role'=>"button", 'data-inline'=>"true" %>
-<%= link_to 'To User', new_org_project_acl_path(@org, @project, :entity_type => 'User'), 'data-role'=>"button", 'data-inline'=>"true" %>
 </div>

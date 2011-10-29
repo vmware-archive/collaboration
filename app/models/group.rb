@@ -6,4 +6,12 @@ class Group < ActiveRecord::Base
 
   validates_uniqueness_of :display_name, :scope => :org_id
   validates_presence_of :display_name
+
+  public
+    def includes? user
+      group_members.each do |member|
+        return true if (member.user_id == user.id)
+      end
+      false
+    end
 end

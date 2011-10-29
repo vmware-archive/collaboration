@@ -3,6 +3,8 @@ module PermissionManager
   UPDATE = 2
   CREATE = 4
   DELETE = 8
+  COLLECTION_ALL = READ | CREATE
+  ITEM_ALL = READ | UPDATE | DELETE
   ALL = READ | UPDATE | CREATE | DELETE
 
   def read?

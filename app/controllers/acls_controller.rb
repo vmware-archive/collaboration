@@ -1,14 +1,23 @@
+include OrgsHelper
+
 class AclsController < ApplicationController
   before_filter :identify_parent
 
   # GET /acls
   # GET /acls.json
   def index
-    @acls = @project.acls
-
+    acls = @project.acls
+    @entities = {}
+    if acls
+      acls.each do |acl|
+        name = acl.entity_display_name
+        @entities[name] = [] unless @entities.has_key? name
+        @entities[name] << acl
+      end
+    end
     respond_to do |format|
       format.html # index.html.erb
-      format.json  { render :json => @acls }
+      format.json  { render :json => acls }
     end
   end
 
@@ -38,6 +47,8 @@ class AclsController < ApplicationController
   # GET /acls/1/edit
   def edit
     @acl = @project.acls.find(params[:id])
+
+    render :edit, :layout => 'modal'
   end
 
   # POST /acls
