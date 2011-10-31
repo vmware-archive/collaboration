@@ -8,6 +8,7 @@ gem 'carrierwave-mongoid', :require => "carrierwave/mongoid"
 gem "oa-oauth", :require => "omniauth/oauth"
 gem "mongo-store"
 gem 'bson_ext'
+gem 'rest-client', :require => 'rest_client'
 
 group :development, :test do
   gem 'rspec-rails'

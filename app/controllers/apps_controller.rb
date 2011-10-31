@@ -1,4 +1,5 @@
 require 'cloud_foundry'
+require 'facebook'
 
 class AppsController < ApplicationController
   before_filter :list_projects, :only => :new
@@ -78,6 +79,17 @@ class AppsController < ApplicationController
         @projects << ["#{org.display_name}-#{project.display_name}", project.id] if project.can_user PermissionManager::CREATE, 'apps', current_user
       end
     end
+  end
+
+  def visit
+    app = App.find(params[:id])
+    access_token_records = UserAccessToken.get_access_tokens(current_user, :cloudfoundry).values
+    if (access_token_records.count == 1)
+
+      api = Facebook::Api.new access_token_records.first.token
+      api.visit "http://#{app.url}"
+    end
+    redirect_to "http://#{app.url}"
   end
 
   # GET /apps

@@ -17,6 +17,9 @@ Collaboration::Application.routes.draw do
 
 
   resources :apps do
+    member do
+      get 'visit'
+    end
     collection do
       get 'import'
     end
