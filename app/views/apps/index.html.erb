@@ -15,7 +15,6 @@
     <h3><%= app.display_name %></h3>
     <p><%= app.state %></p>
     <p><%= (app.latest_health_snapshot) ? app.latest_health_snapshot.percentage : '?' %> % running</p>
-    <div class="fb-like" data-href='<%= "http://#{app.url}" %>' data-send="true" data-width="350" data-show-faces="false"></div>
     </a>
     <%= link_to 'Visit', visit_app_path(app), :target=>'_blank', :rel => 'external', 'data-role'=>'button', 'data-inline' => 'true' %>
   </li>

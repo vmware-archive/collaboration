@@ -15,8 +15,10 @@
   <div class="field" data-role="fieldcontain">
     <%= f.label :url %><%= f.text_field :url %>
 
+    <%- if @app.id %>
     <div class="fb-like" data-href='<%= "http://#{@app.url}" %>' data-send="true" data-width="350" data-show-faces="false"></div>
     <%= link_to 'Visit', visit_app_path(@app), :target=>'_blank', :rel => 'external', 'data-role'=>'button', 'data-inline' => 'true' %>
+    <%-end%>
   </div>
   <div class="field" data-role="fieldcontain">
     <%= f.label :display_name %><%= f.text_field :display_name %>
@@ -30,11 +32,14 @@
   <div class="field" data-role="fieldcontain">
     <%= f.label :runtime %><%= f.text_field :runtime %>
   </div>
-      <div class="field" data-role="fieldcontain">
-    <%= f.label :owner %>
-        <%= link_to @app.main_owned_resource.owner.display_name, org_path(@app.main_owned_resource.owner), 'data-role'=>"button", 'data-inline'=>"true" %>
 
-  </div>
+   <%- if @app.id %>
+     <div class="field" data-role="fieldcontain">
+        <%= f.label :owner %>
+        <%= link_to @app.main_owned_resource.owner.display_name, org_path(@app.main_owned_resource.owner), 'data-role'=>"button", 'data-inline'=>"true" %>
+        </div>
+  <%- end %>
+
   <%-if @projects %>
       <div class="field" data-role="fieldcontain">
        <%= f.label :project_id %><%= f.select :project_id, @projects %>

@@ -50,9 +50,9 @@ describe Org do
       devs.should_not be_nil
     end
 
-    it "creator must not be in default development group" do
+    it "creator should be in default development group" do
       devs = @org.reload.groups.find_by_display_name 'Developers'
-      devs.group_members.count.should == 0
+      devs.group_members.count.should == 1
     end
 
     it "creator must be able to edit development group" do
