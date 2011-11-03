@@ -194,7 +194,7 @@ Devise.setup do |config|
   #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
   # end
 
-  config.omniauth :facebook, ENV['facebook_app_id'], ENV['facebook_app_secret'], :options => ENV['facebook_login_options']
+  config.omniauth :facebook, ENV['facebook_app_id'], ENV['facebook_app_secret'], :scope => ENV['facebook_login_options']
   config.omniauth :cloudfoundry, ENV['cloudfoundry_client_id'], ENV['cloudfoundry_client_secret']
   config.omniauth :github, ENV['github_client_id'], ENV['github_client_secret']
 end
