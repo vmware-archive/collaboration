@@ -83,7 +83,7 @@ class AppsController < ApplicationController
 
   def visit
     app = App.find(params[:id])
-    access_token_records = UserAccessToken.get_access_tokens(current_user, :cloudfoundry).values
+    access_token_records = UserAccessToken.get_access_tokens(current_user, :facebook).values
     if (access_token_records.count == 1)
 
       api = Facebook::Api.new access_token_records.first.token
