@@ -87,7 +87,9 @@ class AppsController < ApplicationController
     if (access_token_records.count == 1)
 
       api = Facebook::Api.new access_token_records.first.token
-      api.visit "http://#{app.url}"
+
+      #TODO pass other types like profile, app, etc
+      api.visit :website, "http://#{app.url}"
     end
     redirect_to "http://#{app.url}"
   end
