@@ -19,4 +19,13 @@ class Service < ActiveRecord::Base
       nil
     end
   end
+
+  def self.create_or_find service_hash
+    service = Service.find_by_display_name service_hash[:display_name]
+    unless (service)
+      logger.info "Could not find #{service.inspect} -- Creating"
+      service = Service.create! service_hash
+    end
+    service
+  end
 end

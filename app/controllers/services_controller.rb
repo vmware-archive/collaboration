@@ -98,4 +98,62 @@ class ServicesController < ApplicationController
       format.json  { head :ok }
     end
   end
+
+  def import
+    saved = 0
+    access_token_records = UserAccessToken.get_access_tokens(current_user, :cloudfoundry).values
+    if (access_token_records.count == 0)
+      unless session.has_key?(:url_after_oauth)
+        # Make the user sign up
+        session[:url_after_oauth] = request.path
+        logger.info "No tokens sending the user to authenticate with cloud foundry"
+        redirect_to omniauth_authorize_path("user", :cloudfoundry)
+      else
+        session.delete :url_after_oauth
+        redirect_to services_path
+      end
+    else
+      session.delete :url_after_oauth
+
+      access_token_records.each do |user_token|
+        if user_token
+          services = nil
+          begin
+            api = CloudFoundry::Api.new :access_token => user_token.token
+            services = api.services
+          rescue OAuth2::Error => ex
+            user_token.delete
+            logger.error "Got error getting services #{ex.inspect} with access token #{user_token} -- deleting"
+            next
+          end
+
+          if (services && services.respond_to?(:parsed))
+            services = JSON.parse  services.parsed
+
+            puts "SERVICES = #{services.inspect}"
+            services.each do |service|
+              begin
+
+                service_hash = {
+                  :display_name => service['name'],
+                  :creator => current_user,
+                  :project => current_user.personal_org.default_project
+                }
+                @service = Service.create_or_find(service_hash)
+                saved += 1
+              rescue Exception => ex
+                logger.error "Could not import #{service['name']} due to #{ex.inspect}"
+              end
+            end
+          else
+            logger.error "Did not get a valid response from services #{services.inspect}"
+            user_token.delete
+          end
+          flash[:notice] = "Done importing #{saved.to_s} services"
+        end
+      end
+      redirect_to services_path
+    end
+
+  end
 end

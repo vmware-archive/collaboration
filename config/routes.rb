@@ -24,7 +24,11 @@ Collaboration::Application.routes.draw do
       get 'import'
     end
   end
-  resources :services#, :only => [:show, :edit, :update]
+  resources :services do
+    collection do
+      get 'import'
+    end
+  end
   resources :users do
     resources :email_addresses, :only => [:index], :controller => "users/email_addresses"
     resources :access_tokens, :controller => "users/access_tokens"
