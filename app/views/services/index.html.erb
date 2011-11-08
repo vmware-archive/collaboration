@@ -7,7 +7,10 @@
 <div data-role="content">
 <ul data-role="listview" data-inset="true">
 <% @services.each do |service| %>
-  <li><%= link_to service.display_name, edit_service_path(service) %></li>
+  <li> <a href="<%=edit_service_path(service) %>">
+    <h3><%= service.display_name %></h3>
+    <p><%= "#{service.vendor} #{service.version}"%></p>
+  </a></li>
 
 <% end %>
 </ul>

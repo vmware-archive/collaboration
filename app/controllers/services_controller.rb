@@ -136,6 +136,9 @@ class ServicesController < ApplicationController
 
                 service_hash = {
                   :display_name => service['name'],
+                  :type => service['type'],
+                  :version => service['version'],
+                  :vendor => service['vendor'],
                   :creator => current_user,
                   :project => current_user.personal_org.default_project
                 }
