@@ -62,7 +62,7 @@ class AppsController < ApplicationController
             end
           else
             logger.error "Did not get a valid response from apps #{apps.inspect}"
-            user_token.delete!
+            user_token.delete
           end
           flash[:notice] = "Done importing #{saved.to_s} apps"
         end
