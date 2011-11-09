@@ -34,31 +34,8 @@ class AppsController < ApplicationController
 
           if (apps && apps.respond_to?(:parsed))
             apps = apps.parsed
-            apps.each do |app|
-              begin
-
-                app_hash = {
-                  :display_name => app['name'],
-                  :state => app['state'],
-                  :url => app['uris'].first,
-                  :framework => app['staging']['model'],
-                  :runtime => app['staging']['stack'],
-                  :creator => current_user,
-                  :project => current_user.personal_org.default_project
-                }
-                @app = App.create_or_find(app_hash)
-                app_health = {
-                  :app_id => @app.id,
-                  :email => user_token.email,
-                  :provider => user_token.provider,
-                  :running_instances => app['runningInstances'],
-                  :instances => app['instances']
-                }
-                AppHealthSnapshot.create! app_health
-                saved += 1
-              rescue Exception => ex
-                logger.error "Could not import #{app['name']} due to #{ex.inspect}"
-              end
+            apps.each do |app_hash|
+              saved += 1 if App.create_or_find app_hash, current_user, user_token.email
             end
           else
             logger.error "Did not get a valid response from apps #{apps.inspect}"
