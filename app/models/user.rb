@@ -55,7 +55,10 @@ class User < ActiveRecord::Base
             user.username = data['nickname'] if data.has_key? 'nickname'
             user.first_name = data['first_name'] if data.has_key? 'first_name'
             user.last_name = data['last_name'] if data.has_key? 'last_name'
-            user.remote_avatar_url = data['image'] if data.has_key? 'image'
+            if data.has_key? 'image'
+              user.remote_avatar_url = data['image']
+              user.remote_avatar_url.gsub! "square", "large"
+            end
             user.password = Devise.friendly_token[0,20]
             user.password_confirmation = user.password
           end

@@ -10,6 +10,8 @@ class App < ActiveRecord::Base
 
   validates_uniqueness_of :url
 
+  mount_uploader :avatar, AvatarUploader
+
   after_create do
     owned_res = project.org.owned_resources.build :resource => self
     owned_res.save!
