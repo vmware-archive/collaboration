@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111107230922) do
+ActiveRecord::Schema.define(:version => 20111108230922) do
 
   create_table "acls", :force => true do |t|
     t.integer  "permission_set",    :default => 0
@@ -33,6 +33,10 @@ ActiveRecord::Schema.define(:version => 20111107230922) do
     t.datetime "updated_at"
     t.string   "description"
     t.string   "url"
+    t.boolean  "browseable"
+    t.boolean  "cloneable"
+    t.string   "git_repo"
+    t.string   "avatar"
   end
 
   add_index "apps", ["url"], :name => "index_apps_on_url"
