@@ -52,9 +52,9 @@ class UserAccessToken
 
     if provider && creds['token']
       if email
-        user_token = UserAccessToken.where(email: email, provider: provider).first
+        user_token = UserAccessToken.first(conditions: { email: email, provider: provider})
       elsif id
-        user_token = UserAccessToken.where(external_id: id, provider: provider).first
+        user_token = UserAccessToken.first(conditions: { external_id: id, provider: provider})
       end
 
       unless (user_token)
