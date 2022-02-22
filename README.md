@@ -1,3 +1,5 @@
+# collaboration is no longer actively maintained by VMware, Inc.
+
 ## Status
 
 Development **In Progress**
